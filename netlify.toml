@@ -1,0 +1,11 @@
+[build]
+  command = "rm -rf public && mkdir -p public && unzip -q sketchroot-site.zip -d public"
+  publish = "public"
+
+[build.environment]
+  NPM_FLAGS = "--no-audit --no-fund"
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
