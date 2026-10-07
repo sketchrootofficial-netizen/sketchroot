@@ -1,5 +1,5 @@
 [build]
-  command = "rm -rf public && mkdir -p public && unzip -q sketchroot-site.zip -d public"
+  command = "rm -rf public unpack && mkdir -p public unpack && unzip -q sketchroot-site.zip -d unpack && if [ -f unpack/index.html ]; then cp -a unpack/. public/; else site_dir=$(find unpack -mindepth 1 -maxdepth 1 -type d | head -n 1); test -n \"$site_dir\" && cp -a \"$site_dir\"/. public/; fi"
   publish = "public"
 
 [build.environment]
