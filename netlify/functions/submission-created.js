@@ -1,18 +1,18 @@
 /* Runs automatically after every Netlify Forms submission.
-   Sends the "you are on the waiting list" email.
+   1. Saves the signup as a Resend contact (the subscriber list).
+   2. Sends the "you are on the waiting list" email from a verified sketchroot.com address.
 
-   Preferred sender: Resend, from a verified sketchroot.com address.
-     RESEND_API_KEY   Resend API key (mark as secret in Netlify)
-     MAIL_FROM        e.g. SketchRoot <hello@sketchroot.com>
-   Fallback while Resend is not set up: Gmail SMTP.
-     GMAIL_USER, GMAIL_APP_PASSWORD
-   Never put keys or passwords in the repo. */
-const nodemailer = require('nodemailer');
+   Netlify environment variables:
+     RESEND_API_KEY      Resend API key with Full access (contacts need it). Mark as secret.
+     MAIL_FROM           e.g. SketchRoot <hello@sketchroot.com>
+     RESEND_SEGMENT_ID   optional, overrides the default "General" segment
+   Never put keys or passwords in the repo.
+   Netlify Forms keeps its own copy of every submission as a backup. */
 
-const SUBJECT = 'You are on the SketchRoot waiting list';
-
-const FORM = 'early-access';
+const FORMS = ['early-access', 'early-access-page'];
 const FROM_NAME = 'SketchRoot';
+const SUBJECT = 'You are on the SketchRoot waiting list';
+const DEFAULT_SEGMENT = '63870331-c905-4aa5-9c65-c74a6bb4117e';
 
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -42,62 +42,67 @@ function buildMail(name, exam) {
   return { text: text, html: html };
 }
 
-async function sendWithResend(key, from, to, mail) {
-  var res = await fetch('https://api.resend.com/emails', {
+function resend(key, path, body) {
+  return fetch('https://api.resend.com' + path, {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: from,
-      to: [to],
-      reply_to: from.replace(/^.*<|>$/g, ''),
-      subject: SUBJECT,
-      text: mail.text,
-      html: mail.html,
-      headers: { 'List-Unsubscribe': '<mailto:' + from.replace(/^.*<|>$/g, '') + '?subject=unsubscribe>' }
-    })
+    body: JSON.stringify(body)
   });
-  if (!res.ok) throw new Error('Resend ' + res.status + ' ' + (await res.text()).slice(0, 200));
 }
 
-async function sendWithGmail(user, pass, to, mail) {
-  var transport = nodemailer.createTransport({ service: 'gmail', auth: { user: user, pass: pass } });
-  await transport.sendMail({
-    from: '"' + FROM_NAME + '" <' + user + '>',
-    to: to,
-    replyTo: user,
+async function saveContact(key, data) {
+  var parts = String(data.name || '').trim().split(/\s+/).filter(Boolean);
+  var body = {
+    email: data.email,
+    unsubscribed: false,
+    segments: [{ id: process.env.RESEND_SEGMENT_ID || DEFAULT_SEGMENT }]
+  };
+  if (parts.length) body.first_name = parts[0];
+  if (parts.length > 1) body.last_name = parts.slice(1).join(' ');
+  var props = {};
+  if (data.exam) props.exam = String(data.exam);
+  if (data.year) props.year = String(data.year);
+  if (Object.keys(props).length) body.properties = props;
+  var res = await resend(key, '/contacts', body);
+  if (!res.ok) throw new Error('contact ' + res.status + ' ' + (await res.text()).slice(0, 200));
+}
+
+async function sendEmail(key, from, to, mail) {
+  var addr = from.replace(/^.*<|>$/g, '');
+  var res = await resend(key, '/emails', {
+    from: from,
+    to: [to],
+    reply_to: addr,
     subject: SUBJECT,
     text: mail.text,
-    html: mail.html
+    html: mail.html,
+    headers: { 'List-Unsubscribe': '<mailto:' + addr + '?subject=unsubscribe>' }
   });
+  if (!res.ok) throw new Error('email ' + res.status + ' ' + (await res.text()).slice(0, 200));
 }
 
 exports.handler = async function (event) {
   var payload;
   try { payload = JSON.parse(event.body).payload || {}; } catch (e) { return { statusCode: 400, body: 'bad payload' }; }
 
-  if (payload.form_name !== FORM) return { statusCode: 200, body: 'ignored form ' + payload.form_name };
+  if (FORMS.indexOf(payload.form_name) === -1) return { statusCode: 200, body: 'ignored form ' + payload.form_name };
 
   var data = payload.data || {};
   var to = String(data.email || '').trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) return { statusCode: 200, body: 'no valid email' };
+  data.email = to;
 
-  var mail = buildMail(data.name, data.exam);
-  var resendKey = process.env.RESEND_API_KEY;
-  var gmailUser = process.env.GMAIL_USER;
-  var gmailPass = process.env.GMAIL_APP_PASSWORD;
-
-  try {
-    if (resendKey) {
-      await sendWithResend(resendKey, process.env.MAIL_FROM || (FROM_NAME + ' <hello@sketchroot.com>'), to, mail);
-    } else if (gmailUser && gmailPass) {
-      await sendWithGmail(gmailUser, gmailPass, to, mail);
-    } else {
-      console.error('No mail provider configured (set RESEND_API_KEY, or GMAIL_USER and GMAIL_APP_PASSWORD).');
-      return { statusCode: 500, body: 'mail not configured' };
-    }
-    return { statusCode: 200, body: 'sent' };
-  } catch (err) {
-    console.error('send failed:', err && err.message);
-    return { statusCode: 500, body: 'send failed' };
+  var key = process.env.RESEND_API_KEY;
+  if (!key) {
+    console.error('RESEND_API_KEY is not set; signup was not added to the list and no email was sent.');
+    return { statusCode: 500, body: 'mail not configured' };
   }
+
+  var failed = false;
+  try { await saveContact(key, data); } catch (err) { failed = true; console.error('saveContact failed:', err && err.message); }
+  try {
+    await sendEmail(key, process.env.MAIL_FROM || (FROM_NAME + ' <hello@sketchroot.com>'), to, buildMail(data.name, data.exam));
+  } catch (err) { failed = true; console.error('sendEmail failed:', err && err.message); }
+
+  return { statusCode: failed ? 500 : 200, body: failed ? 'partial failure' : 'ok' };
 };
