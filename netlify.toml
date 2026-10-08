@@ -4,6 +4,10 @@
   publish = "."
   command = ""
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Send the bare index address to the clean root, so there is one canonical home page.
 [[redirects]]
   from = "/index.html"

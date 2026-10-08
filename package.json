@@ -1,0 +1,9 @@
+{
+  "name": "sketchroot-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "SketchRoot static site with a Netlify function that confirms early access signups.",
+  "dependencies": {
+    "nodemailer": "^6.9.16"
+  }
+}

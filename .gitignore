@@ -1,1 +1,4 @@
 deploy-intro-fix.bat
+.claude/
+node_modules/
+.netlify/

@@ -341,6 +341,7 @@
         body: body
       }).then(function (r) {
         if (!r.ok) throw new Error('status ' + r.status);
+        try { sessionStorage.removeItem('sr-early-email'); } catch (err) {}
         window.location.assign('/thanks.html');
       }).catch(function () {
         if (btn) { btn.disabled = false; btn.removeAttribute('aria-busy'); }
@@ -353,4 +354,40 @@
       });
     });
   });
+})();
+
+
+/* Hero "Get Early Access" box: carry the typed email into the subscribe form.
+   The address stays in sessionStorage only, never in the URL. */
+(function () {
+  'use strict';
+  var KEY = 'sr-early-email';
+  var hero = document.getElementById('hero-capture');
+  var heroEmail = document.getElementById('heroemail');
+  var section = document.getElementById('subscribe');
+  var email = document.getElementById('email');
+  var name = document.getElementById('name');
+  if (!hero || !heroEmail || !section || !email) return;
+
+  function store(v) { try { sessionStorage.setItem(KEY, v); } catch (e) {} }
+  function load() { try { return sessionStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
+
+  // refresh or return visit: restore what they typed
+  var saved = load();
+  if (saved && !email.value) email.value = saved;
+
+  hero.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!heroEmail.checkValidity()) { heroEmail.reportValidity(); return; }
+    var v = heroEmail.value.trim();
+    store(v);
+    email.value = v;
+    var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    section.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
+    if (history.replaceState) history.replaceState(null, '', '#subscribe');
+    // the email is done, so land on the first thing still empty
+    setTimeout(function () { (name && !name.value ? name : email).focus({ preventScroll: true }); }, calm ? 0 : 500);
+  });
+
+  email.addEventListener('input', function () { store(email.value.trim()); });
 })();

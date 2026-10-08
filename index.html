@@ -145,12 +145,10 @@
 
     <p class="sub">Visual prep for NEET MDS, INI CET, INBDE and AIIMS. Turn complex concepts into stories you can see, remember and apply.</p>
 
-    <form action='/thanks' class='capture' method='POST' name='early-access-hero'>
-      <input type="hidden" name="form-name" value="early-access-hero">
-      <p class="hp"><label>Leave this empty: <input name="bot-field"></label></p>
+    <form class='capture' id='hero-capture' action='#subscribe' novalidate>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M3 7l9 6 9-6"/></svg>
       <label class="sr-only" for="heroemail">Email address</label>
-      <input id="heroemail" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
+      <input id="heroemail" type="email" placeholder="Enter your email" autocomplete="email" required>
       <button class="btn-amber" type="submit">Get Early Access <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></button>
     </form>
 
@@ -283,7 +281,7 @@
       <h2 id="sub">Subscribe for early access</h2>
       <p class="dim" style="max-width:52ch">Join the early access list and you will be among the first to get the sketches, plus occasional updates as each subject goes live. No spam, and you can leave with one click.</p>
 
-      <form action='/thanks' class='form' method='POST' name='early-access'>
+      <form action='/thanks.html' class='form' method='POST' name='early-access' data-netlify='true' data-netlify-honeypot='bot-field'>
         <input type="hidden" name="form-name" value="early-access">
         <p class="hp"><label>Leave this empty: <input name="bot-field"></label></p>
 
@@ -371,6 +369,6 @@
   <p>Examination details on this site were reviewed on 19 September 2026. Always confirm dates, eligibility and patterns in the official notice before you plan.</p>
 </div>
 </div></footer>
-<script src="/assets/js/site.js?v=b69887a2" defer></script>
+<script src="/assets/js/site.js?v=ea20261008" defer></script>
 </body>
 </html>
