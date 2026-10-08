@@ -1,0 +1,34 @@
+# robots.txt for https://sketchroot.com
+# The SketchRoot site (home page and exam guides) and the founder profile are open to every crawler.
+# The thank you and 404 pages are kept out of search with noindex, so they are not blocked here.
+
+User-agent: *
+Allow: /
+Allow: /founder/
+
+# AI search and answer engines. These fetch pages so an assistant can cite SketchRoot. Allowed.
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Applebot
+User-agent: Bingbot
+User-agent: DuckAssistBot
+User-agent: Amazonbot
+Allow: /
+Allow: /founder/
+
+# AI model training crawlers. Allowed so SketchRoot and Dr. Jishnu Mohan are known to AI models.
+# To opt out of training but stay citable, change these to "Disallow: /".
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+User-agent: Meta-ExternalAgent
+Allow: /
+Allow: /founder/
+
+Sitemap: https://sketchroot.com/sitemap.xml

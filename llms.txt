@@ -1,0 +1,28 @@
+# SketchRoot
+
+> SketchRoot is a visual learning platform for dental graduates. It turns each high yield topic into one illustrated scene so concepts are easier to recall for NEET MDS, INI CET, INBDE, AIIMS and university examinations. The platform is being built and early access is open. Founded by Dr. Jishnu Mohan (AIR 1 AIIMS New Delhi PhD entrance 2025 in Oral and Maxillofacial Surgery, AIR 37 NEET MDS 2022, AIR 91 INI CET 2022).
+
+SketchRoot is an independent education platform and is not affiliated with NBEMS, AIIMS, the ADA or JCNDE. Official examination information comes from those bodies.
+
+## Exam guides
+
+- [NEET MDS preparation guide](https://sketchroot.com/neet-mds/): NEET MDS explained: 240 MCQs, 4 marks each with negative marking, two timed parts, and a visual revision method from an AIR 37 rank holder.
+- [NEET MDS previous year questions: how to use them well](https://sketchroot.com/neet-mds/previous-year-questions/): NBEMS does not publish NEET MDS papers, so previous year questions are recalled. Learn what to trust and a five step method to use them.
+- [INI CET preparation for dental graduates (MDS)](https://sketchroot.com/ini-cet/): INI CET for dental graduates: who conducts it, how it differs from NEET MDS, and a strategy for clinical and image based questions.
+- [INBDE preparation guide](https://sketchroot.com/inbde/): INBDE explained for international dentists: 500 items over two days, case based questions, scoring, and a visual study plan.
+- [AIIMS entrance for dental graduates](https://sketchroot.com/aiims/): How dental graduates reach AIIMS: MDS seats through INI CET and the AIIMS PhD entrance. Pathways, preparation and official sources.
+- [The Red Book for NEET MDS and INI CET: what it is and how to use it](https://sketchroot.com/red-book/): What the Red Book is, who publishes it, and how to use a previous year MCQ compilation for NEET MDS and INI CET MDS without wasting months.
+
+## Method
+
+- [The memory palace for dental students: how the method of loci works](https://sketchroot.com/memory-palace/): What a memory palace is, the Simonides legend as told by Cicero, five steps to build one, a worked trigeminal nerve example, and what peer reviewed research shows about the method of loci.
+
+## About
+
+- [Dr. Jishnu Mohan, founder](https://sketchroot.com/founder/): Oral and maxillofacial surgeon, head and neck surgical oncologist and founder of SketchRoot. His professional site is [doctorj.in](https://doctorj.in/).
+- [Privacy policy](https://sketchroot.com/privacy/): How early access details are used.
+- [Home](https://sketchroot.com/): Overview, founder's note, exam picker and frequently asked questions.
+
+## Contact
+
+- hello@sketchroot.com

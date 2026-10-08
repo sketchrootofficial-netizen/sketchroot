@@ -1,11 +1,49 @@
+# SketchRoot: Netlify configuration. Headers live in the _headers file.
+
 [build]
-  command = "rm -rf public unpack && mkdir -p public unpack && unzip -q sketchroot-latest.zip -d unpack && if [ -f unpack/index.html ]; then cp -a unpack/. public/; else site_dir=$(find unpack -mindepth 1 -maxdepth 1 -type d | head -n 1); test -n "$site_dir" && cp -a "$site_dir"/. public/; fi"
-  publish = "public"
+  publish = "."
+  command = ""
 
-[build.environment]
-  NPM_FLAGS = "--no-audit --no-fund"
-
+# Send the bare index address to the clean root, so there is one canonical home page.
 [[redirects]]
-  from = "/*"
-  to = "/404.html"
-  status = 404
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+# Friendly aliases people may type or link to.
+[[redirects]]
+  from = "/neet-mds-previous-year-questions"
+  to = "/neet-mds/previous-year-questions/"
+  status = 301
+[[redirects]]
+  from = "/neetmds"
+  to = "/neet-mds/"
+  status = 301
+[[redirects]]
+  from = "/inicet"
+  to = "/ini-cet/"
+  status = 301
+[[redirects]]
+  from = "/redbook"
+  to = "/red-book/"
+  status = 301
+[[redirects]]
+  from = "/method-of-loci"
+  to = "/memory-palace/"
+  status = 301
+[[redirects]]
+  from = "/memory-palace-for-dental-students"
+  to = "/memory-palace/"
+  status = 301
+[[redirects]]
+  from = "/about"
+  to = "/founder/"
+  status = 301
+
+# One canonical host. Netlify also does this once the primary domain is set.
+[[redirects]]
+  from = "https://www.sketchroot.com/*"
+  to = "https://sketchroot.com/:splat"
+  status = 301
+  force = true
