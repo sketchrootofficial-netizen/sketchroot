@@ -1,0 +1,69 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Karla;src:url(karla-latin.woff2) format("woff2");font-weight:200 800}
+@font-face{font-family:Caveat;src:url(caveat-full.woff2) format("woff2")}
+:root{--amber:#F6B31E;--paper:#FCFBF7;--ink:#272525}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0b0b0d;font-family:Karla,sans-serif}
+#vid{position:absolute;left:0;top:500px;width:1080px;height:1110px;overflow:hidden}
+#vid img{position:absolute;left:0;top:-9px;width:1080px;height:1128px;transform-origin:50% 40%}
+#vid:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(11,11,13,.85) 0,transparent 14%,transparent 52%,rgba(11,11,13,.9) 100%)}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+.w{display:inline-block;opacity:0;will-change:transform}
+#top{position:absolute;left:0;right:0;top:190px;text-align:center}
+#pov{font-size:40px;font-weight:800;letter-spacing:10px;color:var(--amber)}
+#l1{margin-top:12px;font-size:84px;font-weight:800;color:#fff;letter-spacing:-2.5px;line-height:1;display:flex;justify-content:center;align-items:center;gap:22px}
+#pill{display:inline-block;background:var(--paper);border-radius:22px;padding:12px 22px 10px;box-shadow:0 10px 40px rgba(246,179,30,.35);opacity:0}
+#pill img{height:78px;display:block}
+#l2{margin-top:16px;font-family:Caveat,cursive;font-weight:700;font-size:72px;color:var(--amber);transform:rotate(-2deg)}
+#bot{position:absolute;left:40px;right:40px;top:1300px;text-align:center;color:#fff;font-weight:800;letter-spacing:-1.5px;line-height:1.08;text-shadow:0 6px 30px rgba(0,0,0,.85)}
+.b1{font-size:66px}
+.b3{font-size:100px;letter-spacing:-3px;white-space:nowrap}
+.hard{background:var(--amber);color:var(--ink);padding:0 18px;border-radius:16px;text-shadow:none;box-shadow:0 12px 40px rgba(246,179,30,.45)}
+#sticker{position:absolute;right:46px;top:550px;transform:rotate(4deg);opacity:0;background:var(--ink);color:#fff;border:4px solid var(--amber);border-radius:26px;padding:18px 26px;text-align:center;box-shadow:0 16px 40px rgba(0,0,0,.5)}
+#sticker b{display:block;font-size:30px;letter-spacing:4px;color:var(--amber)}
+#sticker span{display:block;font-size:38px;font-weight:800;margin-top:4px}
+</style></head><body>
+<div id="vid"><img id="v"><div id="flash"></div></div>
+<div id="top">
+  <div id="pov" class="w">POV</div>
+  <div id="l1"><span class="w" id="t1">me discovering</span><span id="pill"><img src="logo-lockup.svg"></span></div>
+  <div id="l2"><span class="w" id="t2">for my INI CET prep</span></div>
+</div>
+<div id="bot">
+  <div class="b1"><span class="w" id="a1">and</span> <span class="w" id="a2">realizing</span></div>
+  <div class="b1"><span class="w" id="a3">I've</span> <span class="w" id="a4">been</span> <span class="w" id="a5">studying</span></div>
+  <div class="b3" style="margin-top:10px"><span class="w" id="a6">the</span> <span class="w hard" id="a7">HARD</span> <span class="w" id="a8">way</span> <span class="w" id="a9" style="font-size:78px">😭😭</span></div>
+</div>
+<div id="sticker"><b>EARLY ACCESS OPEN</b><span>DM “EARLY ACCESS” 📩</span></div>
+<script>
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3),back=x=>{const c=1.70158;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+const $=id=>document.getElementById(id);
+const rnd=s=>{const x=Math.sin(s*12.9898)*43758.5453;return x-Math.floor(x)};
+// word pop: slight overshoot, rises into place
+function pop(id,t,a,d=.28,dy=26){const e=$(id),k=p(t,a,a+d);e.style.opacity=k;e.style.transform=`translateY(${(1-eo(k))*dy}px) scale(${k<1?.7+.3*back(k):1})`}
+function slam(id,t,a,d=.18){const e=$(id),k=p(t,a,a+d);e.style.opacity=k>0?1:0;e.style.transform=`scale(${k<1?2-eo(k):1})`}
+const HIT=8.75;
+async function render(t){
+  const f=Math.min(413,Math.floor(t*30)+1);const v=$('v');const src='frames/'+String(f).padStart(4,'0')+'.jpg';
+  if(!v.src.endsWith(src)){v.src=src;await v.decode()}
+  // slow push-in, punch on the big reaction
+  const punch=t>=HIT?.07*Math.exp(-(t-HIT)*5):0;
+  const sh=t>=HIT&&t<HIT+.35?`translate(${(rnd(Math.floor(t*30))-.5)*18}px,${(rnd(Math.floor(t*30)+3)-.5)*18}px)`:'';
+  v.style.transform=`${sh} scale(${1+t*.006+punch})`;
+  let fl=0;if(t>=3.95)fl=Math.max(fl,.35*(1-p(t,3.95,4.35)));if(t>=HIT)fl=Math.max(fl,.55*(1-p(t,HIT,HIT+.4)));$('flash').style.opacity=fl;
+  // setup line, fast so the hook lands in the first second
+  pop('pov',t,0,.22,16);pop('t1',t,.12,.28);slam('pill',t,.45,.2);
+  $('pill').style.transform+=` rotate(${-2+Math.sin(t*2)*1}deg)`;
+  pop('t2',t,.85,.3,20);
+  // punchline, word by word with his reaction
+  [['a1',3.95],['a2',4.12],['a3',6.2],['a4',6.36],['a5',6.52]].forEach(([id,a])=>pop(id,t,a));
+  pop('a6',t,8.5,.22);slam('a7',t,HIT,.16);pop('a8',t,9.05,.25);slam('a9',t,9.4,.2);
+  if(t>=HIT)$('a7').style.transform+=` rotate(${-3+Math.sin((t-HIT)*7)*Math.exp(-(t-HIT)*2)*6}deg)`;
+  // early-access sticker near the end
+  const sk=p(t,11.3,11.55);$('sticker').style.opacity=sk;$('sticker').style.transform=`rotate(4deg) scale(${sk<1?.4+.6*back(sk):1+.03*Math.sin(t*6)})`;
+}
+window.render=render;
+</script></body></html>

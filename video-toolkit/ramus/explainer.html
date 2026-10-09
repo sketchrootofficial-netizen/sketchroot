@@ -1,0 +1,274 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Karla;src:url(karla-latin.woff2) format("woff2");font-weight:200 800}
+@font-face{font-family:Caveat;src:url(caveat-full.woff2) format("woff2")}
+:root{--ink:#1e1e1e;--amber:#F6B31E;--paper:#FCFBF7;--cut:#d9480f;--muted:#6F6A64;--hair:#E6E0D4}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0e0c0b;font-family:Karla,sans-serif;color:var(--ink)}
+.layer{position:absolute;inset:0;opacity:0;overflow:hidden}
+.paper{background:var(--paper)}
+.dots{position:absolute;inset:0;background-image:radial-gradient(#e7e0d0 2px,transparent 2px);background-size:40px 40px;opacity:.65}
+.hand{font-family:Caveat,cursive;font-weight:700}
+.abs{position:absolute}
+.kick{font-size:30px;font-weight:800;letter-spacing:5px;color:#b07d0a}
+.h1{font-size:76px;font-weight:800;letter-spacing:-2px;line-height:1.02}
+.card{background:#fff;border:3px solid var(--ink);border-radius:22px;box-shadow:8px 8px 0 var(--amber)}
+.bul{font-size:38px;font-weight:700;line-height:1.25;display:flex;gap:18px;align-items:flex-start;margin:10px 0;opacity:0}
+.bul i{font-style:normal;flex:none;width:38px;height:38px;border-radius:50%;background:var(--amber);font-size:24px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:3px}
+.box{position:absolute;opacity:0;text-align:center;display:flex;align-items:center;justify-content:center;font-weight:800}
+svg text{font-family:Caveat,cursive;font-weight:700}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#tl{position:absolute;left:90px;right:90px;top:42px;height:70px;opacity:0}
+.yr{position:absolute;top:0;transform:translateX(-50%);text-align:center;font-weight:800;font-size:24px;color:#b5ad9f}
+.yr b{display:block;width:22px;height:22px;border-radius:50%;background:#ddd5c5;margin:0 auto 6px}
+.yr.on{color:var(--ink)} .yr.on b{background:var(--amber);box-shadow:0 0 0 6px rgba(246,179,30,.3)}
+.tbl{border-collapse:collapse;font-size:36px}
+.tbl td,.tbl th{border-bottom:3px solid var(--hair);padding:20px 30px;text-align:left}
+.tbl th{font-size:40px}
+</style></head><body>
+
+<!-- SKETCH (camera) -->
+<div class="layer" id="L_sketch" style="background:#0e0c0b"><div id="skpaper" class="abs paper" style="inset:0;opacity:0"></div>
+  <img id="sk" src="ramus.png" style="position:absolute;left:0;top:0;width:1774px;height:887px;transform-origin:0 0">
+  <svg id="ink" class="abs" style="left:0;top:0;transform-origin:0 0" width="1600" height="800" viewBox="0 0 1600 800"></svg>
+  <div id="focus" class="abs" style="border:6px solid var(--amber);border-radius:30px;opacity:0;box-shadow:0 0 0 4000px rgba(0,0,0,.35)"></div>
+  <img id="liftst" class="abs" style="opacity:0;transform-origin:50% 60%">
+  <div id="skcap" class="abs hand" style="left:0;right:0;bottom:60px;text-align:center;font-size:64px;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.9);opacity:0"></div>
+  <div id="title" class="abs" style="left:0;right:0;top:330px;text-align:center;opacity:0">
+    <div style="display:inline-block;background:var(--paper);border:5px solid var(--ink);border-radius:30px;padding:36px 70px;box-shadow:12px 12px 0 var(--amber)">
+      <div class="kick">A SKETCHROOT MEMORY PALACE</div>
+      <div class="h1" style="font-size:96px;margin-top:8px">Ramus Osteotomies</div>
+      <div class="hand" style="font-size:54px;color:var(--muted);margin-top:6px">a walk through Ramu's Kada, 1849 → today</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAPER (diagrams) -->
+<div class="layer paper" id="L_paper"><div class="dots"></div>
+  <div id="tl"></div>
+  <div id="pkick" class="abs kick" style="left:90px;top:150px"></div>
+  <div id="ptitle" class="abs h1" style="left:90px;top:192px;right:90px"></div>
+  <img id="pst" class="abs" style="opacity:0;object-fit:contain">
+  <div id="decode" class="abs card" style="left:80px;top:720px;width:680px;padding:24px 30px;opacity:0"></div>
+  <svg id="dia" class="abs" style="left:780px;top:150px" width="1080" height="640"></svg>
+  <div id="buls" class="abs" style="left:820px;top:800px;right:70px"></div>
+  <div id="free" class="abs" style="inset:0"></div>
+</div>
+
+<div id="flash"></div>
+<script src="node_modules/roughjs/bundled/rough.js"></script>
+<script src="ink_paths.js"></script>
+<script>
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3),io=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+const back=x=>{const c=1.70158;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+const $=id=>document.getElementById(id);
+const ST=__STICKERS__;
+const SK={w:1774,h:887};
+// ---------- sketch camera ----------
+function camFor(b,fill=.78){if(!b)return{s:1080/887,x:887,y:443.5};const s=Math.min(1920*fill/b.w,1080*fill/b.h);return{s,x:b.x+b.w/2,y:b.y+b.h/2}}
+function setCam(c){const tx=960-c.x*c.s,ty=540-c.y*c.s;$('sk').style.transform=`translate(${tx}px,${ty}px) scale(${c.s})`;$('ink').style.transform=`translate(${tx}px,${ty}px) scale(${c.s*SK.w/1600})`;return{tx,ty}}
+function lerpCam(a,b,k){return{s:a.s+(b.s-a.s)*k,x:a.x+(b.x-a.x)*k,y:a.y+(b.y-a.y)*k}}
+// ---------- ink draw-on ----------
+const NS='http://www.w3.org/2000/svg';const inkEls=[];
+INK.forEach(d=>{const e=document.createElementNS(NS,'path');e.setAttribute('d',d);e.setAttribute('fill','none');e.setAttribute('stroke','#2a2422');e.setAttribute('stroke-width','1.3');$('ink').appendChild(e);inkEls.push([e,0])});
+inkEls.forEach(o=>{o[1]=o[0].getTotalLength();o[0].style.strokeDasharray=o[1]});
+// ---------- rough drawing helpers ----------
+const RS=rough.svg($('dia'));
+function rp(d,o){const g=RS.path(d,Object.assign({roughness:1.1,bowing:.8,stroke:'#1e1e1e',strokeWidth:2.6,seed:7},o));return g}
+const MAND="M100,88 C92,66 120,52 146,58 C164,62 170,78 160,96 Q182,124 215,140 Q262,118 300,60 C314,110 318,190 338,250 C350,280 362,294 384,298 L726,298 C756,302 772,332 768,372 C766,402 752,428 720,432 C640,440 520,428 420,430 C330,432 280,420 240,428 C200,436 172,420 166,398 C150,330 128,220 116,150 C112,128 104,108 100,88 Z";
+function tooth(x,w,h){return `M${x},298 L${x},${298-h+10} Q${x},${298-h} ${x+10},${298-h} L${x+w-10},${298-h} Q${x+w},${298-h} ${x+w},${298-h+10} L${x+w},298`}
+const TEETH=[tooth(400,54,44),tooth(458,54,48),tooth(516,54,50),tooth(574,40,52),tooth(618,40,54),`M662,298 L662,252 L679,234 L696,252 L696,298`,tooth(700,26,58),tooth(728,26,58)];
+const CUTS={
+ hullihen:[['M648,298 L650,374','s'],['M650,374 L752,368','s']],
+ blair:[['M124,196 L330,196','s']],
+ schuchardt:[['M121,180 L326,180','d'],['M133,244 L342,244','s'],['M326,180 L342,244','s']],
+ obwegeser:[['M124,196 L330,196','d'],['M330,196 C340,240 356,282 384,298','s'],['M384,300 C330,330 240,372 172,402','s']],
+ dalpont:[['M124,196 L330,196','d'],['M330,196 C340,240 358,284 404,298 L512,298','s'],['M514,300 L516,434','s']],
+ hunsuck:[['M330,196 L212,196','d'],['M330,196 C340,240 358,284 404,298 L512,298','s'],['M514,300 L516,434','s']],
+ ivro:[['M205,142 L174,398','s']],
+ invl:[['M330,200 L200,200','s'],['M200,200 L180,426','s']],
+};
+const CUTLAB={
+ hullihen:[[600,410,'anterior segment cut']],
+ blair:[[345,190,'straight cut, above the lingula']],
+ schuchardt:[[340,172,'medial cut (higher)'],[352,264,'lateral cut (lower) = STEP']],
+ obwegeser:[[345,190,'medial: above lingula'],[372,252,'sagittal'],[150,472,'lateral: toward the angle']],
+ dalpont:[[420,472,'vertical cut: 1st–2nd molar']],
+ hunsuck:[[350,190,'medial cut stops just'],[350,222,'behind the lingula']],
+ ivro:[[235,372,'notch → angle,'],[235,404,'behind the foramen']],
+ invl:[[345,194,'horizontal above lingula'],[220,372,'vertical cut down'],[220,404,'to the lower border']],
+};
+let diaKey=null;let diaEls={base:[],cuts:[],labs:[],extra:[]};
+function addLen(g){return [...g.querySelectorAll('path')].map(e=>{const L=e.getTotalLength();e.style.strokeDasharray=L;e.style.strokeDashoffset=L;return[e,L]})}
+function txt(x,y,s,size=30,col='#1e1e1e',anchor='start'){const e=document.createElementNS(NS,'text');e.setAttribute('x',x);e.setAttribute('y',y);e.setAttribute('font-size',size);e.setAttribute('fill',col);e.setAttribute('text-anchor',anchor);e.textContent=s;$('dia').appendChild(e);return e}
+function buildDia(key,opts={}){
+  if(diaKey===key)return;diaKey=key;const svg=$('dia');svg.innerHTML='';svg.setAttribute('viewBox',opts.vb||'40 10 800 470');
+  diaEls={base:[],cuts:[],labs:[],extra:[]};
+  const base=[rp(MAND,{seed:3,strokeWidth:3}),...TEETH.map((d,i)=>rp(d,{seed:20+i,strokeWidth:2.2,roughness:.8}))];
+  const fo=RS.ellipse(230,228,16,24,{seed:5,stroke:'#1e1e1e',strokeWidth:2,strokeLineDash:[6,6],roughness:.8});
+  const can=rp('M230,240 C310,300 450,345 560,352',{seed:9,strokeWidth:2,strokeLineDash:[8,8],stroke:'#6f6a64'});
+  const mf=RS.ellipse(568,352,14,10,{seed:11,strokeWidth:2,roughness:.6});
+  [...base,fo,can,mf].forEach(g=>{svg.appendChild(g);diaEls.base.push(...addLen(g))});
+  if(opts.labels){opts.labels.forEach(l=>diaEls.labs.push(txt(...l)))}
+  if(opts.extra){opts.extra.forEach(d=>{const g=rp(d[0],d[1]);svg.appendChild(g);diaEls.extra.push(...addLen(g))})}
+  (CUTS[opts.cut||key]||[]).forEach(([d,ty],i)=>{const g=rp(d,{seed:40+i,stroke:'#d9480f',strokeWidth:5,roughness:.7,strokeLineDash:ty==='d'?[14,12]:undefined});svg.appendChild(g);diaEls.cuts.push(...addLen(g).map(o=>(o.push(ty),o)))});
+  (CUTLAB[opts.cut||key]||[]).forEach(l=>{const e=txt(l[0],l[1],l[2],34,'#d9480f');e.style.opacity=0;diaEls.labs.push(e);e.dataset.cut=1});
+}
+function drawDia(t,a,cutA,labA){
+  diaEls.base.forEach(([e,L],i)=>{const k=eo(p(t,a+i*.04,a+.9+i*.04));e.style.strokeDashoffset=L*(1-k)});
+  diaEls.extra.forEach(([e,L],i)=>{const k=eo(p(t,cutA-.3+i*.05,cutA+.5+i*.05));e.style.strokeDashoffset=L*(1-k)});
+  diaEls.cuts.forEach(([e,L,ty],i)=>{const k=io(p(t,cutA+i*.55,cutA+.75+i*.55));
+    if(ty==='d'){e.style.strokeDasharray='';e.style.strokeDashoffset='';e.style.opacity=k}else{e.style.strokeDashoffset=L*(1-k)}});
+  diaEls.labs.forEach((e,i)=>{if(e.dataset.cut){const k=p(t,labA+i*.25,labA+.4+i*.25);e.style.opacity=k}else e.style.opacity=p(t,a+.6+i*.12,a+1+i*.12)});
+}
+// ---------- paper widgets ----------
+const YEARS=['1849','1907','1942','1957','1961','1968','1977'];
+$('tl').innerHTML='<div style="position:absolute;left:0;right:0;top:10px;height:4px;background:#ddd5c5;border-radius:2px"></div>'+YEARS.map((y,i)=>`<div class="yr" id="yr${i}" style="left:${i/(YEARS.length-1)*100}%"><b></b>${y}</div>`).join('');
+function setTL(idx,o){$('tl').style.opacity=o;YEARS.forEach((y,i)=>$('yr'+i).className='yr'+(i===idx?' on':''))}
+function pop(el,t,a,d=.35,dy=30){const k=p(t,a,a+d);el.style.opacity=k;el.style.transform=`translateY(${(1-eo(k))*dy}px) scale(${k<1?.85+.15*back(k):1})`}
+function setBul(list){$('buls').innerHTML=list.map((b,i)=>`<div class="bul"><i>${i+1}</i><span>${b}</span></div>`).join('')}
+function stickerIn(name,box,t,a){const im=$('pst');if(!im.src.endsWith('st_'+name+'.png'))im.src='st_'+name+'.png';Object.assign(im.style,{left:box[0]+'px',top:box[1]+'px',width:box[2]+'px',height:box[3]+'px'});
+  const k=p(t,a,a+.45);im.style.opacity=k>0?1:0;im.style.transform=`scale(${k<1?.3+.7*back(k):1+.012*Math.sin(t*2.2)}) rotate(${k<1?-10*(1-k):Math.sin(t*1.6)*1.2}deg)`}
+// ---------- scene script ----------
+const OST=[
+ {key:'hullihen',st:'hulligan',yr:0,t:'Hullihen · 1849*',kick:'STALL 1 · THE FIRST CUT',
+  dec:['“HULLIGAN”','→ <b>Hullihen</b>','rope round the neck = burn-scar contracture he released'],
+  b:['First mandibular osteotomy on record','Set back a protruded anterior alveolar segment','*Sources cite 1846–1849']},
+ {key:'blair',st:'blair',yr:1,t:'Blair · 1907',kick:'STALL 2 · THE STRAIGHT CUT',
+  dec:['“BLAIR THE LIAR”','→ <b>Blair</b>','one plank cut STRAIGHT across = horizontal cut'],
+  b:['Horizontal ramus osteotomy, external approach','Small bone contact → high relapse','Muscle pull + nerve at risk; now historical']},
+ {key:'schuchardt',st:'cat',yr:2,t:'Schuchardt · 1942',kick:'STALL 3 · THE STEP',
+  dec:['cat in a BOOT holding a CHART','→ <b>Shoe-chart = Schuchardt</b>','she climbs a STEP = step osteotomy'],
+  b:['First intraoral approach to the ramus','Added a STEP: medial & lateral cuts at different levels','More bone contact than a straight cut']},
+ {key:'obwegeser',st:'hugo',yr:3,t:'Trauner & Obwegeser · 1957',kick:'STALL 4 · THE SPLIT',focus:{x:640,y:120,w:430,h:500},
+  dec:['HUGO + TRAUMA carry a GEYSER','→ <b>Hugo Obwegeser & Richard Trauner</b>','split down the middle = SAGITTAL split'],
+  b:['Ramus split sagittally: broad bone-to-bone contact','Advance OR set back, through the mouth, no scar','Obwegeser first described it 1953–55; paper 1957']},
+ {key:'dalpont',st:'dal',yr:4,t:'Dal Pont · 1961',kick:'STALL 5 · THE BEND',
+  dec:['“DAL” + a pipe that bends DOWN','→ <b>Dal Pont</b>','the bend = vertical buccal cut'],
+  b:['Lateral cut → vertical buccal cut, 1st–2nd molar','Larger contact surface → bigger advancements','Less muscle detachment']},
+ {key:'hunsuck',st:'hen',yr:5,t:'Hunsuck · 1968*',kick:'STALL 6 · THE SHORT STRAW',
+  dec:['a HEN SUCKS a SHORT straw','→ <b>Hunsuck</b>','short straw = SHORT medial cut'],
+  b:['Medial cut ends just behind the lingula','Less soft-tissue dissection','*Some sources: 1967']},
+ {key:'epker',st:'abkari',yr:6,t:'Epker · 1977',kick:'STALL 7 · THE CAREFUL KNIFE',cuts:'hunsuck',
+  dec:['“ABKARI” slices oh-so-carefully','→ <b>Epker</b>','careful knife = minimal stripping'],
+  b:['Biological refinements of the split','Minimal stripping of masseter & medial pterygoid','Kinder to muscles & the TMJ → smoother recovery'],
+  extra:[["M160,250 C210,236 300,246 334,262 C344,330 334,392 300,418 C250,426 200,420 175,392 C160,340 156,290 160,250 Z",{seed:61,stroke:'#2f7de1',strokeWidth:2,fill:'rgba(47,125,225,.12)',fillStyle:'hachure',hachureGap:10}]],
+  xl:[[180,470,'masseter left attached',32,'#2f7de1']]},
+];
+const S=[];let T=0;const add=(name,dur,o={})=>{S.push(Object.assign({name,a:T,b:T+dur},o));T+=dur};
+add('intro',10);add('what',7.5);add('phases',7);add('toolkit',8);add('shop',6.5);add('anat',10);
+OST.forEach(o=>add('ost',15.5,{o}));
+add('modern',14);add('ivro',12);add('invl',10.5);add('compare',10);add('quiz',17);add('end',6);
+window.DURATION=T;
+// ---------- free-layout scenes (paper) ----------
+function freeHTML(name){
+ const F=$('free');if(F.dataset.n===name)return;F.dataset.n=name;
+ const H={
+ what:`<div class="abs kick" style="left:0;right:0;top:140px;text-align:center">BEFORE WE ENTER THE SHOP</div>
+  <div class="abs" id="f0" style="left:560px;top:230px;width:800px;height:260px;opacity:0"><div class="card" style="width:100%;height:100%;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center"><div class="h1" style="font-size:66px">Orthognathic surgery</div><div class="hand" style="font-size:46px;color:var(--muted)">moves the jaws to fix dentofacial deformities</div></div></div>
+  ${['Class II','Class III','Open bite','Asymmetry','Selected OSA'].map((s,i)=>`<div class="abs card" id="f${i+1}" style="left:${150+i*330}px;top:660px;width:290px;padding:30px 10px;text-align:center;font-size:42px;font-weight:800;opacity:0">${s}</div>`).join('')}
+  <div class="abs hand" id="f6" style="left:0;right:0;top:860px;text-align:center;font-size:52px;opacity:0">when braces alone can't hide the skeletal problem</div>`,
+ phases:`<div class="abs kick" style="left:0;right:0;top:170px;text-align:center">THE THREE PHASES</div>
+  ${[['Pre-surgical ortho','decompensate the teeth'],['Surgery','reposition the jaws'],['Post-surgical ortho','finish & settle the bite']].map((s,i)=>`<div class="abs card" id="f${i}" style="left:${120+i*600}px;top:380px;width:480px;padding:46px 20px;text-align:center;opacity:0"><div style="font-size:50px;font-weight:800">${s[0]}</div><div class="hand" style="font-size:44px;color:var(--muted);margin-top:8px">${s[1]}</div></div>`).join('')}
+  ${[0,1].map(i=>`<div class="abs hand" id="fa${i}" style="left:${612+i*600}px;top:430px;font-size:90px;opacity:0">→</div>`).join('')}`,
+ toolkit:`<div class="abs kick" style="left:0;right:0;top:150px;text-align:center">WHERE WE CUT</div>
+  ${[['MAXILLA','Le Fort I','Wassmund 1927 → Obwegeser (full mobilisation) → Bell (biology)'],['MANDIBLE','BSSO · IVRO','today: the RAMUS'],['CHIN','Genioplasty','intraoral: Trauner & Obwegeser 1957']].map((s,i)=>`<div class="abs card" id="f${i}" style="left:${110+i*590}px;top:280px;width:520px;height:480px;padding:40px 30px;text-align:center;opacity:0;${i===1?'border-color:#d9480f;box-shadow:10px 10px 0 #d9480f':''}"><div class="kick" style="color:${i===1?'#d9480f':'#b07d0a'}">${s[0]}</div><div style="font-size:64px;font-weight:800;margin:30px 0">${s[1]}</div><div class="hand" style="font-size:42px;color:var(--muted);line-height:1.1">${s[2]}</div></div>`).join('')}
+  <div class="abs hand" id="f3" style="left:0;right:0;top:830px;text-align:center;font-size:56px;opacity:0">first bimaxillary surgery: Obwegeser, 1969</div>`,
+ compare:`<div class="abs kick" style="left:0;right:0;top:150px;text-align:center">BSSO vs IVRO</div>
+  <table class="tbl abs" id="f0" style="left:260px;top:240px;width:1400px;opacity:0"><tr><th></th><th>BSSO (sagittal split)</th><th>IVRO (vertical)</th></tr>
+  ${[['Movement','Advance & set back','Set back only'],['IAN injury','Higher','Lower'],['Fixation','Rigid screws/plates','Usually IMF'],['Bone contact','Broad','Limited']].map((r,i)=>`<tr id="r${i}" style="opacity:0"><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</table>`,
+ end:`<div class="abs" id="f0" style="left:0;right:0;top:300px;text-align:center;opacity:0"><img src="logo-lockup.svg" style="width:640px"></div>
+  <div class="abs h1" id="f1" style="left:0;right:0;top:560px;text-align:center;opacity:0">Every stall. Every surgeon. One shop.</div>
+  <div class="abs hand" id="f2" style="left:0;right:0;top:680px;text-align:center;font-size:60px;color:#b07d0a;opacity:0">comment the next topic you want sketched ✏️</div>`,
+ };
+ F.innerHTML=H[name]||'';
+}
+// ---------- render ----------
+async function render(t){
+ const sc=S.find(s=>t>=s.a&&t<s.b)||S[S.length-1];const lt=t-sc.a,D=sc.b-sc.a;
+ const sketchScenes={intro:1,shop:1,quiz:1};
+ let skOn=!!sketchScenes[sc.name]||(sc.name==='ost'&&lt<1.7);
+ $('L_sketch').style.opacity=skOn?1:0;$('L_paper').style.opacity=skOn?0:1;
+ let fl=0;
+ // reset per-frame defaults
+ $('focus').style.opacity=0;$('liftst').style.opacity=0;$('skcap').style.opacity=0;$('title').style.opacity=0;$('ink').style.opacity=0;$('sk').style.opacity=1;
+ if(skOn){
+  if(sc.name==='intro'){
+   setCam(camFor(null));$('skpaper').style.opacity=1-p(lt,7.6,8.4);
+   $('ink').style.opacity=1-p(lt,7.2,8.2);$('sk').style.opacity=p(lt,6.4,8.0);
+   const N=inkEls.length;inkEls.forEach(([e,L],i)=>{const s=.3+5.6*i/N;const k=p(lt,s,s+.7);e.style.strokeDashoffset=L*(1-k)});
+   $('sk').style.filter=`saturate(${p(lt,6.4,8.4)})`;
+   pop($('title'),lt,7.6,.5,40);
+  }else{$('sk').style.filter='';$('skpaper').style.opacity=0}
+  if(sc.name==='shop'){
+   const full=camFor(null),f=camFor({x:1440,y:190,w:340,h:300},.6);setCam(lerpCam(full,f,io(p(lt,.2,1.6))));
+   const m=ST.ramu;const im=$('liftst');im.src='st_ramu.png';const c=lerpCam(full,f,io(p(lt,.2,1.6)));const tx=960-c.x*c.s,ty=540-c.y*c.s;
+   const k=p(lt,1.8,2.3);im.style.opacity=k>0?1:0;Object.assign(im.style,{left:(tx+m.x*c.s)+'px',top:(ty+m.y*c.s)+'px',width:m.w*c.s+'px',height:m.h*c.s+'px'});im.style.transform=`scale(${1+.12*Math.sin(Math.PI*k)})`;
+   $('skcap').innerHTML='Meet <b>RAMU</b>. His shop = the <b>RAMUS</b>.<br>Every customer = one surgeon, in time order →';$('skcap').style.opacity=p(lt,2.3,2.8);
+  }
+  if(sc.name==='ost'){
+   const o=sc.o;const m=ST[o.st];const box=o.focus||{x:m.x-20,y:m.y-20,w:m.w+40,h:m.h+40};
+   const prev=S[S.indexOf(sc)-1];const startCam=prev.name==='ost'?camFor(prev.o.focus||{x:ST[prev.o.st].x-20,y:ST[prev.o.st].y-20,w:ST[prev.o.st].w+40,h:ST[prev.o.st].h+40},.7):camFor(null);
+   const c=lerpCam(camFor(null),camFor(box,.7),io(p(lt,0,1.2)));const {tx,ty}=setCam(c);
+   const k=p(lt,.9,1.2);Object.assign($('focus').style,{left:(tx+box.x*c.s)+'px',top:(ty+box.y*c.s)+'px',width:box.w*c.s+'px',height:box.h*c.s+'px',opacity:k});
+   if(lt>1.45)fl=Math.max(fl,p(lt,1.45,1.7));
+  }
+  if(sc.name==='quiz'){
+   const Q=[['Who SHORTENED the medial cut?','hen','Hunsuck · 1968'],['Who made the lateral cut VERTICAL?','dal','Dal Pont · 1961'],['Who first reached the ramus INTRAORALLY?','cat','Schuchardt · 1942']];
+   const qi=Math.min(2,Math.floor(lt/5.5));const ql=lt-qi*5.5;const q=Q[qi];const m=ST[q[1]];
+   setCam(camFor(null));
+   $('sk').style.filter=ql<2.6?'grayscale(1) brightness(.55) blur(2px)':'';
+   $('skcap').style.top='120px';$('skcap').style.bottom='auto';
+   $('skcap').innerHTML=ql<2.6?`<span style="display:inline-block;background:rgba(14,12,11,.85);padding:20px 50px;border-radius:30px;font-size:72px">RECALL: ${q[0]}<br><span style="font-size:130px;color:#F6B31E">${3-Math.floor(ql/0.87)}</span></span>`:`<span style="display:inline-block;background:#F6B31E;color:#1e1e1e;padding:14px 50px;border-radius:30px;font-size:84px">${q[2]}</span>`;$('skcap').style.opacity=p(ql,.1,.4);
+   const c=camFor(null);const tx=960-c.x*c.s,ty=540-c.y*c.s;const im=$('liftst');im.src='st_'+q[1]+'.png';
+   const k=p(ql,2.6,3.0);im.style.opacity=k>0?1:0;Object.assign(im.style,{left:(tx+m.x*c.s)+'px',top:(ty+m.y*c.s)+'px',width:m.w*c.s+'px',height:m.h*c.s+'px'});im.style.transform=`scale(${1+.25*Math.sin(Math.PI*Math.min(1,k))+.1*(k>=1?1:0)})`;
+   if(ql>=2.6)fl=Math.max(fl,.4*(1-p(ql,2.6,2.9)));
+  }else{$('skcap').style.top='';$('skcap').style.bottom='60px'}
+ }else{
+  // paper scenes
+  ['pkick','ptitle','decode','pst'].forEach(id=>$(id).style.opacity=0);setTL(-1,0);$('buls').innerHTML=$('buls').dataset.k===sc.name+(sc.o?sc.o.key:'')?$('buls').innerHTML:'';
+  const free={what:1,phases:1,toolkit:1,compare:1,end:1};
+  freeHTML(free[sc.name]?sc.name:'');
+  $('dia').style.opacity=0;
+  if(sc.name==='what'){pop($('f0'),lt,.2,.5,40);for(let i=1;i<=5;i++)pop($('f'+i),lt,1.4+i*.45,.35,40);pop($('f6'),lt,4.4,.4,20)}
+  if(sc.name==='phases'){for(let i=0;i<3;i++)pop($('f'+i),lt,.3+i*1.4,.4,40);pop($('fa0'),lt,1.2,.3,0);pop($('fa1'),lt,2.6,.3,0)}
+  if(sc.name==='toolkit'){for(let i=0;i<3;i++)pop($('f'+i),lt,.3+i*.9,.4,40);pop($('f3'),lt,3.6,.4,20);if(lt>2){$('f1').style.transform+=` scale(${1+.03*Math.sin(lt*4)})`}}
+  if(sc.name==='compare'){$('f0').style.opacity=p(lt,.2,.6);for(let i=0;i<4;i++){const e=$('r'+i);const k=p(lt,.8+i*1.3,1.2+i*1.3);e.style.opacity=k}}
+  if(sc.name==='end'){pop($('f0'),lt,.2,.5,30);pop($('f1'),lt,1,.4,30);pop($('f2'),lt,2,.4,20)}
+  if(sc.name==='anat'){
+   $('pkick').textContent='THE MAP: LATERAL VIEW OF THE MANDIBLE';$('pkick').style.opacity=p(lt,0,.4);
+   $('dia').style.opacity=1;Object.assign($('dia').style,{left:'260px',top:'170px'});$('dia').setAttribute('width',1400);$('dia').setAttribute('height',840);
+   buildDia('anat',{vb:'-20 0 880 500',labels:[[70,40,'Condyle',36],[270,40,'Coronoid',36],[172,178,'Sigmoid notch',28],[0,280,'Ramus',36],[252,234,'Lingula + mandibular foramen (medial)',28],[330,392,'Inferior alveolar canal',28,'#6f6a64'],[585,342,'Mental foramen',28],[110,465,'Angle',36],[520,478,'Body',36],[540,150,'— solid = lateral / through cut',30,'#d9480f'],[540,188,'- - dashed = medial cut',30,'#d9480f']]});
+   drawDia(lt,.3,99,99);
+  }
+  if(sc.name==='ost'||sc.name==='modern'||sc.name==='ivro'||sc.name==='invl'){
+   const o=sc.name==='ost'?sc.o:{
+     modern:{key:'hunsuck',t:'Today’s BSSO',kick:'ALL STALLS COMBINED',b:['<b>Pros:</b> advance or set back · broad contact · rigid fixation, early function','<b>Cons:</b> IAN numbness (most common) · bad split','condylar sag · relapse · bleeding'],nodec:1,modern:1},
+     ivro:{key:'ivro',t:'Vertical ramus osteotomy',kick:'NEW STALL · COMING TO THE KADA',b:['Caldwell & Letterman 1954 (extraoral) · Winstanley 1968 (first intraoral)','Set-back only: Class III · quick · low IAN injury','Usually needs IMF · watch condylar sag / luxation'],concept:['“COLD-WELL & LETTER-MAN”','a postman drops a LETTER straight DOWN a COLD WELL = vertical cut','…and only ever walks BACKWARDS = set-back only']},
+     invl:{key:'invl',t:'Inverted-L osteotomy',kick:'NEW STALL · COMING TO THE KADA',b:['Horizontal cut above the lingula + vertical cut to the lower border','Keeps the IAN out of the cut','A similar design was described by Wassmund, 1927'],concept:['Ramu’s walking stick, hung UPSIDE-DOWN','the hook = horizontal cut above the lingula','the shaft = vertical cut down to the angle']}}[sc.name];
+   const st=0.15;
+   if(sc.name==='ost'){setTL(o.yr,1);fl=Math.max(fl,1-p(lt,1.7,2.1))}else setTL(-1,0);
+   $('pkick').textContent=o.kick;$('ptitle').textContent=o.t;pop($('pkick'),lt,(sc.name==='ost'?1.8:st),.3,10);pop($('ptitle'),lt,(sc.name==='ost'?1.9:st+.1),.35,20);
+   const base=sc.name==='ost'?2.0:.4;
+   Object.assign($('dia').style,{left:'760px',top:'250px'});$('dia').setAttribute('width',1120);$('dia').setAttribute('height',560);$('dia').style.opacity=1;
+   buildDia(sc.name+'_'+o.key,{vb:'-20 10 880 470',extra:o.extra,cut:o.cuts||o.key});
+   drawDia(lt,base,base+1.2,base+1.6);
+   if(o.xl){let e=document.getElementById('xl');if(!e){e=txt(...o.xl[0]);e.id='xl'}e.style.opacity=p(lt,base+1.4,base+1.9)}
+   // left column
+   if(o.st){stickerIn(o.st,[80,280,640,420],lt,base)}
+   const dc=$('decode');
+   if(o.dec){dc.innerHTML=`<div class="hand" style="font-size:44px;line-height:1">${o.dec[0]}</div><div style="font-size:46px;font-weight:800;margin-top:6px">${o.dec[1]}</div><div class="hand" style="font-size:38px;color:#b07d0a;line-height:1.05;margin-top:6px">${o.dec[2]}</div>`;dc.style.top='720px';dc.style.background='#fff';pop(dc,lt,base+.6,.4,30)}
+   else if(o.concept){dc.style.top='330px';dc.style.background='#FFF6D6';dc.innerHTML=`<div class="kick" style="font-size:24px">CHARACTER CONCEPT</div><div class="hand" style="font-size:50px;line-height:1;margin-top:8px">${o.concept[0]}</div><div class="hand" style="font-size:40px;color:#444;line-height:1.08;margin-top:14px">${o.concept[1]}</div><div class="hand" style="font-size:40px;color:#b07d0a;line-height:1.08;margin-top:10px">${o.concept[2]}</div>`;pop(dc,lt,base+.4,.4,30)}
+   else if(o.modern){dc.style.top='330px';dc.style.background='#fff';dc.innerHTML=`<div class="kick" style="font-size:24px">THE MODERN SPLIT =</div>${[['hugo','Obwegeser: the split'],['dal','Dal Pont: vertical buccal cut'],['hen','Hunsuck: short medial cut'],['abkari','Epker: minimal stripping']].map((r,i)=>`<div id="mm${i}" style="display:flex;align-items:center;gap:18px;margin-top:14px;opacity:0"><img src="st_${r[0]}.png" style="height:90px;width:90px;object-fit:contain"><span style="font-size:36px;font-weight:800">${r[1]}</span></div>`).join('')}`;pop(dc,lt,base,.3,20);for(let i=0;i<4;i++)pop($('mm'+i),lt,base+.5+i*.6,.3,20)}
+   if(!o.dec){dc.style.top=o.dec?'720px':dc.style.top}
+   const bk=sc.name+o.key;if($('buls').dataset.k!==bk){$('buls').dataset.k=bk;setBul(o.b)}
+   [...$('buls').children].forEach((e,i)=>pop(e,lt,base+(sc.name==='ost'?3.6:2.4)+i*1.6,.4,20));
+  }else{$('decode').style.top='720px';$('decode').style.background='#fff'}
+  if(sc.name==='ost'&&lt<2.1)fl=Math.max(fl,1-p(lt,1.7,2.1));
+ }
+ $('flash').style.opacity=fl;
+}
+window.render=render;
+</script></body></html>

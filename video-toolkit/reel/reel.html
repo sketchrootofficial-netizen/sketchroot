@@ -1,0 +1,305 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Karla;src:url(karla-latin.woff2) format("woff2");font-weight:200 800}
+@font-face{font-family:Caveat;src:url(caveat-full.woff2) format("woff2")}
+:root{--ink:#272525;--amber:#F6B31E;--paper:#FCFBF7;--bg:#F3EFE5;--deep:#0E1218;--red:#FF4D4F;--green:#2FBF71;--water:#8fd3ff;--waterd:#1f6fa8}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--deep);font-family:Karla,Inter,sans-serif}
+#stage{position:absolute;inset:0;overflow:hidden}
+.scene{position:absolute;inset:0;opacity:0}
+.abs{position:absolute}
+.c{left:0;right:0;text-align:center}
+.bgimg{position:absolute;background-size:cover;background-position:center;will-change:transform}
+.hand{font-family:Caveat,cursive;font-weight:700}
+.card{background:#151b24;border:2px solid #2a3240;border-radius:36px;color:#e8e6e1}
+.lcard{background:var(--paper);border-radius:32px;color:var(--ink);box-shadow:0 24px 60px rgba(0,0,0,.16)}
+.opt{height:112px;border-radius:24px;display:flex;align-items:center;padding:0 34px;font-size:46px;font-weight:600;border:3px solid #2f3846;background:#1b222d;color:#cfd3da;position:absolute;left:56px;right:56px}
+.opt b{width:66px;color:#8a93a3}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+.lopt{height:92px;border-radius:20px;display:flex;align-items:center;padding:0 26px;font-size:42px;font-weight:700;border:3px solid #E6E0D4;background:#fff;color:var(--ink)}
+.lopt b{width:52px;color:#a39c90}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#grain{position:absolute;inset:0;pointer-events:none;opacity:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 2px,transparent 2px 4px)}
+#vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.75) 100%)}
+.pill{display:inline-block;padding:14px 30px;border-radius:999px;font-weight:700;font-size:38px}
+.word{position:absolute;left:0;right:0;text-align:center;font-weight:800;color:#fff;letter-spacing:-2px}
+.qm{position:absolute;font-family:Caveat,cursive;font-weight:700;color:#cfd3da;white-space:nowrap}
+</style></head>
+<body><div id="stage">
+
+<!-- S1 hook: call out the audience -->
+<div class="scene" id="s1">
+  <div class="bgimg" id="s1bg" style="left:-200px;top:0;width:1700px;height:1920px;background-image:url(palace-mountain.jpg);background-position:0% 50%;filter:grayscale(1) brightness(.4) blur(2px)"></div>
+  <div class="abs c" id="s1a" style="top:520px;font-size:56px;font-weight:800;color:var(--amber);letter-spacing:6px">CALLING ALL</div>
+  <div class="abs c" id="s1b" style="top:610px;font-size:124px;font-weight:800;color:#fff;line-height:1;letter-spacing:-3px">Dental<br>students</div>
+  <div class="abs c" id="s1c" style="top:880px;font-size:62px;font-weight:700;color:#fff;line-height:1.3">&amp; every <span style="background:var(--amber);color:var(--ink);padding:0 14px;border-radius:12px">NEET MDS</span><br>&amp; <span style="background:var(--amber);color:var(--ink);padding:0 14px;border-radius:12px">INI CET</span> aspirant</div>
+  <div class="abs c hand" id="s1d" style="top:1100px;font-size:84px;color:#cfd3da">this one's for you…</div>
+</div>
+
+<!-- S2 grand test rank -->
+<div class="scene" id="s2">
+  <div class="abs c" style="top:330px;font-size:46px;font-weight:700;color:#8a93a3;letter-spacing:4px">GRAND TEST #14 · RESULT</div>
+  <div class="abs card" id="s2card" style="left:90px;right:90px;top:440px;height:820px;padding:60px">
+    <div style="font-size:42px;color:#8a93a3;font-weight:600">Your All India Rank</div>
+    <div id="s2rank" style="font-size:220px;font-weight:800;color:#fff;letter-spacing:-6px;line-height:1.1;margin-top:10px">0</div>
+    <div id="s2down" class="pill" style="background:rgba(255,77,79,.15);color:var(--red);margin-top:10px">▼ 2,103 since last GT</div>
+    <div style="margin-top:60px;height:2px;background:#2a3240"></div>
+    <div style="display:flex;justify-content:space-between;margin-top:40px;font-size:40px;color:#aab1bd">
+      <div>Score<br><b style="font-size:64px;color:#fff">312</b><span style="color:#6f7785">/960</span></div>
+      <div style="text-align:right">Percentile<br><b style="font-size:64px;color:#fff">61.4</b></div>
+    </div>
+  </div>
+  <div class="abs c hand" id="s2t" style="top:1330px;font-size:90px;color:#fff">"but I studied this…"</div>
+</div>
+
+<!-- S3 the confusing question -->
+<div class="scene" id="s3">
+  <div class="abs" style="left:90px;top:250px;font-size:40px;font-weight:700;color:#8a93a3;letter-spacing:3px">MOCK TEST · Q 47 / 240</div>
+  <div class="abs" id="s3timer" style="right:90px;top:242px;font-size:52px;font-weight:800;color:var(--red)">00:12</div>
+  <div class="abs card" id="s3card" style="left:70px;right:70px;top:330px;height:1000px;padding:52px 56px">
+    <div id="s3q" style="font-size:56px;font-weight:700;line-height:1.2;color:#fff">Which approach is best for reducing <span style="color:var(--amber)">medially displaced subcondylar</span> fractures?</div>
+    <div class="opt" id="o1"><b>A</b>Transmasseteric</div>
+    <div class="opt" id="o2"><b>B</b>Preauricular</div>
+    <div class="opt" id="o3"><b>C</b>Submandibular</div>
+    <div class="opt" id="o4"><b>D</b>None of the above</div>
+  </div>
+  <div class="qm" id="q1" style="left:90px;top:1370px;font-size:78px">Preauricular…?</div>
+  <div class="qm" id="q2" style="left:300px;top:1455px;font-size:72px">no wait… submandibular??</div>
+  <div class="qm" id="q3" style="left:130px;top:1545px;font-size:74px">TRANSMASSETERIC?!</div>
+  <div class="abs c" id="s3stamp" style="top:700px"><span style="display:inline-block;border:10px solid var(--red);color:var(--red);font-size:130px;font-weight:800;padding:10px 50px;border-radius:24px;transform:rotate(-8deg);background:rgba(14,18,24,.88)">TIME'S UP</span></div>
+</div>
+
+<!-- S5 build-up flash words -->
+<div class="scene" id="s5">
+  <div class="word" id="s5w" style="top:820px;font-size:150px">Confusion</div>
+  <div class="abs c" id="s5sub" style="top:1060px;font-size:44px;color:#6f7785;font-weight:700;letter-spacing:4px"></div>
+</div>
+
+<!-- silence -->
+<div class="scene" id="s5b" style="background:#000">
+  <div class="abs c hand" id="s5bt" style="top:860px;font-size:120px;color:#fff">until…</div>
+</div>
+
+<!-- S6 DROP: SketchRoot intro -->
+<div class="scene" id="s6">
+  <div class="bgimg" id="s6bg" style="left:0;top:0;width:3650px;height:1920px;background-image:url(palace-mountain.jpg);background-size:cover"></div>
+  <div class="abs" style="left:0;right:0;top:0;height:1000px;background:linear-gradient(rgba(14,18,24,.75) 0,rgba(14,18,24,.6) 70%,transparent)"></div>
+  <div class="abs c" id="s6logo" style="top:250px"><div style="display:inline-block;background:var(--paper);border-radius:40px;padding:36px 54px;box-shadow:0 30px 80px rgba(0,0,0,.4)"><img src="logo-lockup.svg" style="width:640px;display:block"></div></div>
+  <div class="abs c" id="s6t" style="top:640px;font-size:100px;font-weight:800;color:#fff;letter-spacing:-3px;text-shadow:0 6px 30px rgba(0,0,0,.6)">See it. Recall it.</div>
+</div>
+
+<!-- S7 the SketchRoot question, answered by the sketch -->
+<div class="scene" id="s7" style="background:var(--bg)">
+  <div class="abs" style="inset:0;background-image:radial-gradient(#e2dccd 2px,transparent 2px);background-size:36px 36px;opacity:.6"></div>
+  <div class="abs lcard" id="s7q" style="left:60px;right:60px;top:170px;padding:38px 44px">
+    <div style="font-size:34px;font-weight:800;color:#b07d0a;letter-spacing:3px">SKETCHROOT · OMFS</div>
+    <div style="font-size:58px;font-weight:800;line-height:1.12;margin-top:10px">Who introduced the <u style="text-decoration-color:var(--amber);text-decoration-thickness:8px">sagittal split</u> osteotomy?</div>
+    <div class="g2">
+      <div class="lopt" id="p1"><b>A</b>Hunsuck</div>
+      <div class="lopt" id="p2"><b>B</b>Dal Pont</div>
+      <div class="lopt" id="p3"><b>C</b>Obwegeser</div>
+      <div class="lopt" id="p4"><b>D</b>Epker</div>
+    </div>
+  </div>
+  <!-- the memory palace sketch, then Hugo lifts out of it -->
+  <div class="abs" id="sk" style="left:0;top:720px;width:1080px;height:790px;overflow:hidden">
+    <img id="skimg" src="ramus.png" style="position:absolute;left:0;top:0;width:1774px;height:887px;transform-origin:0 0;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+  </div>
+  <img id="hugo" class="abs" src="hugo.png" style="left:0;top:0;height:700px">
+  <!-- explainer box -->
+  <div class="abs lcard" id="s7box" style="left:505px;right:44px;top:740px;padding:28px 28px 32px;border:5px solid var(--ink);box-shadow:10px 10px 0 var(--amber)">
+    <div class="hand" id="e1" style="font-size:54px;line-height:1;color:var(--ink)">Hugo carries a water <span style="color:var(--waterd)">GEYSER</span>…</div>
+    <div class="hand" id="e1b" style="font-size:54px;line-height:1;margin-top:8px;color:var(--ink)">split right down the <u>middle</u></div>
+    <div style="height:3px;background:#E6E0D4;margin:20px 0"></div>
+    <div id="e2" style="font-size:54px;font-weight:800;letter-spacing:-1px;line-height:1"><span style="color:#a39c90">OB·WE·</span><span style="background:var(--water);padding:0 10px;border-radius:10px">GEYSER</span></div>
+    <div id="e3" style="margin-top:16px;font-size:40px;font-weight:700;line-height:1.2">= <span style="background:var(--amber);padding:0 10px;border-radius:10px">sagittal split</span></div>
+    <div id="e4" style="margin-top:20px;padding:16px 18px;background:var(--ink);color:#fff;border-radius:18px;font-size:38px;font-weight:700;line-height:1.2">Hugo + Trauma<br>= <span style="color:var(--amber)">Trauner &amp; Obwegeser</span><br><span style="font-size:52px;font-weight:800">1957</span></div>
+  </div>
+  <!-- arrow from box to the split -->
+  <svg id="arrow" class="abs" style="left:350px;top:700px" width="200" height="140" viewBox="0 0 200 140"><path id="arrowp" d="M190 110 C 140 30, 80 20, 30 60" fill="none" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/><path id="arrowh" d="M30 60 l 30 -6 M30 60 l 8 28" stroke="var(--ink)" stroke-width="7" stroke-linecap="round" fill="none"/></svg>
+  <div class="abs c hand" id="cap1" style="top:1540px;font-size:66px;color:var(--ink)">📍 the sketch you studied…</div>
+  <div class="abs c hand" id="cap2" style="top:1540px;font-size:66px;color:var(--ink)">…and recall lifts right out ✨</div>
+  <div class="abs c" id="s7chip" style="top:1545px"><span class="pill" style="background:var(--ink);color:var(--amber);font-size:48px;padding:18px 42px">✓ recalled in 3 seconds ⚡</span></div>
+</div>
+
+<!-- S8 every topic one picture -->
+<div class="scene" id="s8">
+  <div class="bgimg" id="s8bg" style="left:0;top:0;width:2010px;height:1920px;background-image:url(hero-mob.jpg)"></div>
+  <div class="abs" style="left:0;right:0;bottom:0;height:1150px;background:linear-gradient(transparent 0,rgba(14,18,24,.88) 22%,rgba(14,18,24,.92))"></div>
+  <div class="abs c" id="s8a" style="top:1080px;font-size:56px;font-weight:700;color:var(--amber);letter-spacing:2px">EVERY HIGH-YIELD TOPIC</div>
+  <div class="abs c" id="s8b" style="top:1150px;font-size:112px;font-weight:800;color:#fff;letter-spacing:-3px;line-height:1">= one picture</div>
+</div>
+
+<!-- S9 founder -->
+<div class="scene" id="s9" style="background:var(--paper)">
+  <div class="abs c" id="s9img" style="top:220px"><div style="display:inline-block;width:420px;height:420px;border-radius:50%;overflow:hidden;border:10px solid var(--amber);box-shadow:0 20px 60px rgba(0,0,0,.2)"><img src="founder.jpg" style="width:100%;height:100%;object-fit:cover"></div></div>
+  <div class="abs c" id="s9badge" style="top:690px"><span style="display:inline-block;background:var(--ink);color:#fff;font-size:38px;font-weight:800;padding:16px 34px;border-radius:999px">🥇 <span style="color:var(--amber)">Gold medalist</span> · University subject topper</span></div>
+  <div class="abs c" style="top:810px;font-size:46px;color:#6F6A64;font-weight:600" id="s9a">Built by a topper who had to remember it all</div>
+  <div class="abs c" style="top:870px;font-size:90px;font-weight:800;color:var(--ink);letter-spacing:-2px" id="s9b">Dr. Jishnu Mohan</div>
+  <div class="abs" style="left:120px;right:120px;top:1020px">
+    <div id="a1" style="font-size:50px;font-weight:700;color:var(--ink);padding:26px 0;border-top:3px solid #E6E0D4"><span style="color:#b07d0a">AIR 1</span> · AIIMS PhD entrance 2025 (OMFS)</div>
+    <div id="a2" style="font-size:50px;font-weight:700;color:var(--ink);padding:26px 0;border-top:3px solid #E6E0D4"><span style="color:#b07d0a">AIR 37</span> · NEET MDS 2022</div>
+    <div id="a3" style="font-size:50px;font-weight:700;color:var(--ink);padding:26px 0;border-top:3px solid #E6E0D4;border-bottom:3px solid #E6E0D4"><span style="color:#b07d0a">AIR 91</span> · INI CET 2022</div>
+  </div>
+</div>
+
+<!-- S10 CTA -->
+<div class="scene" id="s10" style="background:var(--deep)">
+  <div class="bgimg" id="s10bg" style="left:-120px;top:-60px;width:1320px;height:2040px;background-image:url(palace-mountain.jpg);background-position:80% 50%"></div>
+  <div class="abs" style="inset:0;background:linear-gradient(rgba(14,18,24,.7),rgba(14,18,24,.88) 30%,rgba(14,18,24,.88) 75%,rgba(14,18,24,.6))"></div>
+  <div class="abs c" id="s10logo" style="top:230px"><div style="display:inline-block;background:var(--paper);border-radius:34px;padding:26px 40px"><img src="logo-lockup.svg" style="width:440px;display:block"></div></div>
+  <div class="abs c" id="s10a" style="top:520px;font-size:52px;font-weight:800;color:var(--amber);letter-spacing:4px">COMMENT BELOW 👇</div>
+  <div class="abs c" id="s10b" style="top:600px;font-size:92px;font-weight:800;color:#fff;letter-spacing:-2px;line-height:1.05;padding:0 60px">Which subject is the <span style="color:var(--amber)">hardest</span> for you to recall?</div>
+  <div class="abs" id="s10box" style="left:80px;right:80px;top:930px;height:136px;background:#fff;border-radius:999px;display:flex;align-items:center;padding:0 34px;gap:24px;box-shadow:0 20px 60px rgba(0,0,0,.45)">
+    <div style="width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#F6B31E,#e0663a);flex:none"></div>
+    <div id="typed" style="font-size:54px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;flex:1"></div>
+    <div style="font-size:44px;font-weight:800;color:#2f7de1">Post</div>
+  </div>
+  <div class="abs c hand" id="s10c" style="top:1110px;font-size:58px;color:var(--amber);line-height:1.05">we'll sketch the most-commented one next ✏️</div>
+  <div class="abs c" id="s10d" style="top:1260px"><span style="display:inline-block;background:#fff;color:var(--ink);font-size:52px;font-weight:800;padding:20px 54px;border-radius:999px">+ Follow</span><span style="display:inline-block;margin-left:22px;border:4px solid var(--amber);color:var(--amber);font-size:44px;font-weight:800;padding:18px 36px;border-radius:999px">DM “EARLY ACCESS”</span></div>
+</div>
+
+<div id="grain"></div>
+<div id="vig"></div>
+<div id="flash"></div>
+</div>
+
+<script>
+const BEATS=__BEATS__;
+const DROP=13.30;
+const $=id=>document.getElementById(id);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const p=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3);
+const back=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const rnd=s=>{const x=Math.sin(s*12.9898)*43758.5453;return x-Math.floor(x)};
+function pulse(t){let v=0;for(const b of BEATS){const d=t-b;if(d>=0&&d<.25)v=Math.max(v,1-d/.25)}return v}
+function shake(t,amt){return `translate(${(rnd(Math.floor(t*30))-.5)*amt}px,${(rnd(Math.floor(t*30)+7)-.5)*amt}px)`}
+function show(id,t,a,b,fi=.2,fo=.15){const el=$(id);const on=t>=a&&t<b;el.style.opacity=on?(fi?p(t,a,a+fi):1)*(fo?1-p(t,b-fo,b):1):0;return on}
+function pop(id,t,a,d=.35,dy=60){const el=$(id);const k=p(t,a,a+d);el.style.opacity=k;el.style.transform=`translateY(${(1-eo(k))*dy}px) scale(${.9+.1*back(k)})`}
+function slam(id,t,a,d=.18){const el=$(id);const k=p(t,a,a+d);el.style.opacity=k>0?1:0;el.style.transform=`scale(${k<1?2.2-1.2*eo(k):1})`}
+
+function render(t){
+  // S1 hook 0-2.55
+  if(show('s1',t,0,2.55,.25,.1)){
+    $('s1bg').style.transform=`scale(${1+t*.03}) translateX(${-t*20}px)`;
+    pop('s1a',t,.05,.3,30);slam('s1b',t,.35,.2);pop('s1c',t,1.0,.35,40);pop('s1d',t,1.6,.35,30);
+  }
+  // S2 GT rank 2.5-5.2
+  if(show('s2',t,2.5,5.25,.12,.12)){
+    const k=p(t,2.6,4.0);const r=Math.round(400+eo(k)*8012);
+    $('s2rank').textContent=r.toLocaleString('en-IN');
+    $('s2rank').style.color=t>=4.0?'#FF4D4F':'#fff';
+    $('s2card').style.transform=t>=4.0&&t<4.45?shake(t,40):'none';
+    pop('s2down',t,4.0,.25,20);pop('s2t',t,4.5,.35,30);
+  }
+  // S3 confusing question 5.2-10.0
+  if(show('s3',t,5.2,10.05,.12,.08)){
+    const sec=Math.max(0,12-Math.floor((t-5.2)*2.6));$('s3timer').textContent='00:'+String(sec).padStart(2,'0');
+    $('s3timer').style.transform=`scale(${1+.18*pulse(t)})`;
+    // options shuffle on the beats
+    const orders=[[0,1,2,3],[2,0,3,1],[1,3,0,2],[3,2,1,0],[0,2,1,3]];
+    const cuts=[7.28,7.54,7.82,9.04];let oi=0;cuts.forEach((c,i)=>{if(t>=c)oi=i+1});
+    const prev=oi?orders[oi-1]:orders[0],cur=orders[oi],kk=oi?eo(p(t,cuts[oi-1],cuts[oi-1]+.2)):1;
+    const seq=[1,2,3,2,1,3,4,1,2];const hi=seq[Math.floor((t-5.5)/0.33)%seq.length];
+    for(let i=1;i<=4;i++){const o=$('o'+i);
+      o.style.top=((360+130*prev[i-1])*(1-kk)+(360+130*cur[i-1])*kk)+'px';
+      const on=t>5.5&&i===hi;o.style.borderColor=on?'#FF4D4F':'#2f3846';o.style.background=on?'#2a1d22':'#1b222d';
+      o.style.transform=t>7.2?`rotate(${(rnd(i*3+Math.floor(t*6))-.5)*3}deg)`:'none';}
+    $('s3q').style.filter=`blur(${cl((t-8.4)*2.2,0,3.5)}px)`;
+    $('s3card').style.transform=t>8.5?shake(t,8+(t-8.5)*10):'none';
+    pop('q1',t,6.0,.3,30);pop('q2',t,6.7,.3,30);pop('q3',t,7.4,.3,30);
+    for(const [q,f] of [['q1',1],['q2',1.3],['q3',.8]])$(q).style.transform+=` rotate(${Math.sin(t*3*f)*4}deg)`;
+    slam('s3stamp',t,9.48,.16);
+    if(t>9.48&&t<9.8)$('s3stamp').style.transform+=' '+shake(t,30);
+  }
+  // S5 flash words 10.0-13.0
+  if(show('s5',t,10.0,13.0,.05,.05)){
+    const words=[['Confusion',10.0],['Overwhelm',10.9],['Syllabus',11.45],['Self doubt',11.85],['GT rank?',12.12],['Recall?',12.44],['Recall?',12.68],['RECALL?',12.92]];
+    let w=words[0];for(const x of words)if(t>=x[1])w=x;
+    const el=$('s5w');el.textContent=w[0];const k=p(t,w[1],w[1]+.2);
+    el.style.transform=`scale(${1.25-.25*eo(k)+(t-10)*.07}) ${t>12.1?shake(t,30):''}`;
+    el.style.color=t>12.1?'#FF4D4F':'#fff';
+    $('s5sub').textContent=t>10.4?'4 MONTHS TO NEET MDS':'';
+  }
+  show('s5b',t,13.0,DROP,0,0);$('s5bt').style.opacity=p(t,13.02,13.2);
+  // S6 DROP 13.3-15.66
+  if(show('s6',t,DROP,15.7,0,.1)){
+    const k=p(t,DROP,15.66);
+    $('s6bg').style.transform=`translateX(${-(eo(k)*(3650-1080))}px) scale(${1.08+.06*pulse(t)})`;
+    $('s6bg').style.filter=`grayscale(${1-p(t,DROP,DROP+.5)}) saturate(${1+.3*p(t,DROP,DROP+.5)})`;
+    slam('s6logo',t,DROP,.2);slam('s6t',t,13.84,.18);
+    $('s6logo').style.transform+=` scale(${1+.05*pulse(t)})`;
+  }
+  // S7 question answered by the sketch 15.66-22.0
+  if(show('s7',t,15.66,22.05,.1,.1)){
+    pop('s7q',t,15.66,.3,-60);
+    // memory palace sketch: full view, zoom into the 1957 panel, then Hugo lifts out on the beat
+    const LIFT=17.64,S0=1080/1774,S1=1.45,FX0=887,FY0=443.5,FX1=812,FY1=375;
+    const zk=eo(p(t,16.6,17.5));const sc=S0+(S1-S0)*zk,fx=FX0+(FX1-FX0)*zk,fy=FY0+(FY1-FY0)*zk;
+    const si=$('skimg');si.style.transform=`translate(${540-fx*sc}px,${395-fy*sc}px) scale(${sc})`;
+    const sa=p(t,16.28,16.5);const fade=p(t,LIFT,LIFT+.35);
+    $('sk').style.opacity=sa*(1-.82*fade);
+    si.style.filter=`grayscale(${fade}) blur(${fade*3}px)`;
+    $('sk').style.transform=`scale(${1+.04*(t>=LIFT?pulse(t):0)})`;
+    const h=$('hugo');
+    const x0=540+(647-FX1)*S1,y0=720+395+(133-FY1)*S1,h0=485*S1;
+    const x1=10,y1=720,h1=800;
+    const lk=eo(p(t,LIFT+.08,LIFT+.6));
+    const bump=t>=LIFT?1+.1*Math.sin(Math.PI*p(t,LIFT,LIFT+.35)):1;
+    h.style.opacity=t>=LIFT?1:0;
+    h.style.left=(x0+(x1-x0)*lk)+'px';h.style.top=(y0+(y1-y0)*lk)+'px';h.style.height=(h0+(h1-h0)*lk)+'px';
+    h.style.transformOrigin='50% 60%';
+    h.style.transform=`scale(${bump+.03*pulse(t)*(t>LIFT+.6?1:0)}) rotate(${t>LIFT+.6?Math.sin((t-LIFT)*2.2)*1.5:-3*Math.sin(Math.PI*p(t,LIFT,LIFT+.6))}deg)`;
+    show('cap1',t,16.28,LIFT,.2,.1);show('cap2',t,LIFT,21.1,.2,.15);
+    // explainer box
+    const bk=p(t,17.92,18.18);$('s7box').style.opacity=bk;$('s7box').style.transformOrigin='0% 0%';
+    $('s7box').style.transform=`scale(${bk<1?.4+.6*back(bk):1})`;
+    pop('e1',t,17.92,.25,20);pop('e1b',t,18.3,.25,20);
+    slam('e2',t,18.78,.18);$('e2').style.transformOrigin='0 50%';
+    pop('e3',t,19.04,.25,20);slam('e4',t,19.66,.18);$('e4').style.transformOrigin='0 50%';
+    // arrow draws from box to the split geyser
+    const ap=$('arrowp'),L=ap.getTotalLength(),ak=eo(p(t,18.3,18.7));
+    ap.style.strokeDasharray=L;ap.style.strokeDashoffset=L*(1-ak);$('arrowh').style.opacity=ak>=1?1:0;
+    for(let i=1;i<=4;i++){const o=$('p'+i);o.style.background='#fff';o.style.borderColor='#E6E0D4';o.style.color='#272525';o.querySelector('b').style.color='#a39c90';o.style.transform='none'}
+    if(t>=20.28){const o=$('p3');o.style.background='#2FBF71';o.style.borderColor='#2FBF71';o.style.color='#fff';o.querySelector('b').style.color='#fff';o.style.transform=`scale(${1+.08*(1-p(t,20.28,20.6))})`}
+    slam('s7chip',t,21.16,.18);
+  }
+  // S8 every topic 22.0-23.82
+  if(show('s8',t,22.0,23.86,.1,.1)){
+    const k=p(t,22.0,23.82);
+    $('s8bg').style.transform=`translateX(${-eo(k)*(2010-1080)}px) translateY(${-k*120}px) scale(${1.08+.04*pulse(t)})`;
+    pop('s8a',t,22.04,.25,30);slam('s8b',t,22.46,.18);
+  }
+  // S9 founder 23.82-26.0
+  if(show('s9',t,23.82,26.05,.1,.08)){
+    pop('s9img',t,23.82,.3,60);pop('s9a',t,23.95,.25,20);pop('s9b',t,24.05,.25,30);
+    slam('s9badge',t,24.28,.18);pop('a1',t,24.54,.22,30);pop('a2',t,25.26,.22,30);pop('a3',t,25.5,.22,30);
+  }
+  // S10 CTA 26.0-end
+  if(show('s10',t,26.0,40,0,0)){
+    $('s10bg').style.transform=`scale(${1.05+(t-26)*.02+.03*pulse(t)})`;
+    slam('s10logo',t,26.02,.2);pop('s10a',t,26.3,.3,30);pop('s10b',t,26.3,.35,40);
+    slam('s10box',t,26.78,.18);$('s10box').style.transform+=` scale(${1+.04*pulse(t)})`;
+    // typing examples, one per beat
+    const W=[['Oral Pathology',26.9],['Pharmacology',27.42],['Dental Materials',28.28],['Anatomy',29.0]];
+    let w=W[0];for(const x of W)if(t>=x[1])w=x;
+    const n=Math.floor(cl((t-w[1])/.35)*w[0].length);
+    $('typed').innerHTML=(t>=26.9?w[0].slice(0,n):'<span style="color:#9a958e">Add a comment…</span>')+'<span style="color:#2f7de1;opacity:'+(Math.floor(t*3)%2)+'">|</span>';
+    pop('s10c',t,27.42,.3,20);slam('s10d',t,28.28,.18);
+  }
+  // global fx
+  const pre=t<DROP;
+  $('grain').style.opacity=pre?.9:0;
+  $('grain').style.transform=`translateY(${(Math.floor(t*30)%4)}px)`;
+  $('vig').style.opacity=pre?1:.35;
+  let f=0;
+  if(t>=DROP)f=Math.max(f,1-p(t,DROP,DROP+.45));
+  for(const b of [15.66,17.64,22.0,23.82,26.0])if(t>=b)f=Math.max(f,(b===17.64?.35:.6)*(1-p(t,b,b+.25)));
+  if(t>=4.0&&t<4.2)f=Math.max(f,.25*(1-p(t,4.0,4.2)));
+  $('flash').style.opacity=f;
+}
+window.render=render;
+</script>
+</body></html>
