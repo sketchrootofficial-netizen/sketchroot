@@ -1,0 +1,846 @@
+/* ============================================================
+   SketchRoot, Memory Redrawn
+   assets/css/styles.css
+   ============================================================ */
+
+/* Self hosted fonts: no third party request, no render blocking stylesheet from another origin */
+@font-face{
+  font-family:"Karla";font-style:normal;font-weight:400 800;font-display:swap;
+  src:url("../fonts/karla-latin.woff2") format("woff2");
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:"Caveat";font-style:normal;font-weight:700;font-display:swap;
+  src:url("../fonts/caveat-sig.woff2") format("woff2");
+}
+
+:root{
+  --ink:#272525;
+  --amber:#F6B31E;
+  --paper:#FCFBF7;
+  --bg:#F3EFE5;
+  --sand:#F7F3E9;
+  --muted:#6F6A64;
+  --hair:#E6E0D4;
+  --deep:#0E1218;
+  --radius:18px;
+  --maxw:58rem;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;
+  min-height:100svh;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Karla",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;height:auto}
+a{color:inherit}
+
+/* ============================================================
+   HERO
+   The hero is a size container, so every measurement below in "cqw"
+   is a percentage of the hero's own width. The copy therefore scales
+   with the artwork exactly as it does in the design mockup.
+   ============================================================ */
+.hero{
+  position:relative;
+  container-type:inline-size;
+  background:var(--bg);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* artwork: stacked layout (phones and tablets) sits under the copy.
+   It is a real <picture> element so the browser fetches it at high priority. */
+.hero-art{
+  order:3;
+  display:block;
+  position:relative;
+  width:100%;
+  aspect-ratio:960/902;
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 10%, #000 86%, transparent 100%);
+  mask-image:linear-gradient(180deg, transparent 0, #000 10%, #000 86%, transparent 100%);
+}
+.hero-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+@media (min-width:720px){
+  .hero-art{aspect-ratio:1672/941}
+}
+.hero-scrim{display:none}
+
+/* ============================================================
+   MOBILE / TABLET HERO — scenic illustration above the fold
+   Art leads at top, fades into page bg, copy flows below.
+   Applied up to (but not including) the 1180 px desktop layout.
+   ============================================================ */
+@media (max-width:1179px){
+  /* Reorder: art before copy */
+  .hero .nav { order:1 }
+  .hero-art  { order:2 }
+  .hero-copy { order:3 }
+
+  /* Art: viewport-height-relative, fades into --bg at bottom */
+  .hero-art{
+    height:42svh;
+    min-height:200px;
+    aspect-ratio:auto;
+    -webkit-mask-image:linear-gradient(180deg,#000 0,#000 50%,transparent 92%);
+    mask-image:        linear-gradient(180deg,#000 0,#000 50%,transparent 92%);
+  }
+  .hero-art img{
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:center top;
+  }
+
+  /* Nav: frosted glass so logo reads over the illustration */
+  .hero .nav{
+    position:relative;
+    z-index:10;
+    background:rgba(243,239,229,.82);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+
+  /* Copy: pull slightly into the art's fade zone */
+  .hero-copy{
+    margin-top:-2.4rem;
+    position:relative;
+    z-index:5;
+    padding:.5rem clamp(1rem,4vw,1.6rem) 2rem;
+  }
+}
+
+/* ---------- navigation ---------- */
+.nav{
+  order:1;
+  position:relative;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.6rem;
+  padding:.85rem clamp(1rem,4vw,1.6rem);
+  font-size:16px;
+}
+.brand{display:block;flex:0 0 auto;width:clamp(7.5rem,34vw,12.5rem)}
+.brand .mark,.brand img{display:block;width:100%;height:auto;overflow:visible}
+.navcta{margin-left:auto}
+
+.menu-btn{
+  display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+  width:2.6rem;height:2.6rem;border:1px solid var(--hair);border-radius:50%;
+  background:#fff;color:var(--ink);cursor:pointer;
+}
+.menu-btn svg{width:1.2rem;height:1.2rem;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.menu-btn:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+/* phones and tablets: the links open as a panel under the bar */
+.navlinks{
+  display:none;
+  position:absolute;top:calc(100% - .2rem);
+  left:clamp(1rem,4vw,1.6rem);right:clamp(1rem,4vw,1.6rem);
+  flex-direction:column;align-items:stretch;gap:.1rem;
+  background:var(--paper);border:1px solid var(--hair);border-radius:16px;
+  padding:.6rem;box-shadow:0 22px 54px rgba(20,16,10,.2);
+}
+.nav.open .navlinks{display:flex}
+.navlinks a,.dd-btn{
+  display:block;width:100%;text-align:left;
+  padding:.7rem .8rem;border-radius:10px;
+  color:var(--ink);text-decoration:none;font-family:inherit;font-weight:600;font-size:1rem;
+  background:none;border:0;
+}
+.navlinks a:hover{background:var(--sand)}
+.dd-btn{color:var(--muted);font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;pointer-events:none;padding-bottom:.2rem}
+.dd-btn svg{display:none}
+.dd-menu{list-style:none;margin:0;padding:0 0 .3rem}
+.dd-menu a{padding:.55rem .8rem .55rem 1.2rem;font-weight:500}
+
+.btn-amber{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.6rem 1.15rem;border:0;border-radius:999px;
+  background:var(--amber);color:var(--ink);
+  font-family:inherit;font-size:.92rem;font-weight:700;line-height:1.2;
+  text-decoration:none;cursor:pointer;white-space:nowrap;
+  box-shadow:0 8px 22px rgba(246,179,30,.38);
+  transition:filter .15s ease, transform .15s ease;
+}
+.btn-amber:hover{filter:brightness(1.06)}
+.btn-amber:active{transform:translateY(1px)}
+.btn-amber:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.btn-amber svg{width:.9rem;height:.9rem;flex:0 0 auto}
+
+/* ---------- wordmark (real vector outlines from the Illustrator file) ---------- */
+.mark .ink,.mark .tm{fill:var(--ink)}
+.mark .amb{fill:var(--amber)}
+
+.rev{
+  transform-box:fill-box;
+  transform-origin:center bottom;
+  opacity:0;
+  animation:revealIn .62s cubic-bezier(.2,.85,.3,1) both;
+}
+@keyframes revealIn{
+  0%  {opacity:0;transform:translateY(9px) rotate(-6deg) scale(.86)}
+  60% {opacity:1}
+  100%{opacity:1;transform:translateY(0) rotate(0) scale(1)}
+}
+/* the permanent hand drawn "boil": discrete poses, never a smooth wobble */
+.ltr{
+  transform-box:fill-box;
+  transform-origin:center;
+  animation-name:boil;
+  animation-timing-function:steps(1,end);
+  animation-iteration-count:infinite;
+  will-change:transform;
+}
+@keyframes boil{
+  0%,32%  {transform:rotate(-1.5deg) translate(.55px,-.5px)}
+  33%,65% {transform:rotate(1.2deg)  translate(-.5px,.55px)}
+  66%,100%{transform:rotate(-.35deg) translate(.2px,.25px)}
+}
+.blot{animation-name:boilBlot}
+@keyframes boilBlot{
+  0%,32%  {transform:rotate(-5deg) scale(1.05)}
+  33%,65% {transform:rotate(4deg) scale(.95)}
+  66%,100%{transform:rotate(-1deg) scale(1)}
+}
+/* eyes, clipped to the real counter of each letter o */
+.pupil{fill:var(--ink);transform-box:fill-box;transform-origin:center;transform:scale(0);animation:look 6.6s infinite}
+.lid{fill:var(--amber);transform-box:fill-box;transform-origin:top center;transform:scaleY(0);animation:blink 6.6s infinite}
+@keyframes look{
+  0%,4%   {transform:scale(0)}
+  9%      {transform:scale(1.15)}
+  14%,26% {transform:scale(1) translateX(-1.5px)}
+  38%,50% {transform:scale(1) translateX(1.6px)}
+  62%,86% {transform:scale(1) translateX(0)}
+  93%,100%{transform:scale(0)}
+}
+@keyframes blink{
+  0%,52%   {transform:scaleY(0)}
+  55.5%    {transform:scaleY(1)}
+  59%      {transform:scaleY(0)}
+  70%,71.5%{transform:scaleY(0)}
+  73.5%    {transform:scaleY(1)}
+  77%,100% {transform:scaleY(0)}
+}
+
+/* script tagline: written on, left to right, then underlined */
+.script{display:block;width:clamp(11rem,52vw,15rem);height:auto;overflow:visible}
+.script .tagline{fill:var(--ink)}
+.script .swoosh{
+  fill:none;stroke:var(--amber);stroke-width:4;stroke-linecap:round;
+  stroke-dasharray:100;stroke-dashoffset:100;
+  animation:draw .75s 1.7s cubic-bezier(.3,.7,.3,1) forwards;
+}
+@keyframes draw{to{stroke-dashoffset:0}}
+.wipe{
+  transform-box:fill-box;transform-origin:left center;transform:scaleX(0);
+  animation:wipeIn 1s .85s cubic-bezier(.25,.7,.3,1) forwards;
+}
+@keyframes wipeIn{to{transform:scaleX(1)}}
+
+/* ---------- hero copy ---------- */
+.hero-copy{
+  order:2;
+  position:relative;
+  z-index:3;
+  padding:.5rem clamp(1rem,4vw,1.6rem) 1.6rem;
+  font-size:16px;
+}
+.hero-copy h1{
+  font-size:clamp(2.35rem,10.4vw,4.4rem);
+  line-height:1.05;
+  letter-spacing:-.03em;
+  font-weight:800;
+  margin:.9rem 0 0;
+}
+/* "visualised." is set on an amber marker stroke, like the wordmark's own
+   highlight. Ink on amber is about 9:1, where amber type on the pale cloud
+   would only reach about 2:1 */
+.hl{
+  display:inline-block;
+  margin-top:.12em;
+  padding:0 .14em .05em;
+  background:var(--amber);
+  color:var(--ink);
+  border-radius:.16em;
+  transform:rotate(-1.4deg);
+  transform-origin:left center;
+  box-shadow:0 .09em 0 rgba(39,37,37,.9);
+}
+.sub{
+  font-size:clamp(1.02rem,4.3vw,1.2rem);
+  line-height:1.5;
+  color:#3F3B37;
+  margin:.9rem 0 1.15rem;
+  max-width:28ch;
+}
+
+/* email capture */
+.capture{
+  display:flex;align-items:center;gap:.4em;
+  background:#fff;border:1px solid var(--hair);border-radius:999px;
+  padding:.32em .32em .32em .95em;
+  width:min(100%,30rem);
+  box-shadow:0 12px 32px rgba(20,16,10,.13);
+}
+.capture > svg{width:1.05em;height:1.05em;color:var(--muted);flex:0 0 auto}
+.capture input{
+  flex:1;min-width:0;border:0;outline:none;background:none;
+  font-family:inherit;font-size:.98em;color:var(--ink);padding:.6em .2em;
+}
+.capture .btn-amber{font-size:.92em;padding:.62em 1.05em;gap:.5em}
+.capture .btn-amber svg{width:.95em;height:.95em}
+.capture input::placeholder{color:#7D7873}
+.capture:focus-within{border-color:var(--amber);box-shadow:0 0 0 3px rgba(246,179,30,.28), 0 12px 32px rgba(20,16,10,.13)}
+.hp{position:absolute;left:-9999px}
+
+.feats4{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;
+  list-style:none;margin:1.3em 0 0;padding:0;max-width:30em;
+}
+.feats4 li{display:flex;flex-direction:column;align-items:center;gap:.4em;text-align:center}
+.feats4 li+li{border-left:1px solid rgba(39,37,37,.16);padding-left:.4em}
+.feats4 svg{width:1.55em;height:1.55em;color:var(--ink)}
+.feats4 span{font-size:.78em;line-height:1.25;font-weight:700;color:#3F3B37}
+
+.scrollcue{display:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+/* ============================================================
+   DESKTOP: copy laid over the artwork, as in the mockup
+   ============================================================ */
+@media (min-width:1180px){
+  .shell{margin-top:-2.6rem}
+  .hero{
+    display:block;
+    /* full width always: capping the height (max-height:100svh) made the aspect ratio
+       shrink the WIDTH on short, wide windows and left an empty strip on the right */
+    width:100%;
+    aspect-ratio:1672/941;
+    min-height:40rem;
+  }
+  .hero-art{
+    position:absolute;inset:0;
+    width:auto;aspect-ratio:auto;
+    /* only the bottom edge fades, into the page colour */
+    -webkit-mask-image:linear-gradient(180deg, #000 0, #000 80%, transparent 100%);
+    mask-image:linear-gradient(180deg, #000 0, #000 80%, transparent 100%);
+  }
+
+  /* a soft cloud of paper behind the copy. It hides the painted words in the
+     mist on the left, fades out before it reaches the student, and has no edge */
+  .hero-scrim{
+    display:block;
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:radial-gradient(ellipse 29cqw 21.5cqw at 7cqw 14.5cqw,
+      rgba(252,251,247,.97) 0, rgba(252,251,247,.95) 52%,
+      rgba(252,251,247,.55) 76%, rgba(252,251,247,0) 100%);
+  }
+  .hero-scrim::before{
+    content:"";position:absolute;inset:0;
+    backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+    -webkit-mask-image:radial-gradient(ellipse 29cqw 21.5cqw at 7cqw 14.5cqw, #000 38%, transparent 100%);
+    mask-image:radial-gradient(ellipse 29cqw 21.5cqw at 7cqw 14.5cqw, #000 38%, transparent 100%);
+  }
+
+  /* generic desktop navigation: used by the hero overlay and by every inner page */
+  .menu-btn{display:none}
+  .navlinks{
+    display:flex;position:static;flex-direction:row;align-items:center;gap:1.5em;
+    padding:.85em 1.5em;
+    background:rgba(252,251,247,.92);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(230,224,212,.95);
+    border-radius:999px;
+    box-shadow:0 8px 26px rgba(20,16,10,.09);
+  }
+  .navlinks a,.dd-btn{
+    display:inline-flex;align-items:center;gap:.3em;width:auto;
+    padding:.15em 0;border-radius:0;background:none;
+    font-size:.93em;font-weight:600;text-transform:none;letter-spacing:0;color:var(--ink);
+    border-bottom:2px solid transparent;
+  }
+  .navlinks a:hover,.dd-btn:hover{background:none;border-bottom-color:var(--amber)}
+  .navlinks a[aria-current="page"]{border-bottom-color:var(--amber)}
+  .dd{position:relative}
+  .dd-btn{pointer-events:auto;cursor:pointer;font-family:inherit}
+  .dd-btn svg{display:block;width:.8em;height:.8em;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  .dd-menu{
+    display:none;position:absolute;top:calc(100% + .95em);left:-1.1em;min-width:17.5em;
+    background:var(--paper);border:1px solid var(--hair);border-radius:14px;
+    padding:.5em;box-shadow:0 22px 54px rgba(20,16,10,.22);z-index:40;
+  }
+  .dd-menu::before{content:"";position:absolute;left:0;right:0;top:-1em;height:1em}
+  .dd:hover .dd-menu,.dd:focus-within .dd-menu,.dd.open .dd-menu{display:block}
+  .dd-menu a{display:block;padding:.55em .8em;border-radius:8px;border-bottom:0;font-weight:600}
+  .dd-menu a:hover{background:var(--sand)}
+  .navcta{font-size:.95em;padding:.62em 1.2em}
+
+  /* on the home page the nav floats over the artwork */
+  .hero .nav{
+    position:absolute;top:1.3cqw;left:0;right:0;
+    padding:0 3.7cqw;gap:2.2cqw;justify-content:flex-start;
+    font-size:clamp(14.5px,.98cqw,22px);
+  }
+  .hero .brand{width:clamp(9.5rem,17.5cqw,24rem)}
+
+  /* one base size drives the whole block, so it scales with the artwork
+     like the mockup does. The floor keeps the smallest label near 10.5px */
+  .hero-copy{
+    position:absolute;z-index:3;
+    left:4.5cqw;top:5.3cqw;
+    width:26em;
+    padding:0;
+    font-size:clamp(13px,1cqw,26px);
+  }
+  .script{width:14.2em}
+  .hero-copy h1{
+    font-size:3.35em;
+    line-height:1.02;
+    margin:.1em 0 0;
+  }
+  .sub{
+    font-size:1.15em;
+    line-height:1.45;
+    margin:.74em 0 .87em;
+    max-width:18.3em;
+  }
+  .capture{width:25em}
+  .feats4{width:21.5em;max-width:none;margin-top:1.05em}
+  .feats4 svg{width:1.45em;height:1.45em}
+  .feats4 li{gap:.3em}
+  .feats4 span{font-size:.84em}
+
+  .scrollcue{
+    position:absolute;z-index:3;left:50%;transform:translateX(-50%);bottom:5.4rem;
+    display:inline-flex;flex-direction:column;align-items:center;gap:.25rem;
+    padding:.5rem 1.15rem .4rem;
+    color:var(--ink);text-decoration:none;font-size:.82rem;font-weight:700;
+    background:rgba(252,251,247,.92);
+    border:1px solid var(--hair);border-radius:999px;
+    box-shadow:0 8px 24px rgba(20,16,10,.15);
+    opacity:0;animation:fadeUp .9s 2.6s ease-out forwards;
+  }
+  .scrollcue svg{width:18px;height:18px;animation:bob 2s ease-in-out infinite}
+  .scrollcue:hover{color:#8A5F00}
+}
+
+/* ============================================================
+   PAGE BODY
+   ============================================================ */
+.shell{
+  position:relative;
+  z-index:5;
+  margin-top:-1rem;
+  padding:0 clamp(.6rem,3vw,1.5rem) clamp(1.5rem,5vw,3rem);
+}
+.card{
+  width:100%;
+  max-width:var(--maxw);
+  margin:0 auto;
+  background:var(--paper);
+  border-radius:var(--radius);
+  box-shadow:0 26px 70px rgba(70,50,10,.16), 0 2px 10px rgba(70,50,10,.07);
+  overflow:hidden;
+}
+.pad{padding:clamp(1.4rem,5vw,3.4rem)}
+
+/* ---------- founder block ---------- */
+.byline{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.6rem}
+.byline > div{min-width:0}
+.byline img{
+  width:104px;height:104px;border-radius:50%;object-fit:cover;
+  flex:0 0 auto;border:3px solid var(--amber);
+}
+.byline .who{font-weight:700;font-size:clamp(1.15rem,3.6vw,1.4rem);line-height:1.25;letter-spacing:-.01em}
+.byline .deg{font-weight:700;font-size:.95rem;color:var(--ink);margin-top:.3rem;line-height:1.45}
+.byline .role{color:var(--muted);font-size:.9rem;line-height:1.5;margin-top:.25rem}
+.medal{
+  display:inline-block;margin-top:.5rem;padding:.22rem .65rem;
+  background:var(--amber);color:var(--ink);
+  border-radius:999px;font-size:.78rem;font-weight:700;
+}
+
+/* ranks: the AIIMS AIR 1 leads, the other two sit beside it */
+.rankwrap{display:grid;grid-template-columns:1fr;gap:.7rem;margin:0 0 1.6rem}
+@media (min-width:640px){.rankwrap{grid-template-columns:1.25fr 1fr}}
+
+.rank-hero{
+  position:relative;
+  background:var(--ink);
+  color:#FCFBF7;
+  border-radius:16px;
+  padding:1.4rem 1.3rem 1.3rem;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.rank-hero::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(90% 70% at 18% 12%, rgba(246,179,30,.26), transparent 62%);
+}
+.rank-hero > *{position:relative}
+.rank-hero .lbl{
+  font-size:.74rem;font-weight:700;letter-spacing:.14em;
+  color:rgba(252,251,247,.62);
+}
+.rank-hero .num{
+  font-size:clamp(3.6rem,13vw,5rem);
+  font-weight:700;line-height:.92;color:var(--amber);
+  letter-spacing:-.04em;margin:.1rem 0 .35rem;
+}
+.rank-hero .exam{font-size:1.05rem;font-weight:700;line-height:1.3}
+.rank-hero .spec{
+  margin-top:.45rem;font-size:.85rem;color:rgba(252,251,247,.62);
+}
+
+.rank-side{list-style:none;padding:0;margin:0;display:grid;gap:.7rem}
+.rank-side li{
+  background:var(--ink);color:#FCFBF7;border-radius:16px;
+  padding:1rem 1.2rem;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  grid-template-areas:"num exam" "num yr";
+  column-gap:1.1rem;
+  align-items:center;
+}
+.rank-side .num{
+  grid-area:num;
+  font-size:clamp(2.2rem,8vw,3rem);font-weight:700;line-height:1;
+  color:var(--amber);letter-spacing:-.03em;
+}
+.rank-side .num small{
+  display:block;font-size:.3em;font-weight:700;letter-spacing:.14em;
+  color:rgba(252,251,247,.62);margin-bottom:.35em;transform:none;
+}
+.rank-side .exam{grid-area:exam;align-self:end;font-weight:700;font-size:1.08rem;line-height:1.2}
+.rank-side .yr{grid-area:yr;align-self:start;color:rgba(252,251,247,.6);font-size:.86rem;margin-top:.15rem}
+
+.creds{list-style:none;padding:0;margin:0 0 1.8rem;display:grid;gap:.6rem}
+.creds li{display:flex;gap:.7rem;align-items:flex-start;font-size:.94rem;line-height:1.5}
+.creds .dot{width:.5rem;height:.5rem;border-radius:50%;background:var(--amber);flex:0 0 auto;margin-top:.45rem}
+.creds b{display:block;font-weight:700}
+.creds .sub2{color:var(--muted);font-size:.85rem}
+
+/* ---------- prose ---------- */
+h2{font-size:clamp(1.3rem,4.4vw,1.9rem);line-height:1.2;margin:0 0 1rem;letter-spacing:-.01em}
+h3{font-size:clamp(1rem,3vw,1.1rem);margin:2rem 0 .6rem}
+p{font-size:1rem;line-height:1.72;margin:0 0 1.05rem}
+.note p{font-size:clamp(1rem,2.6vw,1.06rem)}
+.lead{font-size:clamp(1.06rem,3vw,1.2rem);line-height:1.6;font-weight:500}
+.dim{color:var(--muted)}
+.rule{height:1px;background:var(--hair);border:0;margin:2rem 0}
+
+.sig{font-family:"Caveat",cursive;font-size:2rem;line-height:1;margin:1.8rem 0 .35rem}
+.sig-sub{color:var(--muted);font-size:.88rem;margin:0}
+
+.pill-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.5rem}
+.pill{
+  background:var(--sand);border:1px solid var(--hair);border-radius:999px;
+  padding:.34rem .75rem;font-size:.8rem;font-weight:600;color:var(--muted);
+}
+
+/* ---------- subscribe ---------- */
+.subscribe{background:var(--ink);color:#FCFBF7}
+.subscribe h2{color:#fff}
+.subscribe .dim{color:rgba(252,251,247,.65)}
+
+.form{margin-top:1.6rem;display:grid;gap:.75rem;max-width:34rem}
+.row{display:grid;grid-template-columns:1fr;gap:.75rem}
+@media (min-width:560px){.row{grid-template-columns:1fr 1fr}}
+
+.field{display:flex;flex-direction:column;gap:.3rem}
+.field label{font-size:.82rem;font-weight:600;color:rgba(252,251,247,.75)}
+.field input,.field select{
+  font-family:inherit;font-size:1rem;
+  padding:.72rem .85rem;
+  border-radius:10px;
+  border:1px solid rgba(252,251,247,.22);
+  background:rgba(252,251,247,.07);
+  color:#fff;
+  width:100%;
+  -webkit-appearance:none;
+  appearance:none;
+}
+.field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23F6B31E' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right .85rem center;
+  background-size:12px;
+  padding-right:2.4rem;
+}
+.field input::placeholder{color:rgba(252,251,247,.4)}
+.field input:focus,.field select:focus{
+  outline:none;border-color:var(--amber);
+  box-shadow:0 0 0 3px rgba(246,179,30,.25);
+}
+.field select option{background:#272525;color:#fff}
+
+.btn{
+  font-family:inherit;font-size:1rem;font-weight:700;
+  background:var(--amber);color:var(--ink);
+  border:0;border-radius:10px;
+  padding:.85rem 1.4rem;
+  cursor:pointer;
+  justify-self:start;
+  transition:transform .15s ease, filter .15s ease;
+}
+.btn:hover{filter:brightness(1.07)}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.fineprint{font-size:.8rem;color:rgba(252,251,247,.5);margin:.3rem 0 0}
+.hp{position:absolute;left:-9999px}
+
+/* ---------- contact ---------- */
+.contact{background:var(--sand);border-top:1px solid var(--hair)}
+.mail{
+  display:inline-block;font-weight:700;
+  font-size:clamp(1.05rem,3.4vw,1.25rem);
+  color:var(--ink);text-decoration:none;
+  border-bottom:.13em solid var(--amber);
+  padding-bottom:.05em;word-break:break-word;
+}
+.mail:hover{color:var(--amber);border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--amber);outline-offset:4px;border-radius:2px}
+.alt{display:block;margin-top:.6rem;font-size:.9rem;color:var(--muted)}
+.alt a{text-decoration:underline;text-underline-offset:2px}
+
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+/* ---------- thank you page ---------- */
+.mini{text-align:center;max-width:34rem}
+.mini .tick{
+  width:64px;height:64px;border-radius:50%;background:var(--amber);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;
+  font-size:2rem;color:var(--ink);font-weight:700;
+}
+
+
+
+/* ---------- skip link ---------- */
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:.7rem 1rem;z-index:100;border-radius:0 0 10px 0}
+.skip:focus{left:0}
+
+/* ---------- inner pages ---------- */
+.site-header{position:relative;z-index:30;background:var(--paper);border-bottom:1px solid var(--hair)}
+.site-header .nav{max-width:72rem;margin:0 auto}
+.page{max-width:var(--maxw);margin:0 auto;padding:clamp(.8rem,3vw,2rem) clamp(.6rem,3vw,1.5rem) 2.4rem}
+.article{
+  background:var(--paper);border-radius:var(--radius);
+  box-shadow:0 26px 70px rgba(70,50,10,.12), 0 2px 10px rgba(70,50,10,.06);
+  padding:clamp(1.4rem,5vw,3.2rem);
+}
+.crumbs{font-size:.86rem;color:var(--muted);margin:0 0 1rem}
+.crumbs a{color:var(--muted);text-underline-offset:2px}
+.crumbs span[aria-current]{color:var(--ink);font-weight:600}
+.article h1{font-size:clamp(1.9rem,5.6vw,3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;margin:.2rem 0 1rem}
+.lede{font-size:clamp(1.08rem,2.8vw,1.22rem);line-height:1.62;font-weight:500;margin:0 0 1rem}
+.metaline{font-size:.86rem;color:var(--muted);margin:0 0 1.4rem}
+.keyfacts{background:var(--sand);border:1px solid var(--hair);border-radius:16px;padding:1.2rem 1.3rem;margin:1.4rem 0 2rem}
+.keyfacts h2{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 .9rem}
+.keyfacts dl{display:grid;grid-template-columns:1fr;gap:.2rem 1.4rem;margin:0}
+.keyfacts dt{font-weight:700;margin-top:.55rem}
+.keyfacts dd{margin:0;color:#3F3B37;line-height:1.55}
+@media (min-width:660px){
+  .keyfacts dl{grid-template-columns:11.5rem 1fr;gap:.7rem 1.4rem}
+  .keyfacts dt{margin-top:0}
+}
+.toc{border:1px solid var(--hair);border-radius:14px;padding:1rem 1.2rem;margin:0 0 1.8rem}
+.toc b{display:block;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.toc ol{margin:0;padding-left:1.2rem;line-height:1.7}
+.article h2{font-size:clamp(1.35rem,3.8vw,1.75rem);line-height:1.2;margin:2.4rem 0 .8rem;letter-spacing:-.015em;scroll-margin-top:1.2rem}
+.article h3{font-size:1.08rem;margin:1.6rem 0 .5rem}
+.article p{margin:0 0 1.05rem}
+.article ul,.article ol{padding-left:1.25rem;line-height:1.7;margin:0 0 1.1rem}
+.article li{margin-bottom:.4rem}
+.article a{text-underline-offset:2px}
+.callout{border-left:5px solid var(--amber);background:#FFF8E6;border-radius:0 14px 14px 0;padding:1rem 1.2rem;margin:1.6rem 0}
+.callout p:last-child{margin-bottom:0}
+.tablewrap{overflow-x:auto;margin:0 0 1.3rem}
+.tablewrap table{border-collapse:collapse;width:100%;min-width:30rem;font-size:.95rem}
+.tablewrap th,.tablewrap td{border:1px solid var(--hair);padding:.6rem .75rem;text-align:left;vertical-align:top;line-height:1.5}
+.tablewrap th{background:var(--sand)}
+.faq h3{margin-top:1.4rem}
+.sources li{word-break:break-word}
+.related{display:grid;gap:.7rem;grid-template-columns:1fr;margin:0 0 1rem;padding:0;list-style:none}
+@media (min-width:640px){.related{grid-template-columns:1fr 1fr}}
+.related li{margin:0}
+.related a{display:block;height:100%;border:1px solid var(--hair);border-radius:14px;padding:.95rem 1.05rem;text-decoration:none;background:#fff;transition:border-color .15s ease, box-shadow .15s ease}
+.related a:hover{border-color:var(--amber);box-shadow:0 8px 24px rgba(246,179,30,.2)}
+.related b{display:block;margin-bottom:.15rem}
+.related span{color:var(--muted);font-size:.92rem;line-height:1.45}
+.authorbox{display:flex;gap:1rem;align-items:center;background:var(--sand);border-radius:16px;padding:1.1rem 1.2rem;margin:2.2rem 0 0}
+.authorbox img{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid var(--amber);flex:0 0 auto}
+.authorbox p{margin:0;font-size:.95rem;line-height:1.55}
+.authorbox b{font-size:1.02rem}
+.cta{background:var(--ink);color:#FCFBF7;border-radius:18px;padding:clamp(1.3rem,4vw,2rem);margin-top:2.4rem}
+.cta h2{color:#fff;margin-top:0}
+.cta p{color:rgba(252,251,247,.75)}
+.cta .capture{margin-top:1rem}
+.cta .fineprint{font-size:.8rem;color:rgba(252,251,247,.55);margin:.7rem 0 0}
+
+/* exam picker on the home page */
+.examgrid{display:grid;gap:.7rem;grid-template-columns:1fr;list-style:none;margin:1.2rem 0 0;padding:0}
+@media (min-width:600px){.examgrid{grid-template-columns:1fr 1fr}}
+@media (min-width:900px){.examgrid{grid-template-columns:1fr 1fr 1fr}}
+.examgrid a{display:block;height:100%;text-decoration:none;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:1rem 1.1rem;transition:border-color .15s ease, box-shadow .15s ease, transform .15s ease}
+.examgrid a:hover{border-color:var(--amber);box-shadow:0 10px 28px rgba(246,179,30,.22);transform:translateY(-1px)}
+.examgrid b{display:block;font-size:1.08rem;margin-bottom:.2rem}
+.examgrid span{display:block;color:var(--muted);font-size:.92rem;line-height:1.45}
+.examgrid em{display:inline-block;margin-top:.5rem;font-style:normal;font-weight:700;font-size:.86rem;border-bottom:2px solid var(--amber)}
+
+/* ---------- site footer ---------- */
+.site-footer{background:var(--ink);color:rgba(252,251,247,.78);padding:clamp(2rem,6vw,3.2rem) clamp(1rem,4vw,1.6rem) 1.6rem}
+.site-footer .wrap{max-width:66rem;margin:0 auto}
+.fgrid{display:grid;grid-template-columns:1fr;gap:1.8rem}
+@media (min-width:760px){.fgrid{grid-template-columns:1.5fr 1fr 1fr 1fr}}
+.site-footer img.flogo{display:block;width:11rem;height:auto;margin:0 0 .9rem}
+.site-footer p{font-size:.92rem;line-height:1.6;margin:0 0 .6rem;max-width:32ch}
+.site-footer h2{font-size:.76rem;text-transform:uppercase;letter-spacing:.13em;color:rgba(252,251,247,.5);margin:0 0 .8rem}
+.site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.site-footer a{color:rgba(252,251,247,.92);text-decoration:none;font-size:.95rem}
+.site-footer a:hover{color:var(--amber)}
+.fbottom{border-top:1px solid rgba(252,251,247,.14);margin-top:2rem;padding-top:1.1rem;font-size:.82rem;line-height:1.6;color:rgba(252,251,247,.55)}
+.fbottom p{max-width:none;margin:0 0 .3rem;font-size:.82rem}
+
+/* minimal footer for the thank you and 404 pages */
+.mini-footer{text-align:center;color:var(--muted);font-size:.82rem;line-height:1.7;padding:.6rem 1rem 2.6rem}
+.mini-footer b{color:var(--ink);font-weight:700}
+
+/* ---------- small phones ---------- */
+@media (max-width:400px){
+  .byline img{width:78px;height:78px}
+  .card{border-radius:14px}
+  .capture{padding-left:.75rem}
+  .capture .btn-amber{padding:.62rem .9rem;font-size:.86rem}
+  .feats4 span{font-size:.72rem}
+}
+
+/* ---------- very large screens ---------- */
+@media (min-width:1600px){
+  :root{--maxw:64rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ltr,.nib,.scrollcue svg{animation:none}
+  .rev{animation:none;opacity:1}
+  .wipe{animation:none;transform:scaleX(1)}
+  .script .swoosh{animation:none;stroke-dashoffset:0}
+  .scrollcue{animation:none;opacity:1}
+  .pupil{animation:none;transform:scale(1)}
+  .lid{animation:none;transform:scaleY(0)}
+  /* also suppress the mobile auto-tilt */
+  .hero-art,.brand .mark{animation:none!important}
+}
+
+@media print{
+  .hero-art,.hero-scrim,.scrollcue,.subscribe,.navlinks,.menu-btn,.site-footer,.cta{display:none}
+  body{background:#fff}
+  .shell{margin-top:0}
+  .card{box-shadow:none}
+  .rank-hero,.rank-side li{background:#fff;color:#000;border:1px solid #999}
+}
+
+/* ---------- memory palace guide: route steps and figure ---------- */
+.article .route{list-style:none;padding:0;margin:1.2rem 0 1.5rem}
+.route li{display:flex;gap:.9rem;margin:0 0 1.15rem;position:relative}
+.route li:not(:last-child)::before{content:"";position:absolute;left:1.05rem;top:2.25rem;bottom:-1.15rem;width:2px;background:var(--amber);opacity:.55}
+.route .stop{flex:0 0 2.1rem;height:2.1rem;border-radius:50%;background:var(--amber);color:var(--ink);font-weight:800;display:flex;align-items:center;justify-content:center}
+.route b{display:block;margin-bottom:.15rem}
+.route p{margin:0;color:#3F3B37;line-height:1.55}
+.fig{margin:1.6rem 0}
+.fig img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--hair)}
+.fig figcaption{font-size:.86rem;color:var(--muted);margin-top:.55rem;line-height:1.5}
+.palace p.dim a{font-weight:700}
+
+/* ---------- inner page header on small phones: keep the bar inside the screen ---------- */
+@media (max-width:719px){
+  .site-header .brand{width:clamp(6.5rem,30vw,9.5rem)}
+  .site-header .navcta{padding:.5rem .8rem;font-size:.8rem;gap:.3rem}
+  .site-header .navcta svg{display:none}
+}
+@media (max-width:349px){
+  .site-header .navcta{display:none}
+}
+
+/* key facts heading: keep it tight inside its card (the article h2 margin was leaking in) */
+.article .keyfacts h2{margin:0 0 .9rem;font-size:.8rem;line-height:1.2}
+
+/* desktop nav: keep each label on one line now that there are more links */
+@media (min-width:720px){
+  .navlinks a,.dd-btn{white-space:nowrap}
+}
+
+/* ============================================================
+   MICROTILT — works on both desktop (mousemove) and mobile
+   (deviceorientation / gyroscope). Applied via JS custom props.
+   ============================================================ */
+.hero-art,
+.brand .mark{
+  will-change:transform;
+  /* smooth but not laggy — 80 ms tracks a fast cursor, 0ms = jitter */
+  transition:transform .08s linear;
+}
+/* perspective lives on the wrapper so it doesn't fight the
+   existing absolute positioning on .hero-art */
+.hero{
+  /* perspective needed for rotateX/Y to look 3-D */
+  perspective:1200px;
+  perspective-origin:50% 40%;
+}
+.brand{
+  perspective:600px;
+  perspective-origin:50% 50%;
+}
+
+/* ============================================================
+   MOBILE AUTO-TILT
+   On touch devices there is no mouse to drive the tilt, and the
+   gyroscope only fires on physical movement. This CSS animation
+   gives the same continuous parallax feel automatically.
+   The gyroscope JS (site.js) overrides via inline style when the
+   device is actually being tilted — a dead-zone in the JS lets
+   the CSS animation resume when it's held still.
+   ============================================================ */
+@media (hover:none) and (pointer:coarse){
+  @keyframes sr-autotilt-art{
+    0%,100%{transform:rotateX(0deg)   rotateY(0deg)}
+    25%    {transform:rotateX(1.2deg) rotateY(2.5deg)}
+    50%    {transform:rotateX(-1.6deg)rotateY(-2deg)}
+    75%    {transform:rotateX(2deg)   rotateY(-1.5deg)}
+  }
+  @keyframes sr-autotilt-mark{
+    0%,100%{transform:rotateX(0deg)   rotateY(0deg)}
+    25%    {transform:rotateX(.85deg) rotateY(1.8deg)}
+    50%    {transform:rotateX(-1.1deg)rotateY(-1.4deg)}
+    75%    {transform:rotateX(1.4deg) rotateY(-1deg)}
+  }
+  .hero-art{
+    animation:sr-autotilt-art 9s ease-in-out infinite;
+    /* override the .08s linear transition — animation drives it */
+    transition:none;
+  }
+  .brand .mark{
+    animation:sr-autotilt-mark 11s ease-in-out infinite;
+    animation-delay:-4s;
+    transition:none;
+  }
+}
