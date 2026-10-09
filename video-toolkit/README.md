@@ -2,7 +2,7 @@
 
 Everything used to make SketchRoot's reels and memory-palace explainers: HTML scenes rendered frame by frame with headless Chromium, Python image tools for cut-outs, inpainting and "painting" build-ups, and ffmpeg to encode.
 
-Nothing here touches the website. Netlify still builds only from `sketchroot-latest.zip`.
+Nothing here is part of the website. Netlify publishes the repo root, so `netlify.toml` returns a 404 for every `/video-toolkit/*` path.
 
 ## Setup (once)
 

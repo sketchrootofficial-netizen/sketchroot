@@ -15,6 +15,13 @@
   status = 301
   force = true
 
+# The video toolkit lives in this repo but is not part of the website.
+[[redirects]]
+  from = "/video-toolkit/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
 # Friendly aliases people may type or link to.
 [[redirects]]
   from = "/neet-mds-previous-year-questions"
