@@ -1,0 +1,216 @@
+[
+ {
+  "scene": "hook",
+  "cue": "hook",
+  "cap": "Four strange customers in this shop…",
+  "say": "Four strange customers in this shop,"
+ },
+ {
+  "scene": "hook",
+  "cap": "are every BSSO question you'll face in NEET MDS.",
+  "say": "are every B S S O question you'll face in neet M D S."
+ },
+ {
+  "scene": "hook",
+  "cue": "oneMin",
+  "cap": "Give me one minute. You'll never forget them.",
+  "say": "Give me one minute. You'll never forget them.",
+  "pause": 0.2
+ },
+ {
+  "scene": "problem",
+  "cap": "Be honest. You've read Obwegesser, Dal Pont, Hunsuck and Epker five times.",
+  "say": "Be honest. You've read Obvegesser, Daal Pont, Hunsuck and Epker, five times."
+ },
+ {
+  "scene": "problem",
+  "cue": "blank",
+  "cap": "And in the exam hall? Blank.",
+  "say": "And in the exam hall? Blank!",
+  "pause": 0.2
+ },
+ {
+  "scene": "problem",
+  "cap": "That's not a you problem. That's a textbook problem.",
+  "say": "That's not a you problem. That's a textbook problem.",
+  "pause": 0.15
+ },
+ {
+  "scene": "loci",
+  "cap": "Two thousand years ago, Roman orators memorised hour-long speeches with one trick:",
+  "say": "Two thousand years ago, Roman orators memorised hour long speeches, with one trick."
+ },
+ {
+  "scene": "loci",
+  "cue": "places",
+  "cap": "put every idea in a place. The method of loci.",
+  "say": "Put every idea in a place. The method of low kai."
+ },
+ {
+  "scene": "loci",
+  "cap": "Your brain forgets lists. It never forgets places.",
+  "say": "Your brain forgets lists. It never forgets places.",
+  "pause": 0.15
+ },
+ {
+  "scene": "kitchen",
+  "cap": "Where's the salt in your kitchen? The pressure cooker? The tea?",
+  "say": "Where's the salt in your kitchen? The pressure cooker? The tea?"
+ },
+ {
+  "scene": "kitchen",
+  "cap": "You just know. Nobody made you memorise it.",
+  "say": "You just know. Nobody made you memorise it.",
+  "pause": 0.15
+ },
+ {
+  "scene": "idea",
+  "cue": "palace",
+  "cap": "So we paint the places for you. Every topic, one scene.",
+  "say": "So we paint the places for you. Every topic, one scene."
+ },
+ {
+  "scene": "idea",
+  "cap": "And every character in it is a fact to remember.",
+  "say": "And every character in it, is a fact to remember.",
+  "pause": 0.15
+ },
+ {
+  "scene": "kada",
+  "cue": "ramu",
+  "cap": "Welcome to Ramu's Kada. Ramu, as in ramus.",
+  "say": "Welcome to Ramu's Kada. Ramu, as in raamus."
+ },
+ {
+  "scene": "kada",
+  "cue": "hugo",
+  "cap": "First, Hugo, bent under a giant water geyser, split right down the middle.",
+  "say": "First, Hugo, bent under a giant water geezer, split right down the middle."
+ },
+ {
+  "scene": "kada",
+  "cue": "hugoTag",
+  "cap": "Hugo… geyser… Obwegesser! The sagittal split, 1957.",
+  "say": "Hugo, geezer, Obvegesser! The sajittal split. Nineteen fifty seven."
+ },
+ {
+  "scene": "kada",
+  "cue": "dal",
+  "cap": "Next, Dal, hugging her sack, with a pipe that bends straight down.",
+  "say": "Next, Daal, hugging her sack, with a pipe that bends straight down."
+ },
+ {
+  "scene": "kada",
+  "cue": "dalTag",
+  "cap": "Dal Pont! The vertical buccal cut, 1961.",
+  "say": "Daal Pont! The vertical buccal cut. Nineteen sixty one."
+ },
+ {
+  "scene": "kada",
+  "cue": "hen",
+  "cap": "Then a hen, sucking on a short straw.",
+  "say": "Then a hen, sucking on a short straw."
+ },
+ {
+  "scene": "kada",
+  "cue": "henTag",
+  "cap": "Hen-suck… Hunsuck! He shortened the inner cut, 1968.",
+  "say": "Hen suck, Hunsuck! He shortened the inner cut. Nineteen sixty eight."
+ },
+ {
+  "scene": "kada",
+  "cue": "abkari",
+  "cap": "And Abkari, slicing ever so gently.",
+  "say": "And Abkaari, slicing ever so gently."
+ },
+ {
+  "scene": "kada",
+  "cue": "abkariTag",
+  "cap": "Abkari… Epker! Minimal muscle stripping, 1977.",
+  "say": "Abkaari, Epker! Minimal muscle stripping. Nineteen seventy seven."
+ },
+ {
+  "scene": "kada",
+  "cue": "bsso",
+  "cap": "Put the four together, and that's the BSSO done in theatre today.",
+  "say": "Put the four together, and that's the B S S O done in theatre today.",
+  "pause": 0.3
+ },
+ {
+  "scene": "recall",
+  "cue": "q1",
+  "cap": "Quick test. No peeking. Who shortened the inner cut?",
+  "say": "Quick test. No peeking! Who shortened the inner cut?",
+  "pause": 3.0
+ },
+ {
+  "scene": "recall",
+  "cue": "a1",
+  "cap": "The hen with the short straw. Hunsuck!",
+  "say": "The hen with the short straw. Hunsuck!",
+  "pause": 0.2
+ },
+ {
+  "scene": "recall",
+  "cue": "q2",
+  "cap": "Who made the split gentle?",
+  "say": "And who made the split gentle?",
+  "pause": 3.0
+ },
+ {
+  "scene": "recall",
+  "cue": "a2",
+  "cap": "Abkari and his tiny knife. Epker!",
+  "say": "Abkaari and his tiny knife. Epker!",
+  "pause": 0.2
+ },
+ {
+  "scene": "recall",
+  "cue": "done",
+  "cap": "See? You didn't memorise that. You walked through a shop.",
+  "say": "See? You didn't memorise that. You walked through a shop.",
+  "pause": 0.3
+ },
+ {
+  "scene": "compare",
+  "cap": "Coaching gives you more pages.",
+  "say": "Coaching gives you more pages."
+ },
+ {
+  "scene": "compare",
+  "cap": "SketchRoot gives you one picture, tests you on it,",
+  "say": "SketchRoot gives you one picture, tests you on it,"
+ },
+ {
+  "scene": "compare",
+  "cap": "and brings it back right before you'd forget.",
+  "say": "and brings it back, right before you'd forget.",
+  "pause": 0.15
+ },
+ {
+  "scene": "compare",
+  "cue": "science",
+  "cap": "Brain scans of memory champions show it's not IQ. It's places.",
+  "say": "Brain scans of memory champions show, it's not I Q. It's places.",
+  "pause": 0.2
+ },
+ {
+  "scene": "cta",
+  "cue": "founder",
+  "cap": "Every scene is painted and checked by toppers who practise what they teach.",
+  "say": "Every scene is painted and checked by toppers, who practise what they teach."
+ },
+ {
+  "scene": "cta",
+  "cue": "comment",
+  "cap": "Comment the topic you want painted next,",
+  "say": "Comment the topic you want painted next,"
+ },
+ {
+  "scene": "cta",
+  "cue": "url",
+  "cap": "and get early access at sketchroot.com",
+  "say": "and get early access, at sketchroot dot com.",
+  "pause": 1.6
+ }
+]

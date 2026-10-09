@@ -1,0 +1,324 @@
+{
+ "duration": 121.993,
+ "lines": [
+  {
+   "scene": "hook",
+   "cue": "hook",
+   "cap": "Four strange customers in this shop\u2026",
+   "say": "Four strange customers in this shop,",
+   "i": 0,
+   "start": 0.15,
+   "end": 2.062
+  },
+  {
+   "scene": "hook",
+   "cap": "are every BSSO question you'll face in NEET MDS.",
+   "say": "are every B S S O question you'll face in neet M D S.",
+   "i": 1,
+   "start": 2.183,
+   "end": 5.917
+  },
+  {
+   "scene": "hook",
+   "cue": "oneMin",
+   "cap": "Give me one minute. You'll never forget them.",
+   "say": "Give me one minute. You'll never forget them.",
+   "pause": 0.2,
+   "i": 2,
+   "start": 6.037,
+   "end": 8.56
+  },
+  {
+   "scene": "problem",
+   "cap": "Be honest. You've read Obwegesser, Dal Pont, Hunsuck and Epker five times.",
+   "say": "Be honest. You've read Obvegesser, Daal Pont, Hunsuck and Epker, five times.",
+   "i": 3,
+   "start": 8.88,
+   "end": 13.843
+  },
+  {
+   "scene": "problem",
+   "cue": "blank",
+   "cap": "And in the exam hall? Blank.",
+   "say": "And in the exam hall? Blank!",
+   "pause": 0.2,
+   "i": 4,
+   "start": 13.963,
+   "end": 15.614
+  },
+  {
+   "scene": "problem",
+   "cap": "That's not a you problem. That's a textbook problem.",
+   "say": "That's not a you problem. That's a textbook problem.",
+   "pause": 0.15,
+   "i": 5,
+   "start": 15.934,
+   "end": 18.985
+  },
+  {
+   "scene": "loci",
+   "cap": "Two thousand years ago, Roman orators memorised hour-long speeches with one trick:",
+   "say": "Two thousand years ago, Roman orators memorised hour long speeches, with one trick.",
+   "i": 6,
+   "start": 19.255,
+   "end": 23.901
+  },
+  {
+   "scene": "loci",
+   "cue": "places",
+   "cap": "put every idea in a place. The method of loci.",
+   "say": "Put every idea in a place. The method of low kai.",
+   "i": 7,
+   "start": 24.021,
+   "end": 27.268
+  },
+  {
+   "scene": "loci",
+   "cap": "Your brain forgets lists. It never forgets places.",
+   "say": "Your brain forgets lists. It never forgets places.",
+   "pause": 0.15,
+   "i": 8,
+   "start": 27.388,
+   "end": 30.441
+  },
+  {
+   "scene": "kitchen",
+   "cap": "Where's the salt in your kitchen? The pressure cooker? The tea?",
+   "say": "Where's the salt in your kitchen? The pressure cooker? The tea?",
+   "i": 9,
+   "start": 30.711,
+   "end": 34.061
+  },
+  {
+   "scene": "kitchen",
+   "cap": "You just know. Nobody made you memorise it.",
+   "say": "You just know. Nobody made you memorise it.",
+   "pause": 0.15,
+   "i": 10,
+   "start": 34.181,
+   "end": 37.059
+  },
+  {
+   "scene": "idea",
+   "cue": "palace",
+   "cap": "So we paint the places for you. Every topic, one scene.",
+   "say": "So we paint the places for you. Every topic, one scene.",
+   "i": 11,
+   "start": 37.329,
+   "end": 40.506
+  },
+  {
+   "scene": "idea",
+   "cap": "And every character in it is a fact to remember.",
+   "say": "And every character in it, is a fact to remember.",
+   "pause": 0.15,
+   "i": 12,
+   "start": 40.626,
+   "end": 43.047
+  },
+  {
+   "scene": "kada",
+   "cue": "ramu",
+   "cap": "Welcome to Ramu's Kada. Ramu, as in ramus.",
+   "say": "Welcome to Ramu's Kada. Ramu, as in raamus.",
+   "i": 13,
+   "start": 43.317,
+   "end": 46.435
+  },
+  {
+   "scene": "kada",
+   "cue": "hugo",
+   "cap": "First, Hugo, bent under a giant water geyser, split right down the middle.",
+   "say": "First, Hugo, bent under a giant water geezer, split right down the middle.",
+   "i": 14,
+   "start": 46.555,
+   "end": 50.43
+  },
+  {
+   "scene": "kada",
+   "cue": "hugoTag",
+   "cap": "Hugo\u2026 geyser\u2026 Obwegesser! The sagittal split, 1957.",
+   "say": "Hugo, geezer, Obvegesser! The sajittal split. Nineteen fifty seven.",
+   "i": 15,
+   "start": 50.55,
+   "end": 55.21
+  },
+  {
+   "scene": "kada",
+   "cue": "dal",
+   "cap": "Next, Dal, hugging her sack, with a pipe that bends straight down.",
+   "say": "Next, Daal, hugging her sack, with a pipe that bends straight down.",
+   "i": 16,
+   "start": 55.33,
+   "end": 58.405
+  },
+  {
+   "scene": "kada",
+   "cue": "dalTag",
+   "cap": "Dal Pont! The vertical buccal cut, 1961.",
+   "say": "Daal Pont! The vertical buccal cut. Nineteen sixty one.",
+   "i": 17,
+   "start": 58.525,
+   "end": 62.339
+  },
+  {
+   "scene": "kada",
+   "cue": "hen",
+   "cap": "Then a hen, sucking on a short straw.",
+   "say": "Then a hen, sucking on a short straw.",
+   "i": 18,
+   "start": 62.459,
+   "end": 64.541
+  },
+  {
+   "scene": "kada",
+   "cue": "henTag",
+   "cap": "Hen-suck\u2026 Hunsuck! He shortened the inner cut, 1968.",
+   "say": "Hen suck, Hunsuck! He shortened the inner cut. Nineteen sixty eight.",
+   "i": 19,
+   "start": 64.661,
+   "end": 68.804
+  },
+  {
+   "scene": "kada",
+   "cue": "abkari",
+   "cap": "And Abkari, slicing ever so gently.",
+   "say": "And Abkaari, slicing ever so gently.",
+   "i": 20,
+   "start": 68.924,
+   "end": 71.245
+  },
+  {
+   "scene": "kada",
+   "cue": "abkariTag",
+   "cap": "Abkari\u2026 Epker! Minimal muscle stripping, 1977.",
+   "say": "Abkaari, Epker! Minimal muscle stripping. Nineteen seventy seven.",
+   "i": 21,
+   "start": 71.365,
+   "end": 75.516
+  },
+  {
+   "scene": "kada",
+   "cue": "bsso",
+   "cap": "Put the four together, and that's the BSSO done in theatre today.",
+   "say": "Put the four together, and that's the B S S O done in theatre today.",
+   "pause": 0.3,
+   "i": 22,
+   "start": 75.636,
+   "end": 79.299
+  },
+  {
+   "scene": "recall",
+   "cue": "q1",
+   "cap": "Quick test. No peeking. Who shortened the inner cut?",
+   "say": "Quick test. No peeking! Who shortened the inner cut?",
+   "pause": 3.0,
+   "i": 23,
+   "start": 79.719,
+   "end": 83.049
+  },
+  {
+   "scene": "recall",
+   "cue": "a1",
+   "cap": "The hen with the short straw. Hunsuck!",
+   "say": "The hen with the short straw. Hunsuck!",
+   "pause": 0.2,
+   "i": 24,
+   "start": 86.169,
+   "end": 88.22
+  },
+  {
+   "scene": "recall",
+   "cue": "q2",
+   "cap": "Who made the split gentle?",
+   "say": "And who made the split gentle?",
+   "pause": 3.0,
+   "i": 25,
+   "start": 88.54,
+   "end": 90.049
+  },
+  {
+   "scene": "recall",
+   "cue": "a2",
+   "cap": "Abkari and his tiny knife. Epker!",
+   "say": "Abkaari and his tiny knife. Epker!",
+   "pause": 0.2,
+   "i": 26,
+   "start": 93.169,
+   "end": 95.298
+  },
+  {
+   "scene": "recall",
+   "cue": "done",
+   "cap": "See? You didn't memorise that. You walked through a shop.",
+   "say": "See? You didn't memorise that. You walked through a shop.",
+   "pause": 0.3,
+   "i": 27,
+   "start": 95.618,
+   "end": 99.106
+  },
+  {
+   "scene": "compare",
+   "cap": "Coaching gives you more pages.",
+   "say": "Coaching gives you more pages.",
+   "i": 28,
+   "start": 99.526,
+   "end": 101.356
+  },
+  {
+   "scene": "compare",
+   "cap": "SketchRoot gives you one picture, tests you on it,",
+   "say": "SketchRoot gives you one picture, tests you on it,",
+   "i": 29,
+   "start": 101.476,
+   "end": 104.073
+  },
+  {
+   "scene": "compare",
+   "cap": "and brings it back right before you'd forget.",
+   "say": "and brings it back, right before you'd forget.",
+   "pause": 0.15,
+   "i": 30,
+   "start": 104.193,
+   "end": 106.461
+  },
+  {
+   "scene": "compare",
+   "cue": "science",
+   "cap": "Brain scans of memory champions show it's not IQ. It's places.",
+   "say": "Brain scans of memory champions show, it's not I Q. It's places.",
+   "pause": 0.2,
+   "i": 31,
+   "start": 106.731,
+   "end": 110.687
+  },
+  {
+   "scene": "cta",
+   "cue": "founder",
+   "cap": "Every scene is painted and checked by toppers who practise what they teach.",
+   "say": "Every scene is painted and checked by toppers, who practise what they teach.",
+   "i": 32,
+   "start": 111.007,
+   "end": 114.747
+  },
+  {
+   "scene": "cta",
+   "cue": "comment",
+   "cap": "Comment the topic you want painted next,",
+   "say": "Comment the topic you want painted next,",
+   "i": 33,
+   "start": 114.867,
+   "end": 117.051
+  },
+  {
+   "scene": "cta",
+   "cue": "url",
+   "cap": "and get early access at sketchroot.com",
+   "say": "and get early access, at sketchroot dot com.",
+   "pause": 1.6,
+   "i": 34,
+   "start": 117.171,
+   "end": 119.873
+  }
+ ]
+}
