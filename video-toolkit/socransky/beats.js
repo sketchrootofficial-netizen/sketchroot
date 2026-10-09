@@ -5,37 +5,43 @@
 //   say    narration line (also the on-screen caption)
 //   cam    box id (or array of ids) the camera frames
 //   reveal [ids]  characters that paint in (pencil, then colour), staggered by `gap` seconds
-//   ghost  zone whose pencil under-drawing fades in   ·  wash  zone that turns fully colour
+//   ghost  zone(s) whose pencil under-drawing fades in · wash  zone(s) that turn fully colour
+//          zones: all (whole building), wall, street, door, floor, base
 //   chip   [label, colour] section tag, top left
-//   card   'title' | 'diagram' | 'outsiders' | 'legend' | 'end'
+//   card   'title' | 'diagram' | 'legend' | 'end'
 //   mcq    {q, o:[4 options], a: index of the answer, keep:[points to remember]}
 //   hold   extra seconds on the beat
 
-// Boxes in building pixels (wall 0–941, floor 941–1882, basement 1882–2823; width 1672)
+// Boxes in building pixels (4310 × 2262, see build.py): mural 0–1672 × 150–1050, street below it,
+// door column 1672–2638, orange floor 2638– × 150–1091, red basement 2638– × 1091–2032
 const BOX = {
-  all: {x: 0, y: 0, w: 1672, h: 2823},
-  wall: {x: 0, y: 0, w: 1672, h: 941}, floor: {x: 0, y: 941, w: 1672, h: 941}, base: {x: 0, y: 1882, w: 1672, h: 941},
+  all: {x: 0, y: 0, w: 4310, h: 2262},
+  wall: {x: 0, y: 150, w: 1672, h: 900}, street: {x: 0, y: 1050, w: 1672, h: 982}, door: {x: 1672, y: 150, w: 966, h: 1882},
+  floor: {x: 2638, y: 150, w: 1672, h: 941}, base: {x: 2638, y: 1091, w: 1672, h: 941}, inside: {x: 2638, y: 150, w: 1672, h: 1882},
+  front: {x: 0, y: 150, w: 2638, h: 1882},
+  // the doorman and the two outsiders (from layout-ref.png)
+  crank: {x: 1940, y: 680, w: 540, h: 1350}, outs: {x: 720, y: 1150, w: 900, h: 900},
+  nox: {x: 720, y: 1480, w: 520, h: 580}, aab: {x: 1180, y: 1150, w: 430, h: 900},
   // street wall: blue, yellow, green, purple
-  act: {x: 0, y: 80, w: 345, h: 780},
-  strep: {x: 320, y: 30, w: 390, h: 880},
-  mit: {x: 320, y: 40, w: 380, h: 170}, ora: {x: 370, y: 195, w: 290, h: 125}, san: {x: 380, y: 310, w: 300, h: 140},
-  ssp: {x: 380, y: 430, w: 310, h: 120}, gor: {x: 370, y: 540, w: 280, h: 140}, int: {x: 350, y: 670, w: 320, h: 220},
-  green: {x: 700, y: 30, w: 660, h: 850}, skate: {x: 700, y: 40, w: 660, h: 500},
-  cgi: {x: 740, y: 45, w: 330, h: 255}, csp: {x: 1030, y: 55, w: 320, h: 260}, coc: {x: 700, y: 305, w: 370, h: 235},
-  ccon: {x: 1080, y: 330, w: 250, h: 250}, eco: {x: 720, y: 555, w: 320, h: 265}, aaa: {x: 1010, y: 575, w: 350, h: 290},
-  purple: {x: 1300, y: 100, w: 372, h: 780},
-  vpa: {x: 1340, y: 120, w: 332, h: 340}, aod: {x: 1300, y: 470, w: 372, h: 400},
+  act: {x: 0, y: 230, w: 345, h: 780},
+  strep: {x: 320, y: 180, w: 390, h: 880},
+  mit: {x: 320, y: 190, w: 380, h: 170}, ora: {x: 370, y: 345, w: 290, h: 125}, san: {x: 380, y: 460, w: 300, h: 140},
+  ssp: {x: 380, y: 580, w: 310, h: 120}, gor: {x: 370, y: 690, w: 280, h: 140}, int: {x: 350, y: 820, w: 320, h: 220},
+  green: {x: 700, y: 180, w: 660, h: 850}, skate: {x: 700, y: 190, w: 660, h: 500},
+  cgi: {x: 740, y: 195, w: 330, h: 255}, csp: {x: 1030, y: 205, w: 320, h: 260}, coc: {x: 700, y: 455, w: 370, h: 235},
+  ccon: {x: 1080, y: 480, w: 250, h: 250}, eco: {x: 720, y: 705, w: 320, h: 265}, aaa: {x: 1010, y: 725, w: 350, h: 290},
+  purple: {x: 1300, y: 250, w: 372, h: 780},
+  vpa: {x: 1340, y: 270, w: 332, h: 340}, aod: {x: 1300, y: 620, w: 372, h: 400},
   // orange main floor
-  door: {x: 700, y: 760, w: 400, h: 860},
-  core: {x: 370, y: 1186, w: 1020, h: 450}, fuso: {x: 800, y: 1186, w: 590, h: 440},
-  rec: {x: 0, y: 981, w: 350, h: 330}, gra: {x: 460, y: 951, w: 240, h: 300}, sho: {x: 1280, y: 961, w: 270, h: 290},
-  con: {x: 30, y: 1351, w: 400, h: 310}, nod: {x: 1410, y: 1251, w: 262, h: 320},
-  pin: {x: 380, y: 1256, w: 150, h: 255}, pni: {x: 530, y: 1256, w: 160, h: 265}, pmi: {x: 680, y: 1286, w: 140, h: 255},
-  prev: {x: 370, y: 1240, w: 460, h: 300},
-  fnn: {x: 805, y: 1186, w: 145, h: 440}, fnv: {x: 935, y: 1241, w: 130, h: 385}, fnp: {x: 1060, y: 1236, w: 155, h: 390},
-  fpe: {x: 1200, y: 1311, w: 185, h: 255},
+  core: {x: 3008, y: 395, w: 1020, h: 450}, fuso: {x: 3438, y: 395, w: 590, h: 440},
+  rec: {x: 2638, y: 190, w: 350, h: 330}, gra: {x: 3098, y: 160, w: 240, h: 300}, sho: {x: 3918, y: 170, w: 270, h: 290},
+  con: {x: 2668, y: 560, w: 400, h: 310}, nod: {x: 4048, y: 460, w: 262, h: 320},
+  pin: {x: 3018, y: 465, w: 150, h: 255}, pni: {x: 3168, y: 465, w: 160, h: 265}, pmi: {x: 3318, y: 495, w: 140, h: 255},
+  prev: {x: 3008, y: 449, w: 460, h: 300},
+  fnn: {x: 3443, y: 395, w: 145, h: 440}, fnv: {x: 3573, y: 450, w: 130, h: 385}, fnp: {x: 3698, y: 445, w: 155, h: 390},
+  fpe: {x: 3838, y: 520, w: 185, h: 255},
   // red basement
-  pgi: {x: 0, y: 1882, w: 1000, h: 700}, tfo: {x: 820, y: 1932, w: 540, h: 420}, tde: {x: 1260, y: 2132, w: 412, h: 620},
+  pgi: {x: 2638, y: 1091, w: 1000, h: 700}, tfo: {x: 3458, y: 1141, w: 540, h: 420}, tde: {x: 3898, y: 1341, w: 412, h: 620},
 };
 
 const BLUE = ['BLUE COMPLEX', '#1F3FFF'], YEL = ['YELLOW COMPLEX', '#C9C400'], PUR = ['PURPLE COMPLEX', '#8E2BC2'],
@@ -44,15 +50,17 @@ const BLUE = ['BLUE COMPLEX', '#1F3FFF'], YEL = ['YELLOW COMPLEX', '#C9C400'], P
 
 const BEATS = [
   // ───────── INTRO ─────────
-  {card: 'title', cam: 'all', hold: 3, chip: INTRO,
+  {card: 'title', cam: 'all', ghost: 'all', hold: 3, chip: INTRO,
     say: "Welcome to So-Cranky's Bar. Every bacterium in Socransky's complexes has a seat here, and every MCQ has a hook."},
   {cam: 'all', ghost: 'wall', chip: INTRO,
     say: "In 1998, Sigmund Socransky and his team sorted the bacteria living under your gums into gangs. They called them microbial complexes, and named each one by a colour."},
   {card: 'diagram', cam: 'all', chip: INTRO,
     say: "This is the diagram examiners love. Six colours, a bridge, and a red corner. You won't memorise it tonight. You'll walk through it."},
-  {cam: 'all', ghost: 'floor', chip: INTRO,
-    say: "The building has three levels. Outside is the street wall: the clean tooth surface, where the early colonisers stick. Inside is the orange main floor, the bridge crowd. And the basement, deepest in the pocket, belongs to the red complex."},
-  {cam: 'all', ghost: 'base', chip: INTRO, mcq: {
+  {cam: 'all', ghost: ['door', 'floor', 'base'], chip: INTRO,
+    say: "Here's the bar. Outside is the street wall: the clean tooth surface, where the early colonisers stick. Inside, upstairs, is the orange main floor, the bridge crowd. And downstairs, in the basement, deepest in the pocket: the red complex."},
+  {cam: 'crank', reveal: ['crank'], chip: INTRO,
+    say: "And at the door, me. Professor So-Cranky. My wristbands are colour-coded. I decide who gets in, and which floor they're allowed on."},
+  {cam: 'crank', wash: 'door', chip: INTRO, mcq: {
     q: 'Socransky et al. (1998) defined the subgingival microbial complexes using:',
     o: ['Culture on blood agar', 'Checkerboard DNA–DNA hybridisation', '16S rRNA gene sequencing', 'Dark-field microscopy'], a: 1,
     keep: ['13,261 subgingival plaque samples from 185 adults', '40 bacterial species tested', 'Cluster analysis grouped them into colour-coded complexes (J Clin Periodontol 1998;25:134–144)']}},
@@ -120,16 +128,16 @@ const BEATS = [
     say: "That's the whole wall: blue, yellow, purple and green. The early colonisers. Mostly host-compatible, they build the stage the others will stand on."},
 
   // ───────── OUTSIDERS ─────────
-  {card: 'outsiders', cam: 'wall', chip: OUT,
-    say: "Two characters never got a wristband. A. actinomycetemcomitans serotype b, and Selenomonas noxia. In Socransky's diagram they sit outside every complex."},
-  {card: 'outsiders', cam: 'wall', chip: OUT, mcq: {
+  {cam: 'outs', ghost: 'street', reveal: ['nox', 'aab'], gap: 2, chip: OUT,
+    say: "Down on the street, two characters never got a wristband. A. actinomycetemcomitans serotype b, the bouncer's green twin, and Selenomonas noxia with her backpack. In Socransky's diagram they sit outside every complex."},
+  {cam: 'outs', wash: 'street', chip: OUT, mcq: {
     q: 'Which A. actinomycetemcomitans serotype lies outside the complexes and is linked to localized aggressive periodontitis?',
     o: ['Serotype a', 'Serotype b', 'Serotype c', 'Serotype e'], a: 1,
     keep: ['Serotype a: green complex · serotype b: no complex', 'JP2 clone (serotype b) has a 530-bp deletion in the leukotoxin promoter, so it makes far more toxin', 'Localized aggressive periodontitis is now the molar–incisor pattern, Grade C (2017 classification)']}},
 
   // ───────── THE BRIDGE ─────────
   {cam: 'fnn', reveal: ['fnn'], ghost: 'floor', chip: ORA,
-    say: "Now step through the door. Standing just inside, with a nuclear hat and a lit fuse: Fusobacterium nucleatum. Nucleatum, nuclear."},
+    say: "Now past the ropes and up to the main floor. Right in the middle, with a nuclear hat and a lit fuse: Fusobacterium nucleatum. Nucleatum, nuclear."},
   {cam: 'fnn', chip: ORA,
     say: "He's long, with pointed ends: fusiform, spindle-shaped. And he's the bridge. Fusobacterium sticks to almost every early coloniser and to the late colonisers too. Without him, the basement crowd never gets in."},
   {cam: 'fnn', chip: ORA, mcq: {
@@ -217,8 +225,8 @@ const BEATS = [
     keep: ['The counter bleeds = bleeding on probing', 'The basement = the deepest pockets', 'Prevalence and levels rise with pocket depth']}},
 
   // ───────── RECAP ─────────
-  {card: 'legend', cam: 'all', chip: INTRO,
-    say: "Now zoom out. Walk it top to bottom: wall, door, floor, basement. That's the order plaque matures, and the order the disease gets worse."},
+  {card: 'legend', cam: 'all', wash: 'all', chip: INTRO,
+    say: "Now zoom out. Walk it the way the bacteria do: the wall, the door, upstairs, then the basement. That's the order plaque matures, and the order the disease gets worse."},
   {card: 'legend', cam: 'all', chip: INTRO, mcq: {
     q: 'The correct sequence of plaque colonisation is:',
     o: ['Red → orange → yellow', 'Yellow / blue → orange → red', 'Orange → yellow → red', 'Green → red → orange'], a: 1,

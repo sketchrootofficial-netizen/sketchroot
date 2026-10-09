@@ -1,6 +1,6 @@
 # So-Cranky's Bar: Socransky's microbial complexes
 
-### Voice-over script with on-screen cues · 17:23 · 22 MCQs
+### Voice-over script with on-screen cues · 17:44 · 22 MCQs
 
 Generated from `socransky/beats.js`. Edit the beats there, re-run this script and re-render, so the timings stay in sync.
 
@@ -26,9 +26,13 @@ This is the diagram examiners love. Six colours, a bridge, and a red corner. You
 
 **0:37** `[CAM: all]`
 
-The building has three levels. Outside is the street wall: the clean tooth surface, where the early colonisers stick. Inside is the orange main floor, the bridge crowd. And the basement, deepest in the pocket, belongs to the red complex.
+Here's the bar. Outside is the street wall: the clean tooth surface, where the early colonisers stick. Inside, upstairs, is the orange main floor, the bridge crowd. And downstairs, in the basement, deepest in the pocket: the red complex.
 
-**0:55** `[CAM: all]`
+**0:55** `[CAM: crank]` `[ADD: crank]`
+
+And at the door, me. Professor So-Cranky. My wristbands are colour-coded. I decide who gets in, and which floor they're allowed on.
+
+**1:05** `[CAM: crank]` `[WASH: door]`
 
 **MCQ 1.** Socransky et al. (1998) defined the subgingival microbial complexes using:
 
@@ -48,15 +52,15 @@ Keep in mind:
 
 ## BLUE COMPLEX
 
-**1:22** `[CAM: wall]`
+**1:33** `[CAM: wall]`
 
 We start outside, on the street wall. Bare enamel, freshly coated with salivary pellicle. Only pioneers can stick here.
 
-**1:32** `[CAM: act]` `[ADD: act]`
+**1:42** `[CAM: act]` `[ADD: act]`
 
 In the blue band, a hairy actor in a red cape: Actinomyces. Gram-positive, filamentous, and those long threads are his fimbriae, which grab the pellicle. The blue complex is Actinomyces species.
 
-**1:46** `[CAM: act]`
+**1:57** `[CAM: act]`
 
 **MCQ 2.** Which of the following is an early coloniser of the tooth surface?
 
@@ -76,19 +80,19 @@ Keep in mind:
 
 ## YELLOW COMPLEX
 
-**2:12** `[CAM: strep]` `[ADD: mit]`
+**2:22** `[CAM: strep]` `[ADD: mit]`
 
 Next door, the yellow band: a chain of cranky little cocci holding hands. Cocci in chains: streptococci. The yellow complex is the streptococci.
 
-**2:23** `[CAM: strep]` `[ADD: ora]` `[ADD: san]` `[ADD: ssp]` `[ADD: gor]` `[ADD: int]`
+**2:34** `[CAM: strep]` `[ADD: ora]` `[ADD: san]` `[ADD: ssp]` `[ADD: gor]` `[ADD: int]`
 
 S. mitis in boxing mittens. S. oralis shouting through a megaphone. S. sanguis, the singer. A plain Streptococcus species. S. gordonii, the gardener. And at the bottom, S. intermedius, the intern.
 
-**2:38** `[CAM: int]`
+**2:48** `[CAM: int]`
 
 Watch the crumbs falling on the pavement. Streptococci ferment sugar and drop lactate. Someone on this wall is hungry for it.
 
-**2:48** `[CAM: strep]`
+**2:59** `[CAM: strep]`
 
 **MCQ 3.** The predominant initial coloniser of a freshly cleaned tooth surface is:
 
@@ -108,11 +112,11 @@ Keep in mind:
 
 ## PURPLE COMPLEX
 
-**3:17** `[CAM: vpa]` `[ADD: vpa]`
+**3:27** `[CAM: vpa]` `[ADD: vpa]`
 
 Skip to the purple band. A tiny veiled girl picking the crumbs off the pavement: Veillonella parvula. Veil, Veillonella. Parvula, little. She eats the lactate the streptococci drop.
 
-**3:30** `[CAM: vpa]`
+**3:41** `[CAM: vpa]`
 
 **MCQ 4.** Veillonella parvula uses which product of streptococcal metabolism as its energy source?
 
@@ -128,11 +132,11 @@ Keep in mind:
 - Turns lactic acid into weaker acids (propionate, acetate)
 - Classic example of metabolic cross-feeding in plaque
 
-**3:54** `[CAM: aod]` `[ADD: aod]`
+**4:04** `[CAM: aod]` `[ADD: aod]`
 
 Below her, a purple character with a drill, grinding a tooth to dust: Actinomyces odontolyticus. Odonto, tooth. Lyticus, dissolving. It was first isolated from deep carious lesions.
 
-**4:07** `[CAM: purple]`
+**4:17** `[CAM: purple]`
 
 **MCQ 5.** The purple complex consists of:
 
@@ -152,15 +156,15 @@ Keep in mind:
 
 ## GREEN COMPLEX
 
-**4:34** `[CAM: skate]` `[ADD: cgi]` `[ADD: csp]` `[ADD: coc]`
+**4:44** `[CAM: skate]` `[ADD: cgi]` `[ADD: csp]` `[ADD: coc]`
 
 Now the green band: the skate gang. Three Capnocytophaga on skateboards. C. gingivalis, C. sputigena spitting, and C. ochracea spraying ochre paint.
 
-**4:45** `[CAM: skate]`
+**4:55** `[CAM: skate]`
 
 Why skateboards? Capnocytophaga have no flagella. They glide. And capno means carbon dioxide: they need a CO2-rich atmosphere.
 
-**4:54** `[CAM: skate]`
+**5:04** `[CAM: skate]`
 
 **MCQ 6.** Capnocytophaga species are characterised by:
 
@@ -176,15 +180,15 @@ Keep in mind:
 - Three in the green complex: C. gingivalis, C. sputigena, C. ochracea
 - Skateboards = gliding
 
-**5:16** `[CAM: ccon]` `[ADD: ccon]`
+**5:27** `[CAM: ccon]` `[ADD: ccon]`
 
 The small clerk writing a concise note: Campylobacter concisus.
 
-**5:21** `[CAM: eco]` `[ADD: eco]`
+**5:32** `[CAM: eco]` `[ADD: eco]`
 
 The rusty one boring a pit into the bricks: Eikenella corrodens. Its colonies corrode, or pit, the agar they grow on.
 
-**5:32** `[CAM: eco]`
+**5:42** `[CAM: eco]`
 
 **MCQ 7.** Eikenella corrodens gets its species name because its colonies:
 
@@ -200,11 +204,11 @@ Keep in mind:
 - A member of the HACEK group (endocarditis)
 - Classic cause of human-bite wound infections
 
-**5:58** `[CAM: aaa]` `[ADD: aaa]`
+**6:09** `[CAM: aaa]` `[ADD: aaa]`
 
 And at the velvet rope, the bouncer with a laser eye: Aggregatibacter actinomycetemcomitans, serotype a. His laser is leukotoxin.
 
-**6:08** `[CAM: aaa]`
+**6:18** `[CAM: aaa]`
 
 **MCQ 8.** The leukotoxin of Aggregatibacter actinomycetemcomitans primarily kills:
 
@@ -220,7 +224,7 @@ Keep in mind:
 - Kills the host defenders: PMNs and monocytes / macrophages
 - Genus renamed from Actinobacillus to Aggregatibacter in 2006
 
-**6:32** `[CAM: wall]` `[WASH: wall]`
+**6:43** `[CAM: wall]` `[WASH: wall]`
 
 That's the whole wall: blue, yellow, purple and green. The early colonisers. Mostly host-compatible, they build the stage the others will stand on.
 
@@ -228,11 +232,11 @@ That's the whole wall: blue, yellow, purple and green. The early colonisers. Mos
 
 ## NO COMPLEX
 
-**6:44** `[CARD: outsiders]` `[CAM: wall]`
+**6:54** `[CAM: outs]` `[ADD: nox]` `[ADD: aab]`
 
-Two characters never got a wristband. A. actinomycetemcomitans serotype b, and Selenomonas noxia. In Socransky's diagram they sit outside every complex.
+Down on the street, two characters never got a wristband. A. actinomycetemcomitans serotype b, the bouncer's green twin, and Selenomonas noxia with her backpack. In Socransky's diagram they sit outside every complex.
 
-**6:54** `[CARD: outsiders]` `[CAM: wall]`
+**7:09** `[CAM: outs]` `[WASH: street]`
 
 **MCQ 9.** Which A. actinomycetemcomitans serotype lies outside the complexes and is linked to localized aggressive periodontitis?
 
@@ -252,15 +256,15 @@ Keep in mind:
 
 ## ORANGE COMPLEX
 
-**7:28** `[CAM: fnn]` `[ADD: fnn]`
+**7:43** `[CAM: fnn]` `[ADD: fnn]`
 
-Now step through the door. Standing just inside, with a nuclear hat and a lit fuse: Fusobacterium nucleatum. Nucleatum, nuclear.
+Now past the ropes and up to the main floor. Right in the middle, with a nuclear hat and a lit fuse: Fusobacterium nucleatum. Nucleatum, nuclear.
 
-**7:38** `[CAM: fnn]`
+**7:56** `[CAM: fnn]`
 
 He's long, with pointed ends: fusiform, spindle-shaped. And he's the bridge. Fusobacterium sticks to almost every early coloniser and to the late colonisers too. Without him, the basement crowd never gets in.
 
-**7:53** `[CAM: fnn]`
+**8:11** `[CAM: fnn]`
 
 **MCQ 10.** The "bridge" organism linking early and late colonisers in plaque is:
 
@@ -276,19 +280,19 @@ Keep in mind:
 - Gram-negative anaerobe, fusiform (spindle-shaped)
 - Also linked to colorectal cancer and preterm birth
 
-**8:20** `[CAM: floor]`
+**8:38** `[CAM: floor]`
 
 Welcome to the orange main floor. See how it sags in the middle? As this crowd grows, inflammation rises and the pocket deepens.
 
-**8:31** `[CAM: fuso]` `[ADD: fnv]` `[ADD: fnp]` `[ADD: fpe]`
+**8:49** `[CAM: fuso]` `[ADD: fnv]` `[ADD: fnp]` `[ADD: fpe]`
 
 Fusobacterium brought the family. F. nucleatum vincentii, with a bandaged ear, like Vincent. Polymorphum, hiding behind many masks: poly, many, morph, forms. And the tick-shaped F. periodonticum.
 
-**8:44** `[CAM: pin]` `[ADD: pin]`
+**9:02** `[CAM: pin]` `[ADD: pin]`
 
 In the inner circle, a pregnant reporter: Prevotella intermedia. Pregnancy and P. intermedia always go together.
 
-**8:52** `[CAM: pin]`
+**9:10** `[CAM: pin]`
 
 **MCQ 11.** Prevotella intermedia increases in pregnancy gingivitis because it:
 
@@ -304,15 +308,15 @@ Keep in mind:
 - Black-pigmented, Gram-negative anaerobe
 - Also a key player in necrotising gingivitis (with fusobacteria and spirochaetes)
 
-**9:22** `[CAM: pni]` `[ADD: pni]`
+**9:40** `[CAM: pni]` `[ADD: pni]`
 
 Beside her, a black crescent moon: Prevotella nigrescens. Nigrescens, blackening. Both Prevotellas form black-pigmented colonies.
 
-**9:30** `[CAM: pmi]` `[ADD: pmi]`
+**9:48** `[CAM: pmi]` `[ADD: pmi]`
 
 And the little singer with the microphone: P. micros. Peptostreptococcus micros, now renamed Parvimonas micra.
 
-**9:38** `[CAM: prev]`
+**9:55** `[CAM: prev]`
 
 **MCQ 12.** All of the following orange-complex members are Gram-negative EXCEPT:
 
@@ -328,27 +332,27 @@ Keep in mind:
 - Other Gram-positives on the floor: Eubacterium nodatum and Streptococcus constellatus
 - Every red-complex member is Gram-negative
 
-**10:04** `[CAM: rec]` `[ADD: rec]`
+**10:21** `[CAM: rec]` `[ADD: rec]`
 
 Around the edge, the rowdy ones. Straight-backed and smashing chairs: Campylobacter rectus. Rectus, straight. His old name was Wolinella recta.
 
-**10:14** `[CAM: gra]` `[ADD: gra]`
+**10:31** `[CAM: gra]` `[ADD: gra]`
 
 C. gracilis, the graceful dancer.
 
-**10:18** `[CAM: sho]` `[ADD: sho]`
+**10:36** `[CAM: sho]` `[ADD: sho]`
 
 C. showae, the showman on his stage.
 
-**10:22** `[CAM: nod]` `[ADD: nod]`
+**10:40** `[CAM: nod]` `[ADD: nod]`
 
 Eubacterium nodatum, tied up in knots. Nodatum, knotted.
 
-**10:27** `[CAM: con]` `[ADD: con]`
+**10:44** `[CAM: con]` `[ADD: con]`
 
 And under a cape full of stars, carrying an abscess balloon: Streptococcus constellatus. Careful. He's a streptococcus, but he sits in the orange complex, not the yellow.
 
-**10:40** `[CAM: con]`
+**10:57** `[CAM: con]`
 
 **MCQ 13.** Which streptococcus belongs to the ORANGE complex rather than the yellow?
 
@@ -364,11 +368,11 @@ Keep in mind:
 - The anginosus group is known for forming abscesses
 - Stars on the cape = constellation
 
-**11:07** `[CAM: floor]` `[WASH: floor]`
+**11:24** `[CAM: floor]` `[WASH: floor]`
 
 That's the orange complex. In the core: Fusobacterium, Prevotella and Parvimonas. Around them: the Campylobacters, Eubacterium nodatum and Streptococcus constellatus.
 
-**11:16** `[CAM: floor]`
+**11:34** `[CAM: floor]`
 
 **MCQ 14.** Red-complex species are rarely detected in the absence of which complex?
 
@@ -388,19 +392,19 @@ Keep in mind:
 
 ## RED COMPLEX
 
-**11:42** `[CAM: base]`
+**12:00** `[CAM: base]`
 
 Now down the stairs, to the deepest part of the pocket: the red basement VIP bar. Only three members, and they're the ones most strongly linked to periodontitis.
 
-**11:56** `[CAM: pgi]` `[ADD: pgi]`
+**12:13** `[CAM: pgi]` `[ADD: pgi]`
 
 Behind the bar, wearing a crown: Porphyromonas gingivalis. He pours fire onto a counter shaped like gums, and the gums bleed.
 
-**12:06** `[CAM: pgi]`
+**12:24** `[CAM: pgi]`
 
 His bottle is heme. P. gingivalis needs heme for its iron, which is why his colonies turn black on blood agar. His knives are the gingipains: cysteine proteases that cut after arginine and lysine.
 
-**12:22** `[CAM: pgi]`
+**12:40** `[CAM: pgi]`
 
 **MCQ 15.** Gingipains of Porphyromonas gingivalis are:
 
@@ -416,11 +420,11 @@ Keep in mind:
 - Degrade host proteins, cytokines and complement; release heme
 - Black pigment on blood agar = stored heme
 
-**12:45** `[CAM: pgi]`
+**13:03** `[CAM: pgi]`
 
 And the crown? He's a keystone pathogen. Even in small numbers, he disarms the host's complement defence and tips the whole community into dysbiosis.
 
-**12:57** `[CAM: pgi]`
+**13:14** `[CAM: pgi]`
 
 **MCQ 16.** Porphyromonas gingivalis is called a "keystone pathogen" because it:
 
@@ -436,15 +440,15 @@ Keep in mind:
 - Subverts complement (C5aR) and TLR2 signalling
 - Low numbers, big effect: the king, not the crowd
 
-**13:28** `[CAM: tfo]` `[ADD: tfo]`
+**13:45** `[CAM: tfo]` `[ADD: tfo]`
 
 Up on the watchtower: Tannerella forsythia, scraping hides. Look at her snacks, packets marked NAM. She needs N-acetylmuramic acid to grow.
 
-**13:38** `[CAM: tfo]`
+**13:56** `[CAM: tfo]`
 
 Her flag says BspA, a leucine-rich surface protein that helps her stick and triggers inflammation. Old names: Bacteroides forsythus, then Tannerella forsythensis.
 
-**13:49** `[CAM: tfo]`
+**14:06** `[CAM: tfo]`
 
 **MCQ 17.** Tannerella forsythia requires which growth factor in culture?
 
@@ -460,15 +464,15 @@ Keep in mind:
 - Virulence factors: BspA, S-layer, proteases
 - Old names: Bacteroides forsythus, Tannerella forsythensis
 
-**14:12** `[CAM: tde]` `[ADD: tde]`
+**14:30** `[CAM: tde]` `[ADD: tde]`
 
 And corkscrewing through the floor: Treponema denticola, opening a cola with a tooth for a cap. Denti, cola.
 
-**14:21** `[CAM: tde]`
+**14:39** `[CAM: tde]`
 
 He's a spirochaete. His flagella sit inside the cell, between the membranes, so he twists like a corkscrew through tissue. His protease is called dentilisin.
 
-**14:33** `[CAM: tde]`
+**14:51** `[CAM: tde]`
 
 **MCQ 18.** The major chymotrypsin-like protease of Treponema denticola is:
 
@@ -484,7 +488,7 @@ Keep in mind:
 - Spirochaete, motile by periplasmic flagella (endoflagella)
 - Major surface protein: Msp
 
-**14:53** `[CAM: base]` `[WASH: base]`
+**15:11** `[CAM: base]` `[WASH: base]`
 
 **MCQ 19.** The red complex consists of:
 
@@ -500,7 +504,7 @@ Keep in mind:
 - All three are Gram-negative anaerobes
 - P. intermedia is orange; A. a. is green or outside
 
-**15:24** `[CAM: base]`
+**15:41** `[CAM: base]`
 
 **MCQ 20.** The red complex shows the strongest association with:
 
@@ -520,11 +524,11 @@ Keep in mind:
 
 ## SO-CRANKY'S BAR
 
-**15:49** `[CARD: legend]` `[CAM: all]`
+**16:06** `[CARD: legend]` `[CAM: all]` `[WASH: all]`
 
-Now zoom out. Walk it top to bottom: wall, door, floor, basement. That's the order plaque matures, and the order the disease gets worse.
+Now zoom out. Walk it the way the bacteria do: the wall, the door, upstairs, then the basement. That's the order plaque matures, and the order the disease gets worse.
 
-**16:00** `[CARD: legend]` `[CAM: all]`
+**16:21** `[CARD: legend]` `[CAM: all]`
 
 **MCQ 21.** The correct sequence of plaque colonisation is:
 
@@ -540,7 +544,7 @@ Keep in mind:
 - Bridge: orange (F. nucleatum)
 - Late: red
 
-**16:26** `[CARD: legend]` `[CAM: all]`
+**16:46** `[CARD: legend]` `[CAM: all]`
 
 **MCQ 22.** Socransky's criteria for identifying periodontal pathogens include all EXCEPT:
 
@@ -556,11 +560,11 @@ Keep in mind:
 - Association, elimination, host response, virulence factors, animal studies
 - Pure culture from every lesion is Koch, not Socransky
 
-**16:56** `[CAM: all]`
+**17:17** `[CAM: all]`
 
 One last thing to keep in mind. The 1998 data covered 40 species. Newer sequencing found hundreds more, but the complexes are still what the exams ask. Know the colours, know the order, know the red three.
 
-**17:13** `[CARD: end]` `[CAM: all]`
+**17:34** `[CARD: end]` `[CAM: all]`
 
 Which bacterium tripped you up? Tell me in the comments. I'll be at the bar.
 

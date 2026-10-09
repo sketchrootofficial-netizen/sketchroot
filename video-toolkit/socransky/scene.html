@@ -51,14 +51,6 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#efe9dc;font-fam
   <div class="hand" style="font-size:40px;margin-top:8px;color:var(--muted)">Socransky et al., J Clin Periodontol 1998</div>
 </div>
 
-<div id="outs" class="abs card">
-  <div class="qk">NO WRISTBAND · OUTSIDE EVERY COMPLEX</div>
-  <div class="outrow"><svg width="150" height="150" viewBox="0 0 150 150"><ellipse cx="75" cy="80" rx="38" ry="58" fill="#d8d4cc" stroke="#272525" stroke-width="5"/><circle cx="62" cy="68" r="6"/><circle cx="88" cy="68" r="6"/><path d="M58 104 q17 -12 34 0" stroke="#272525" stroke-width="5" fill="none"/><path d="M50 58 l22 6 M100 58 l-22 6" stroke="#272525" stroke-width="5"/><rect x="18" y="118" width="40" height="12" rx="6" fill="none" stroke="#D91F26" stroke-width="5"/><path d="M14 112 L62 136" stroke="#D91F26" stroke-width="6"/></svg>
-    <div><div style="font-size:38px;font-weight:800">A. actino. b</div><div style="font-size:28px;color:var(--muted)">the bouncer's grey twin, laser switched off… for now</div></div></div>
-  <div class="outrow"><svg width="150" height="150" viewBox="0 0 150 150"><path d="M98 22 a58 58 0 1 0 0 106 a46 46 0 1 1 0 -106z" fill="#c9c2d6" stroke="#272525" stroke-width="5"/><rect x="40" y="70" width="42" height="30" rx="12" fill="#6F6A64" stroke="#272525" stroke-width="4"/><circle cx="50" cy="60" r="5"/><circle cx="72" cy="60" r="5"/><path d="M20 128 L60 108" stroke="#D91F26" stroke-width="6"/></svg>
-    <div><div style="font-size:38px;font-weight:800">S. noxia</div><div style="font-size:28px;color:var(--muted)">Selenomonas: selene, the moon. Noxia, noxious, so wear a gas mask</div></div></div>
-</div>
-
 <div id="legend" class="abs card">
   <div class="qk">WALK IT TOP TO BOTTOM</div>
   <div class="lg"><b style="background:#1F3FFF"></b><div><strong>Blue:</strong> Actinomyces spp.</div></div>
@@ -95,13 +87,14 @@ window.DURATION=DURATION;
 const C=$('cv'),X=C.getContext('2d'),O=document.createElement('canvas');O.width=1920;O.height=1080;const OX=O.getContext('2d');
 const IMG=new Image(),PEN=new Image();IMG.src='building.jpg';PEN.src='building_pencil.jpg';
 window.ready=Promise.all([IMG,PEN].map(i=>new Promise(r=>i.complete?r():i.onload=r)));
-const ZONES={wall:BOX.wall,floor:BOX.floor,base:BOX.base};
-const zoneOf=b=>b.y+b.h/2<941?'wall':b.y+b.h/2<1882?'floor':'base';
-const SIDE=b=>!!(b.mcq||b.card==='legend'||b.card==='outsiders');
+const BW=BOX.all.w,BH=BOX.all.h,ZONES={all:BOX.all,wall:BOX.wall,street:BOX.street,door:BOX.door,floor:BOX.floor,base:BOX.base};
+const inBox=(r,x,y)=>x>=r.x&&x<r.x+r.w&&y>=r.y&&y<r.y+r.h;
+const zoneOf=b=>['wall','street','door','floor','base'].find(z=>inBox(ZONES[z],b.x+b.w/2,b.y+b.h/2))||'all';
+const SIDE=b=>!!(b.mcq||b.card==='legend');
 
 // ---------- per-element schedules ----------
 const ghostAt={},washAt={},revealAt={};
-TL.forEach(b=>{if(b.ghost&&ghostAt[b.ghost]==null)ghostAt[b.ghost]=b.start;if(b.wash)washAt[b.wash]=b.start+.6;
+TL.forEach(b=>{[].concat(b.ghost||[]).forEach(z=>{if(ghostAt[z]==null)ghostAt[z]=b.start});[].concat(b.wash||[]).forEach(z=>{washAt[z]=b.start+.6});
   (b.reveal||[]).forEach((id,k)=>{if(revealAt[id]==null)revealAt[id]=b.start+.4+k*(b.gap||1.5)})});
 
 // ---------- camera ----------
@@ -122,28 +115,26 @@ function drawScene(t,cam){
   X.setTransform(1,0,0,1,0,0);X.fillStyle='#efe9dc';X.fillRect(0,0,1920,1080);
   const tx=cam.cx-cam.x*cam.s,ty=cam.cy-cam.y*cam.s,T=[cam.s,0,0,cam.s,tx,ty];
   X.setTransform(...T);
-  X.shadowColor='rgba(0,0,0,.25)';X.shadowBlur=30/cam.s;X.fillStyle='#FCFBF7';X.fillRect(0,0,1672,2823);X.shadowBlur=0;
+  X.shadowColor='rgba(0,0,0,.25)';X.shadowBlur=30/cam.s;X.fillStyle='#FCFBF7';X.fillRect(0,0,BW,BH);X.shadowBlur=0;
   const wash={};
   for(const z in ZONES){const r=ZONES[z],ga=ghostAt[z]!=null?.3*eo(p(t,ghostAt[z],ghostAt[z]+2.5)):0;
     wash[z]=washAt[z]!=null?io(p(t,washAt[z],washAt[z]+2.6)):0;
-    const pa=Math.max(ga,wash[z]);if(pa>0){X.globalAlpha=pa;X.drawImage(PEN,r.x,r.y,r.w,r.h,r.x,r.y,r.w,r.h)}
-    if(wash[z]>0){X.globalAlpha=wash[z];X.drawImage(IMG,r.x,r.y,r.w,r.h,r.x,r.y,r.w,r.h)}}
+    const pa=Math.max(ga,wash[z],z==='all'?0:wash.all||0);if(pa>0){X.globalAlpha=pa;X.drawImage(PEN,r.x,r.y,r.w,r.h,r.x,r.y,r.w,r.h)}
+    const wa=Math.max(wash[z],z==='all'?0:wash.all||0);if(wa>0){X.globalAlpha=wa;X.drawImage(IMG,r.x,r.y,r.w,r.h,r.x,r.y,r.w,r.h)}}
   X.globalAlpha=1;
-  // seams: floor slabs
-  X.fillStyle='#272525';X.fillRect(-20,936,1712,10);X.fillRect(-20,1877,1712,10);
   // characters painting in
-  for(const id in revealAt){const s0=revealAt[id];if(t<s0)continue;const b=BOX[id],z=zoneOf(b);if(wash[z]>=1)continue;
+  for(const id in revealAt){const s0=revealAt[id];if(t<s0)continue;const b=BOX[id],z=zoneOf(b),zw=Math.max(wash[z],wash.all);if(zw>=1)continue;
     const pp=eo(p(t,s0,s0+1.6)),cp=io(p(t,s0+1.1,s0+3.1));
     OX.setTransform(1,0,0,1,0,0);OX.clearRect(0,0,1920,1080);OX.setTransform(...T);
-    const m=.12,sx=Math.max(0,b.x-b.w*m),sy=Math.max(0,b.y-b.h*m),sw=Math.min(1672-sx,b.w*(1+2*m)),sh=Math.min(2823-sy,b.h*(1+2*m));
+    const m=.12,sx=Math.max(0,b.x-b.w*m),sy=Math.max(0,b.y-b.h*m),sw=Math.min(BW-sx,b.w*(1+2*m)),sh=Math.min(BH-sy,b.h*(1+2*m));
     OX.globalAlpha=1;OX.drawImage(PEN,sx,sy,sw,sh,sx,sy,sw,sh);
     if(cp>0){OX.globalAlpha=cp;OX.drawImage(IMG,sx,sy,sw,sh,sx,sy,sw,sh);OX.globalAlpha=1}
     const wob=1+.03*Math.sin(t*3+b.x);
     ellMask(OX,b.x+b.w/2,b.y+b.h/2,b.w*.70*pp*wob,b.h*.70*pp*wob);
-    X.setTransform(1,0,0,1,0,0);X.globalAlpha=1-wash[z];X.drawImage(O,0,0);X.globalAlpha=1;X.setTransform(...T)}
+    X.setTransform(1,0,0,1,0,0);X.globalAlpha=1-zw;X.drawImage(O,0,0);X.globalAlpha=1;X.setTransform(...T)}
 }
 
-function focusBox(t,b,cam){const id=Array.isArray(b.cam)?null:b.cam;if(!id||['all','wall','floor','base'].includes(id)||b.mcq)return;
+function focusBox(t,b,cam){const id=Array.isArray(b.cam)?null:b.cam;if(!id||['all','wall','street','door','floor','base','inside','front'].includes(id)||b.mcq)return;
   const r=BOX[id],a=eo(p(t-b.start,.8,1.6))*(1-p(t-b.start,b.dur-.5,b.dur));if(a<=0)return;
   const tx=cam.cx-cam.x*cam.s,ty=cam.cy-cam.y*cam.s;X.setTransform(1,0,0,1,0,0);X.globalAlpha=a;
   X.strokeStyle='#F6B31E';X.lineWidth=7;X.lineJoin='round';const x=tx+r.x*cam.s-10,y=ty+r.y*cam.s-10,w=r.w*cam.s+20,h=r.h*cam.s+20;
@@ -172,7 +163,7 @@ function cards(t,b){const lt=t-b.start,f=eo(p(lt,0,.6))*(1-p(lt,b.dur-.4,b.dur))
   const prevSame=k=>b.i>0&&TL[b.i-1].card===k,nextSame=k=>b.i<TL.length-1&&TL[b.i+1].card===k;
   const keepOn=k=>b.card===k?eo(p(lt,0,prevSame(k)?0:.6))*(nextSame(k)?1:1-p(lt,b.dur-.4,b.dur)):0;
   $('title').style.opacity=keepOn('title');$('diagram').style.opacity=keepOn('diagram');$('end').style.opacity=keepOn('end');
-  $('outs').style.opacity=b.mcq?0:keepOn('outsiders');$('legend').style.opacity=b.mcq?0:keepOn('legend');
+  $('legend').style.opacity=b.mcq?0:keepOn('legend');
   const ch=$('chip');if(b.chip){ch.textContent=b.chip[0];ch.style.background=b.chip[1];ch.style.opacity=1}else ch.style.opacity=0}
 
 window.render=async t=>{await window.ready;const i=beatAt(t),b=TL[i],lt=t-b.start;
