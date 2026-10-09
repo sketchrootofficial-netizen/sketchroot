@@ -1,0 +1,154 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Karla;src:url(karla-latin.woff2) format("woff2");font-weight:200 800}
+@font-face{font-family:Caveat;src:url(caveat-full.woff2) format("woff2")}
+:root{--amber:#F6B31E;--paper:#FCFBF7;--ink:#272525;--her:#FFE9D2;--him:#D6E6FF;--night:#120B0B}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--night);font-family:Karla,Inter,sans-serif}
+#stage{position:absolute;inset:0;overflow:hidden;background:var(--night)}
+.shot{position:absolute;inset:0;opacity:0}
+.bgblur{position:absolute;inset:-120px;background-size:cover;background-position:center;filter:blur(46px) brightness(.42) saturate(1.2)}
+.frame{position:absolute;left:40px;right:40px;top:250px;height:1060px;border-radius:30px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 50%}
+.cap{position:absolute;left:70px;right:70px;text-align:center;opacity:0;font-weight:700;line-height:1.2;text-shadow:0 4px 24px rgba(0,0,0,.8)}
+.her{color:var(--her);font-size:62px}
+.him{color:var(--him);font-size:58px;font-style:italic;font-weight:600}
+.big{font-family:Caveat,cursive;font-weight:700;color:var(--amber);font-size:96px;line-height:1.02}
+.list{color:#fff;font-size:56px;font-weight:800}
+.bub{position:absolute;opacity:0;max-width:700px;background:#fff;color:#1d1d1d;border-radius:30px 30px 30px 8px;padding:20px 28px 22px;font-size:46px;font-weight:700;box-shadow:0 16px 40px rgba(0,0,0,.45)}
+.bub small{display:block;font-size:28px;font-weight:800;color:#0b8f6a;margin-bottom:4px;letter-spacing:.5px}
+#grain{position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 2px,transparent 2px 4px)}
+#vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,transparent 40%,rgba(0,0,0,.7) 100%)}
+#fade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+#flash{position:absolute;inset:0;background:#fff4dc;opacity:0;pointer-events:none}
+/* brand end */
+#brand{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 50% 35%,#2a1712 0,#120B0B 70%)}
+#brand .c{position:absolute;left:0;right:0;text-align:center}
+</style></head>
+<body><div id="stage">
+<div id="shots"></div>
+<div id="bubbles"></div>
+<div id="caps"></div>
+
+<div id="brand">
+  <div class="c" id="b_logo" style="top:330px"><div style="display:inline-block;background:var(--paper);border-radius:40px;padding:34px 52px;box-shadow:0 30px 80px rgba(0,0,0,.5)"><img src="logo-lockup.svg" style="width:600px;display:block"></div></div>
+  <div class="c" id="b_l1" style="top:700px;font-size:76px;font-weight:800;color:#fff;letter-spacing:-1px">Learn with clarity.</div>
+  <div class="c" id="b_l2" style="top:795px;font-size:76px;font-weight:800;color:var(--amber);letter-spacing:-1px">Prepare with purpose.</div>
+  <div class="c" id="b_feat" style="top:930px;font-size:38px;font-weight:700;color:#e9dccd;line-height:1.6;padding:0 80px">Visual learning · 3D · High-yield concepts<br>QBank · Revision</div>
+  <div class="c" id="b_q1" style="top:1110px;font-size:52px;font-weight:600;color:#fff;font-style:italic;padding:0 80px;line-height:1.25">Because sometimes, you don't need more places to search.</div>
+  <div class="c" id="b_q2" style="top:1270px;font-family:Caveat,cursive;font-weight:700;font-size:92px;color:var(--amber);line-height:1">You need the right place to start.</div>
+</div>
+<div id="cta" style="position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 50% 40%,#2a1712 0,#0d0808 75%)">
+  <div style="position:absolute;left:0;right:0;top:420px;text-align:center"><div style="display:inline-block;background:var(--paper);border-radius:40px;padding:34px 52px"><img src="logo-lockup.svg" style="width:560px;display:block"></div></div>
+  <div id="cta1" style="position:absolute;left:0;right:0;top:800px;text-align:center"><span style="display:inline-block;background:var(--amber);color:var(--ink);font-size:84px;font-weight:800;padding:26px 60px;border-radius:999px;letter-spacing:-1px">SKETCHROOT.COM</span></div>
+  <div id="cta2" style="position:absolute;left:0;right:0;top:980px;text-align:center;font-size:58px;font-weight:800;color:#fff">Early Access Now Live</div>
+  <div id="cta3" style="position:absolute;left:0;right:0;top:1080px;text-align:center;font-family:Caveat,cursive;font-weight:700;font-size:64px;color:#e9dccd">or DM us “EARLY ACCESS”</div>
+</div>
+
+<div id="grain"></div><div id="vig"></div><div id="flash"></div><div id="fade"></div>
+</div>
+<script>
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const p=(t,a,b)=>cl((t-a)/(b-a));
+const io=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+const eo=x=>1-Math.pow(1-x,3);
+// ---- shots: [image, start, end, kenburns from [scale,x%,y%] to [scale,x%,y%], object-position]
+const SHOTS=[
+ ['p_keys_table',0,3.3,[1.25,0,0],[1.05,0,0],'50% 50%'],
+ ['f_search',3.3,6.0,[1.05,0,0],[1.15,-2,2],'50% 40%'],
+ ['f_frustrated',6.0,7.9,[1.12,0,0],[1.04,0,0],'50% 40%'],
+ ['me_thoughtful',7.9,10.7,[1.05,0,0],[1.14,1,0],'50% 50%'],
+ ['f_think',10.7,15.0,[1.04,0,0],[1.16,-2,1],'45% 40%'],
+ ['me_amused',15.0,17.3,[1.06,0,0],[1.14,0,0],'50% 50%'],
+ ['e_happy',17.3,19.7,[1.06,0,0],[1.14,0,1],'50% 40%'],
+ ['me_concerned',19.7,20.9,[1.08,0,0],[1.14,0,0],'50% 50%'],
+ ['e_overwhelmed',20.9,24.8,[1.04,0,0],[1.18,0,2],'50% 40%'],
+ ['me_supportive',24.8,27.5,[1.05,0,0],[1.13,0,0],'50% 50%'],
+ ['x_breath',27.5,31.7,[1.04,0,-2],[1.14,0,2],'50% 30%'],
+ ['p_keys_hand',31.7,34.9,[1.0,0,4],[1.12,0,-3],'50% 40%'],
+ ['f_found',34.9,40.6,[1.03,0,0],[1.14,2,0],'60% 40%'],
+ ['e_content',40.6,45.2,[1.04,0,0],[1.14,0,1],'50% 40%'],
+ ['f_phone',45.2,50.7,[1.04,0,0],[1.16,0,2],'50% 40%'],
+ ['e_determined',50.7,54.8,[1.05,0,0],[1.15,1,0],'50% 40%'],
+ ['e_determined2',54.8,61.3,[1.03,0,0],[1.16,-1,1],'50% 40%'],
+ ['e_sad',61.3,64.9,[1.04,0,0],[1.14,0,2],'50% 40%'],
+ ['t_guiding',64.9,70.0,[1.04,0,0],[1.16,2,0],'50% 50%'],
+ ['me_reassuring',70.0,72.1,[1.05,0,0],[1.12,0,0],'50% 50%'],
+ ['t_encourage',72.1,74.6,[1.06,0,0],[1.14,0,0],'50% 50%'],
+ ['x_window',74.6,80.6,[1.03,0,2],[1.15,0,-2],'50% 40%'],
+ ['f_study',80.6,86.0,[1.04,0,0],[1.16,1,1],'60% 50%'],
+ ['p_laptop',86.0,88.2,[1.0,0,0],[1.35,0,-6],'50% 40%'],
+];
+// ---- captions: [start, end, top, class, html]
+const CAPS=[
+ [0.3,3.2,1350,'him','“What do you do when<br>you lose your keys?”'],
+ [3.5,5.4,1350,'her','“I look everywhere.”'],
+ [4.6,7.8,1460,'list','<span id="ev">Under the bed.</span>'],
+ [8.1,10.6,1350,'him','“And where do you<br>usually find them?”'],
+ [11.0,14.8,1350,'her','“Somewhere I already looked.”'],
+ [15.2,17.2,1350,'him','“So they were there<br>the whole time?”'],
+ [17.5,19.6,1350,'her','“Yeah. I just didn’t see them.”'],
+ [19.8,20.8,1350,'him','“Why?”'],
+ [21.0,24.6,1350,'her','<span class="r1">“I was rushing.”</span><br><span class="r2">“Panicking.”</span><br><span class="r3">“I just wanted to find them.”</span>'],
+ [25.0,27.4,1350,'him','“And when do you<br>finally find them?”'],
+ [27.8,31.6,1350,'her','“When I stop searching.”<br><span class="r4">“When I sit down.”</span>'],
+ [35.2,44.8,1360,'big','<span class="r5">The keys didn’t move.</span><br><span class="r6" style="font-size:76px;color:#FFE9D2">I just calmed down<br>enough to see them.</span>'],
+ [45.4,50.5,1360,'her','Maybe life after BDS<br>feels the same.'],
+ [50.9,54.6,1360,'her','“But what if I want<br>something first?”'],
+ [55.0,61.1,1340,'list','<span style="font-size:48px"><span class="w1">I want to be independent.</span><br><span class="w2">I want to build my career.</span><br><span class="w3">I want to know what I’m capable of.</span><br><span class="w4">I want to choose my future.</span></span>'],
+ [61.5,64.8,1360,'her','“But everyone keeps telling me<br>I’m running out of time.”'],
+ [65.1,69.9,1340,'him','<span style="font-size:52px">“Maybe you’re searching<br>for the answer the same way<br>you searched for your keys.”</span>'],
+ [68.0,69.9,140,'list','<span class="a1">Everywhere.</span> <span class="a2">All at once.</span> <span class="a3">In a panic.</span>'],
+ [72.1,74.5,1340,'big','You aren’t lost.<br><span class="r7" style="font-size:74px;color:#D6E6FF">You’re just looking too hard.</span>'],
+ [74.9,80.4,1350,'her','Your future isn’t disappearing.<br><span class="r8" style="font-size:50px;color:#fff;font-weight:600">You don’t have to rush into an answer<br>just because everyone else wants one.</span>'],
+ [80.9,85.8,1350,'her','You don’t have to figure out<br>your whole life tonight.<br><span class="r9" style="color:var(--amber)">But you can start building<br>the future you want.</span>'],
+];
+// ---- WhatsApp-style questions from family
+const BUBS=[[46.9,'Aunty','NEET MDS?',90,330],[47.6,'Cousin','Another attempt?',330,520],[48.3,'Uncle','A job?',150,710],[49.2,'Amma','When are you going to settle down?',120,900]];
+const sh=document.getElementById('shots');
+SHOTS.forEach((s,i)=>{const d=document.createElement('div');d.className='shot';d.id='s'+i;
+ d.innerHTML=`<div class="bgblur" style="background-image:url(panels/${s[0]}.jpg)"></div><div class="frame"><img src="panels/${s[0]}.jpg" style="object-position:${s[5]}"></div>`;sh.appendChild(d)});
+const cp=document.getElementById('caps');
+CAPS.forEach((c,i)=>{const d=document.createElement('div');d.className='cap '+c[3];d.id='c'+i;d.style.top=c[2]+'px';d.innerHTML=c[4];cp.appendChild(d)});
+const bb=document.getElementById('bubbles');
+BUBS.forEach((b,i)=>{const d=document.createElement('div');d.className='bub';d.id='b'+i;d.style.left=b[3]+'px';d.style.top=b[4]+'px';d.innerHTML=`<small>${b[1]}</small>${b[2]}`;bb.appendChild(d)});
+const $=id=>document.getElementById(id);
+function sub(sel,t,a){const e=document.querySelector(sel);if(!e)return;const k=p(t,a,a+.4);e.style.opacity=k;e.style.display='inline-block';e.style.transform=`translateY(${(1-eo(k))*16}px)`}
+function render(t){
+  const X=.5; // crossfade
+  SHOTS.forEach((s,i)=>{const el=$('s'+i);const a=s[1],b=s[2];
+    let o=0; if(t>=a-X&&t<b+X){o=i===0?1:p(t,a-X/2,a+X/2);if(i<SHOTS.length-1)o=Math.min(o,1-p(t,b-X/2,b+X/2)); else o=Math.min(o,1-p(t,b-.25,b));}
+    el.style.opacity=o; if(!o)return;
+    const k=io(p(t,a-X/2,b+X/2)),f=s[3],g=s[4];
+    const sc=f[0]+(g[0]-f[0])*k,x=f[1]+(g[1]-f[1])*k,y=f[2]+(g[2]-f[2])*k;
+    el.querySelector('.frame img').style.transform=`scale(${sc}) translate(${x}%,${y}%)`;
+    el.querySelector('.bgblur').style.transform=`scale(${1.1+.05*k})`;
+  });
+  CAPS.forEach((c,i)=>{const el=$('c'+i);const k=p(t,c[0],c[0]+.45),o=k*(1-p(t,c[1]-.35,c[1]));el.style.opacity=o;el.style.transform=`translateY(${(1-eo(k))*24}px)`});
+  // staged sub-lines
+  const ev=$('ev'); if(ev){const L=[['Under the bed.',4.6],['Inside my bag.',5.3],['On my desk.',6.0],['Everywhere.',6.8]];let w=L[0];for(const l of L)if(t>=l[1])w=l;ev.textContent=w[0];ev.style.color=w[0]==='Everywhere.'?'#F6B31E':'#fff';ev.style.transform=`scale(${1.12-.12*eo(p(t,w[1],w[1]+.25))})`;ev.style.display='inline-block'}
+  sub('.r1',t,21.0);sub('.r2',t,22.0);sub('.r3',t,23.0);sub('.r4',t,29.4);sub('.r5',t,35.2);sub('.r6',t,38.2);
+  sub('.w1',t,55.0);sub('.w2',t,56.5);sub('.w3',t,58.0);sub('.w4',t,59.5);
+  sub('.a1',t,68.0);sub('.a2',t,68.6);sub('.a3',t,69.2);sub('.r7',t,73.1);sub('.r8',t,77.0);sub('.r9',t,83.0);
+  // bubbles pile up, then fade as she decides
+  BUBS.forEach((b,i)=>{const el=$('b'+i);const k=p(t,b[0],b[0]+.3),o=k*(1-p(t,50.2,50.8));el.style.opacity=o;el.style.transform=`scale(${.6+.4*eo(k)}) translateY(${(1-eo(k))*30}px) rotate(${(i%2?1:-1)*1.5}deg)`;el.style.transformOrigin='0 100%'});
+  // keys glint moment + laptop push into brand
+  let fl=0; if(t>=34.9)fl=Math.max(fl,.35*(1-p(t,34.9,35.6)));if(t>=72.1)fl=Math.max(fl,.5*(1-p(t,72.1,72.7)));fl=Math.max(fl,.9*p(t,87.6,88.2)*(1-p(t,88.2,88.9)));
+  $('flash').style.opacity=fl;
+  // brand + CTA
+  const br=t>=88.2&&t<93.4;$('brand').style.opacity=br?(1-p(t,93.0,93.4)):0;
+  if(br){
+    const L=[['b_logo',88.25],['b_l1',88.8],['b_l2',89.5],['b_feat',90.2],['b_q1',90.9],['b_q2',92.0]];
+    for(const [id,a] of L){const e=$(id),k=p(t,a,a+.45);e.style.opacity=k;e.style.transform=`translateY(${(1-eo(k))*30}px)`}
+  }
+  $('cta').style.opacity=p(t,93.0,93.4);
+  for(const [id,a] of [['cta1',93.4],['cta2',94.0],['cta3',94.8]]){const e=$(id),k=p(t,a,a+.45);e.style.opacity=k;e.style.transform=`translateY(${(1-eo(k))*24}px)`}
+  // open and close
+  $('fade').style.opacity=Math.max(1-p(t,0,.6),p(t,97.2,98));
+  $('grain').style.transform=`translateY(${Math.floor(t*24)%4}px)`;
+  $('vig').style.opacity=t>=88.2?.4:1;
+}
+window.render=render;
+</script>
+</body></html>

@@ -1,0 +1,7 @@
+# Python 3.11+  (create a venv: python -m venv venv && venv/bin/pip install -r requirements.txt)
+pillow
+numpy
+scipy
+scikit-image
+rembg[cpu]      # background removal / character cut-outs (downloads u2net / isnet weights on first run)
+torch           # LaMa inpainting + Real-ESRGAN upscaling (CPU is fine)

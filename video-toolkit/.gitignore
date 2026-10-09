@@ -1,0 +1,23 @@
+node_modules/
+venv/
+__pycache__/
+# renders and scratch frames
+*.mp4
+*.mkv
+*.wav
+stills/
+_r.html
+_e.html
+paint/el_*/
+paint/prev/
+story/stills/
+# licensed audio and third-party footage: keep local, never commit to this public repo
+*.mp3
+*.m4a
+meme/in.mp4
+meme/frames/
+# model weights (download per README)
+*.pt
+*.pth
+*.pkl
+*.onnx

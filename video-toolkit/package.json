@@ -1,0 +1,11 @@
+{
+  "name": "sketchroot-video-toolkit",
+  "private": true,
+  "description": "Render SketchRoot reels and explainers from HTML scenes with headless Chromium + ffmpeg",
+  "dependencies": {
+    "playwright": "^1.47.0",
+    "potrace": "2.1.8",
+    "roughjs": "4.6.6",
+    "vivus": "0.4.6"
+  }
+}
