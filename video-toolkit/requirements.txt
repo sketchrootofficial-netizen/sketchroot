@@ -5,3 +5,4 @@ scipy
 scikit-image
 rembg[cpu]      # background removal / character cut-outs (downloads u2net / isnet weights on first run)
 torch           # LaMa inpainting + Real-ESRGAN upscaling (CPU is fine)
+opencv-python-headless   # socransky/build.py: cuts the outsiders out of layout-ref.png

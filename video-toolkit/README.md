@@ -89,6 +89,19 @@ The style we're aiming for: one scene, empty at first, each character **painting
 
 ---
 
+## 7. So-Cranky's Bar: Socransky's complexes with MCQs (`socransky/`)
+A voice-led, 1920×1080 memory-palace video (about 18 min, 22 MCQs), laid out like `socransky/layout-ref.png`. The graffiti street wall (blue, yellow, green and purple complexes) sits on the left, above the street where the two outsiders stand. So-Cranky guards the door in the middle. The orange main floor is upstairs on the right, with the red basement VIP bar under it. Each character paints in (pencil, then colour) as the narrator names it, and each topic ends with an MCQ card: a 6-second countdown, the answer, and "keep in mind" points. `building.jpg` is also the one-page poster.
+- `socransky/fix_labels.py` holds the fixes made to the AI scenes: the streptococci bubble now reads "CRAVES SUGAR", and P. gingivalis's bottle reads "HEME". It has already been applied to `wall.png` and `basement.png`, and it needs the original images as input.
+```bash
+python3 socransky/build.py                                 # run first: building.jpg + building_pencil.jpg (git-ignored), needs opencv-python-headless
+node socransky/render.js $PWD/stills/s.png mid             # one still per beat, for checking
+bash socransky/render_parallel.sh                          # full render on every CPU core -> out/socransky.mp4 (silent; record the voice-over to match)
+node socransky/export_script.js > docs/socransky-narration-script.md
+```
+- **Everything is in `socransky/beats.js`:** narration lines, camera boxes (`BOX`, in building pixels), reveals, and MCQs. Timings are computed from word counts, so after you edit the beats, re-export the script and re-render.
+- **Voice-over:** `docs/socransky-narration-script.md` has a timestamp for every line. Record to it, then lay the audio under the video in CapCut or DaVinci Resolve, or stretch a beat's `hold` to fit your pace.
+- **Replacing a scene image:** keep it 1672×941, re-run `build.py`, and re-check the character boxes with `mid` stills. The layout numbers in `build.py` are mirrored in `BOX` in `beats.js`.
+
 ## Optional heavier tools (need a GPU, or network access to Google Drive or Hugging Face)
 - **Neural stroke painting:** [Paint Transformer (PyTorch)](https://github.com/Huage001/PaintTransformer), [LearningToPaint](https://github.com/hzwer/ICCV2019-LearningToPaint). Their weights are on Google Drive; run them on Colab.
 - **Face life (blinks, smiles):** LivePortrait. **Image-to-video:** Wan 2.2 (5B), LTX-Video, FramePack. Or Kling or Runway with Motion Brush on single character stickers.
