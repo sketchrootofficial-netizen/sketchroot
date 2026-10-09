@@ -1,0 +1,208 @@
+[
+ {
+  "scene": "hook",
+  "cap": "You read pharmacology in March.",
+  "say": "You read pharmacology in March."
+ },
+ {
+  "scene": "hook",
+  "cap": "By September… it's gone.",
+  "say": "By September, it's gone.",
+  "pause": 0.5
+ },
+ {
+  "scene": "hook",
+  "cap": "Sound familiar? It's not you. It's how you were taught to study.",
+  "say": "Sound familiar? It's not you. It's how you were taught to study.",
+  "pause": 0.4
+ },
+ {
+  "scene": "coaching",
+  "cap": "Most coaching hands you more. More notes, more PDFs, more re-reading.",
+  "say": "Most coaching hands you more. More notes. More P D Fs. More re-reading."
+ },
+ {
+  "scene": "coaching",
+  "cap": "Page after page of linear text.",
+  "say": "Page after page of linear text."
+ },
+ {
+  "scene": "coaching",
+  "cap": "But your brain was never built to remember pages.",
+  "say": "But your brain was never built to remember pages.",
+  "pause": 0.5
+ },
+ {
+  "scene": "loci",
+  "cap": "Two thousand years ago, Roman orators gave hours-long speeches without a single note.",
+  "say": "Two thousand years ago, Roman orators gave hours-long speeches, without a single note."
+ },
+ {
+  "scene": "loci",
+  "cap": "Cicero wrote down their trick: the method of loci.",
+  "say": "Sisserow wrote down their trick. The method of loci."
+ },
+ {
+  "scene": "loci",
+  "cap": "Loci means places.",
+  "say": "Loci means, places.",
+  "pause": 0.4
+ },
+ {
+  "scene": "kitchen",
+  "cap": "And you already use it. Picture the kitchen at home.",
+  "say": "And you already use it. Picture the kitchen at home."
+ },
+ {
+  "scene": "kitchen",
+  "cap": "Where's the salt? The pressure cooker? The tea?",
+  "say": "Where's the salt? The pressure cooker? The tea?",
+  "pause": 0.4
+ },
+ {
+  "scene": "kitchen",
+  "cap": "You never memorised that. Your brain just doesn't forget a place.",
+  "say": "You never memorised that. Your brain just doesn't forget a place.",
+  "pause": 0.4
+ },
+ {
+  "scene": "idea",
+  "cap": "That's SketchRoot. Every high-yield topic becomes one illustrated scene,",
+  "say": "That's SketchRoot. Every high yield topic becomes one illustrated scene,"
+ },
+ {
+  "scene": "idea",
+  "cap": "and every character in it is a fact.",
+  "say": "and every character in it, is a fact.",
+  "pause": 0.4
+ },
+ {
+  "scene": "kada",
+  "cue": "ramu",
+  "cap": "Welcome to Ramu's Kada. Ramu, for the ramus.",
+  "say": "Welcome to Ramu's Kada. Ramu, for the raymus."
+ },
+ {
+  "scene": "kada",
+  "cue": "hugo",
+  "cap": "Here's Hugo, bent under a water geyser split down the middle.",
+  "say": "Here's Hugo, bent under a water geyser, split right down the middle."
+ },
+ {
+  "scene": "kada",
+  "cue": "hugoTag",
+  "cap": "Hugo… geyser… Obwegeser. That split is the sagittal split, 1957.",
+  "say": "Hugo. Geyser. Obvegayzer. That split is the sagittal split. Nineteen fifty seven.",
+  "pause": 0.3
+ },
+ {
+  "scene": "kada",
+  "cue": "dal",
+  "cap": "Next, Dal, hugging her sack, with a pipe that bends straight down.",
+  "say": "Next, Daal, hugging her sack, with a pipe that bends straight down."
+ },
+ {
+  "scene": "kada",
+  "cue": "dalTag",
+  "cap": "Dal Pont: the vertical buccal cut.",
+  "say": "Daal Pont. The vertical buccal cut.",
+  "pause": 0.3
+ },
+ {
+  "scene": "kada",
+  "cue": "hen",
+  "cap": "And a hen, sucking a short straw.",
+  "say": "And a hen, sucking a short straw."
+ },
+ {
+  "scene": "kada",
+  "cue": "henTag",
+  "cap": "Hen-suck… Hunsuck. He shortened the inner cut.",
+  "say": "Hen suck. Hunsuck. He shortened the inner cut.",
+  "pause": 0.6
+ },
+ {
+  "scene": "recall",
+  "cue": "q1",
+  "cap": "Now, your turn. Don't look back. Who shortened the inner cut?",
+  "say": "Now, your turn. Don't look back. Who shortened the inner cut?",
+  "pause": 3.2
+ },
+ {
+  "scene": "recall",
+  "cue": "a1",
+  "cap": "The hen with the short straw. Hunsuck.",
+  "say": "The hen, with the short straw. Hunsuck.",
+  "pause": 0.4
+ },
+ {
+  "scene": "recall",
+  "cue": "q2",
+  "cap": "And who split the ramus lengthwise?",
+  "say": "And who split the ramus lengthwise?",
+  "pause": 3.2
+ },
+ {
+  "scene": "recall",
+  "cue": "a2",
+  "cap": "Hugo and his geyser. Obwegeser.",
+  "say": "Hugo, and his geyser. Obvegayzer.",
+  "pause": 0.3
+ },
+ {
+  "scene": "recall",
+  "cue": "done",
+  "cap": "You just recalled it. That's the difference.",
+  "say": "You just recalled it. That's the difference.",
+  "pause": 0.5
+ },
+ {
+  "scene": "compare",
+  "cap": "Coaching asks you to re-read. SketchRoot makes you retrieve.",
+  "say": "Coaching asks you to re-read. SketchRoot makes you retrieve."
+ },
+ {
+  "scene": "compare",
+  "cap": "The place gives the order. The image holds the fact.",
+  "say": "The place gives the order. The image holds the fact."
+ },
+ {
+  "scene": "compare",
+  "cap": "And recall, with spaced revision, locks it in.",
+  "say": "And recall, with spaced revision, locks it in.",
+  "pause": 0.3
+ },
+ {
+  "scene": "science",
+  "cap": "Brain scans show that memory champions use exactly this spatial strategy,",
+  "say": "Brain scans show that memory champions use exactly this spatial strategy,"
+ },
+ {
+  "scene": "science",
+  "cap": "and after six weeks of training, ordinary learners' brains start to look like theirs.",
+  "say": "and after six weeks of training, ordinary learners' brains start to look like theirs.",
+  "pause": 0.4
+ },
+ {
+  "scene": "founder",
+  "cap": "Every scene is drawn and checked by clinicians who have topped these exams.",
+  "say": "Every scene is drawn and checked by clinicians who have topped these exams."
+ },
+ {
+  "scene": "founder",
+  "cap": "For NEET MDS, INI CET, INBDE and AIIMS.",
+  "say": "For neet M D S, I N I set, I N B D E, and aims.",
+  "pause": 0.3
+ },
+ {
+  "scene": "cta",
+  "cap": "Stop re-reading. Start retrieving.",
+  "say": "Stop re-reading. Start retrieving."
+ },
+ {
+  "scene": "cta",
+  "cap": "Get early access at sketchroot.com",
+  "say": "Get early access, at sketchroot dot com.",
+  "pause": 1.5
+ }
+]

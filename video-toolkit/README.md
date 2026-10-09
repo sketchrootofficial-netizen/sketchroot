@@ -83,7 +83,24 @@ The style we're aiming for: one scene, empty at first, each character **painting
 - **New scene:** make the masks (edit the boxes in `masks.py`), inpaint the background, run `painter.py` per character, and tune the motion in `idle.py` (the `CHAR` dict, plus `bend()` for tails and `nudge()` for heads).
 - **Narration:** `docs/ramus-kada-narration-script.md` is the voice script with `[ADD]`, `[CAM]`, `[ARROW]` and `[BOX]` cues for the edit.
 
-## 6. Sticker cut-outs (`tools/`)
+## 6. "How SketchRoot works" explainer reel (`explainer/`, Remotion)
+A 2:13, 1080×1920 brand explainer in the style of Sketchy's "how it works" video. It runs: why you forget → the coaching pile → Cicero and the method of loci → "you already do this" (your kitchen) → one topic, one scene → a live Ramu's Kada example (Ramu, Hugo & Trauma, Dal and the hen paint in on their first mention, with Sketchy-style labels) → a timed active-recall test with a 3-2-1 countdown → coaching vs SketchRoot → the research (Maguire 2003, Dresler 2017) → founder → call to action.
+
+- **Narration** is local Kokoro TTS (sherpa-onnx, voice 6, `am_michael`). The script is `explainer/script.json`: `cap` is the on-screen caption and `say` is the spelling the voice reads (phonetic where needed, e.g. "Obvegayzer", "Daal"). `cue` names a moment the scene reacts to, and `pause` adds silence after a line (the recall questions use 3.2 s).
+- **Timing** comes from `public/timeline.json`, which `tts.py` writes. Every paint-in, label and camera move is keyed to the start of its line, so editing the script and re-running `prepare.sh` re-times the whole video.
+- **Models.** Hugging Face is blocked in the cloud sessions, so the models come from the sherpa-onnx GitHub releases: TTS `tts-models/kokoro-en-v0_19.tar.bz2`, speech-to-text `asr-models/sherpa-onnx-whisper-base.en.tar.bz2` (for checking pronunciation and transcribing reference videos). Install with `pip install sherpa-onnx scikit-image scipy`.
+
+```bash
+cd explainer && npm install
+./prepare.sh /path/to/kokoro-en-v0_19     # narration + timeline + paint-in frames + assets into public/
+npx remotion studio src/index.ts          # preview and scrub
+node render.mjs ../out/sketchroot-explainer.mp4          # full render (~15 min on 4 cores)
+node render.mjs ../out/s.png --stills=12,60,90           # stills for checking
+```
+- **Your own voice:** record `public/narration.wav` and replace the `start`/`end` times in `public/timeline.json` with your line timings. Running the sherpa Whisper model over the recording gives you them.
+- `render.mjs` uses the Playwright headless shell in `/opt/pw-browsers`. Set `CHROME=` to use another browser.
+
+## 7. Sticker cut-outs (`tools/`)
 - `tools/cut_character_sticker.py`: the student with the SketchRoot book, from `reel/hero.jpg`
 - `tools/cut_hugo_sticker.py u2net`: Hugo with the split geyser, from the Ramu's Kada sketch
 
@@ -98,4 +115,5 @@ The style we're aiming for: one scene, empty at first, each character **painting
 ## Docs
 - `docs/ramus-kada-narration-script.md`: the voice-over script with edit cues
 - `docs/ramus-kada-new-stalls.md`: new wordplay characters and image prompts for the orthognathic module
+- `explainer/script.json`: the explainer reel narration (section 6)
 - `docs/notes.md`: decisions, research sources and the content checks still open
