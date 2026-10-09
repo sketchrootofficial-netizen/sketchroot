@@ -1,0 +1,187 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Karla;src:url(karla-latin.woff2) format("woff2");font-weight:200 800}
+@font-face{font-family:Caveat;src:url(caveat-full.woff2) format("woff2")}
+:root{--ink:#272525;--amber:#F6B31E;--paper:#FCFBF7;--muted:#6F6A64;--ok:#1B7A1B}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#efe9dc;font-family:Karla,sans-serif;color:var(--ink)}
+.abs{position:absolute}
+.hand{font-family:Caveat,cursive;font-weight:700}
+.card{background:var(--paper);border:4px solid var(--ink);border-radius:26px;box-shadow:10px 10px 0 var(--amber)}
+#chip{left:40px;top:34px;padding:12px 26px 10px;border-radius:40px;color:#fff;font-weight:800;font-size:28px;letter-spacing:3px;opacity:0;border:3px solid var(--ink)}
+#cap{left:160px;right:160px;bottom:34px;padding:22px 40px;border-radius:24px;background:rgba(30,26,24,.86);color:#fff;font-size:40px;font-weight:600;line-height:1.3;text-align:center;opacity:0}
+#cap span{opacity:.0}
+#title{left:50%;top:50%;transform:translate(-50%,-50%);padding:40px 80px;text-align:center;opacity:0}
+#diagram{left:50%;top:50%;transform:translate(-50%,-50%);padding:28px;opacity:0;text-align:center}
+#diagram img{height:720px;display:block;border-radius:12px}
+#mcq{left:1110px;top:60px;width:770px;padding:34px 38px;opacity:0}
+.qk{font-size:24px;font-weight:800;letter-spacing:4px;color:#b07d0a}
+.qq{font-size:38px;font-weight:800;line-height:1.18;margin:10px 0 18px}
+.op{display:flex;gap:18px;align-items:center;font-size:32px;font-weight:600;padding:12px 16px;margin:8px 0;border-radius:16px;border:3px solid transparent;opacity:0}
+.op i{font-style:normal;flex:none;width:48px;height:48px;border-radius:50%;background:#efe9dc;border:3px solid var(--ink);font-weight:800;font-size:26px;display:flex;align-items:center;justify-content:center}
+.op.ok{background:#e2f2dc;border-color:var(--ok)} .op.ok i{background:var(--ok);color:#fff;border-color:var(--ok)}
+#think{margin-top:16px;height:64px;position:relative;opacity:0}
+#think .bar{position:absolute;left:0;top:22px;height:20px;border-radius:10px;background:var(--amber)}
+#think .n{position:absolute;right:0;top:-4px;font-size:58px;line-height:1}
+#think .l{position:absolute;left:0;top:-14px;font-size:30px;color:var(--muted)}
+#keep{margin-top:14px;padding:18px 22px;border-radius:18px;background:#fff6dc;border:3px dashed #d9a21a;opacity:0}
+#keep .kh{font-size:22px;font-weight:800;letter-spacing:4px;color:#b07d0a;margin-bottom:6px}
+#keep li{font-size:27px;line-height:1.28;margin:6px 0 6px 28px;opacity:0}
+#legend{left:1120px;top:70px;width:740px;padding:30px 36px;opacity:0}
+.lg{display:flex;gap:16px;align-items:flex-start;font-size:27px;line-height:1.25;margin:11px 0}
+.lg b{flex:none;width:30px;height:30px;border-radius:50%;border:3px solid var(--ink);margin-top:2px}
+#outs{left:1110px;top:120px;width:760px;padding:30px 36px;opacity:0}
+.outrow{display:flex;gap:24px;align-items:center;margin:14px 0}
+#end{left:50%;top:50%;transform:translate(-50%,-50%);padding:46px 80px;text-align:center;opacity:0}
+#cv{position:absolute;left:0;top:0}
+</style></head><body>
+<canvas id="cv" width="1920" height="1080"></canvas>
+
+<div id="chip" class="abs"></div>
+
+<div id="title" class="abs card">
+  <div class="qk" style="font-size:30px">A SKETCHROOT MEMORY PALACE</div>
+  <div style="font-size:104px;font-weight:800;letter-spacing:-2px;line-height:1.05;margin-top:8px">So-Cranky's Bar</div>
+  <div class="hand" style="font-size:58px;color:var(--muted)">Socransky's microbial complexes · every MCQ in one building</div>
+</div>
+
+<div id="diagram" class="abs card">
+  <img src="socransky-1998.jpg">
+  <div class="hand" style="font-size:40px;margin-top:8px;color:var(--muted)">Socransky et al., J Clin Periodontol 1998</div>
+</div>
+
+<div id="outs" class="abs card">
+  <div class="qk">NO WRISTBAND · OUTSIDE EVERY COMPLEX</div>
+  <div class="outrow"><svg width="150" height="150" viewBox="0 0 150 150"><ellipse cx="75" cy="80" rx="38" ry="58" fill="#d8d4cc" stroke="#272525" stroke-width="5"/><circle cx="62" cy="68" r="6"/><circle cx="88" cy="68" r="6"/><path d="M58 104 q17 -12 34 0" stroke="#272525" stroke-width="5" fill="none"/><path d="M50 58 l22 6 M100 58 l-22 6" stroke="#272525" stroke-width="5"/><rect x="18" y="118" width="40" height="12" rx="6" fill="none" stroke="#D91F26" stroke-width="5"/><path d="M14 112 L62 136" stroke="#D91F26" stroke-width="6"/></svg>
+    <div><div style="font-size:38px;font-weight:800">A. actino. b</div><div style="font-size:28px;color:var(--muted)">the bouncer's grey twin, laser switched off… for now</div></div></div>
+  <div class="outrow"><svg width="150" height="150" viewBox="0 0 150 150"><path d="M98 22 a58 58 0 1 0 0 106 a46 46 0 1 1 0 -106z" fill="#c9c2d6" stroke="#272525" stroke-width="5"/><rect x="40" y="70" width="42" height="30" rx="12" fill="#6F6A64" stroke="#272525" stroke-width="4"/><circle cx="50" cy="60" r="5"/><circle cx="72" cy="60" r="5"/><path d="M20 128 L60 108" stroke="#D91F26" stroke-width="6"/></svg>
+    <div><div style="font-size:38px;font-weight:800">S. noxia</div><div style="font-size:28px;color:var(--muted)">Selenomonas: selene, the moon. Noxia, noxious, so wear a gas mask</div></div></div>
+</div>
+
+<div id="legend" class="abs card">
+  <div class="qk">WALK IT TOP TO BOTTOM</div>
+  <div class="lg"><b style="background:#1F3FFF"></b><div><strong>Blue:</strong> Actinomyces spp.</div></div>
+  <div class="lg"><b style="background:#D8E000"></b><div><strong>Yellow:</strong> S. mitis, S. oralis, S. sanguis, Streptococcus sp., S. gordonii, S. intermedius</div></div>
+  <div class="lg"><b style="background:#8E2BC2"></b><div><strong>Purple:</strong> V. parvula, A. odontolyticus</div></div>
+  <div class="lg"><b style="background:#1B7A1B"></b><div><strong>Green:</strong> Capnocytophaga (gingivalis, sputigena, ochracea), C. concisus, E. corrodens, A. actino. a</div></div>
+  <div class="lg"><b style="background:#F29A1F"></b><div><strong>Orange:</strong> core F. nucleatum ssp., F. periodonticum, P. intermedia, P. nigrescens, P. micros; ring C. rectus, C. showae, C. gracilis, E. nodatum, S. constellatus</div></div>
+  <div class="lg"><b style="background:#D91F26"></b><div><strong>Red:</strong> P. gingivalis, T. forsythia, T. denticola</div></div>
+  <div class="lg"><b style="background:#fff"></b><div><strong>None:</strong> A. actino. b, S. noxia</div></div>
+</div>
+
+<div id="mcq" class="abs card">
+  <div class="qk" id="qn">MCQ</div>
+  <div class="qq" id="qq"></div>
+  <div id="ops"></div>
+  <div id="think"><div class="l hand">think…</div><div class="bar"></div><div class="n hand"></div></div>
+  <div id="keep"><div class="kh">KEEP IN MIND</div><ul id="kl"></ul></div>
+</div>
+
+<div id="end" class="abs card">
+  <img src="logo-lockup.svg" style="height:90px">
+  <div style="font-size:64px;font-weight:800;margin-top:20px">Which bacterium tripped you up?</div>
+  <div class="hand" style="font-size:54px;color:var(--muted)">tell me in the comments · I'll be at the bar</div>
+</div>
+
+<div id="cap" class="abs"></div>
+
+<script src="beats.js"></script>
+<script>
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,b)=>cl((t-a)/(b-a));
+const eo=x=>1-Math.pow(1-x,3),io=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+const $=id=>document.getElementById(id);
+window.DURATION=DURATION;
+const C=$('cv'),X=C.getContext('2d'),O=document.createElement('canvas');O.width=1920;O.height=1080;const OX=O.getContext('2d');
+const IMG=new Image(),PEN=new Image();IMG.src='building.jpg';PEN.src='building_pencil.jpg';
+window.ready=Promise.all([IMG,PEN].map(i=>new Promise(r=>i.complete?r():i.onload=r)));
+const ZONES={wall:BOX.wall,floor:BOX.floor,base:BOX.base};
+const zoneOf=b=>b.y+b.h/2<941?'wall':b.y+b.h/2<1882?'floor':'base';
+const SIDE=b=>!!(b.mcq||b.card==='legend'||b.card==='outsiders');
+
+// ---------- per-element schedules ----------
+const ghostAt={},washAt={},revealAt={};
+TL.forEach(b=>{if(b.ghost&&ghostAt[b.ghost]==null)ghostAt[b.ghost]=b.start;if(b.wash)washAt[b.wash]=b.start+.6;
+  (b.reveal||[]).forEach((id,k)=>{if(revealAt[id]==null)revealAt[id]=b.start+.4+k*(b.gap||1.5)})});
+
+// ---------- camera ----------
+function camFor(b){const box=Array.isArray(b.cam)?b.cam.map(k=>BOX[k]).reduce((a,c)=>({x:Math.min(a.x,c.x),y:Math.min(a.y,c.y),w:Math.max(a.x+a.w,c.x+c.w)-Math.min(a.x,c.x),h:Math.max(a.y+a.h,c.y+c.h)-Math.min(a.y,c.y)})):BOX[b.cam||'all'];
+  const side=SIDE(b),R=side?{x:20,y:20,w:1060,h:b.say&&!b.mcq?900:1040}:{x:0,y:90,w:1920,h:b.say?840:990};
+  const fill=b.cam==='all'?.96:box.w>1000?.97:.82;
+  const s=Math.min(3.2,R.w*fill/box.w,R.h*fill/box.h);
+  return{s,x:box.x+box.w/2,y:box.y+box.h/2,cx:R.x+R.w/2,cy:R.y+R.h/2,box}}
+function lerp(a,b,k){const o={};for(const n of['s','x','y','cx','cy'])o[n]=a[n]+(b[n]-a[n])*k;return o}
+
+function beatAt(t){let i=0;while(i<TL.length-1&&TL[i+1].start<=t)i++;return i}
+
+function ellMask(c,cx,cy,rx,ry){c.save();c.globalCompositeOperation='destination-in';c.translate(cx,cy);c.scale(rx/ry,1);
+  const g=c.createRadialGradient(0,0,ry*.62,0,0,ry);g.addColorStop(0,'rgba(0,0,0,1)');g.addColorStop(1,'rgba(0,0,0,0)');
+  c.fillStyle=g;c.fillRect(-ry*1.1,-ry*1.1,ry*2.2,ry*2.2);c.restore()}
+
+function drawScene(t,cam){
+  X.setTransform(1,0,0,1,0,0);X.fillStyle='#efe9dc';X.fillRect(0,0,1920,1080);
+  const tx=cam.cx-cam.x*cam.s,ty=cam.cy-cam.y*cam.s,T=[cam.s,0,0,cam.s,tx,ty];
+  X.setTransform(...T);
+  X.shadowColor='rgba(0,0,0,.25)';X.shadowBlur=30/cam.s;X.fillStyle='#FCFBF7';X.fillRect(0,0,1672,2823);X.shadowBlur=0;
+  const wash={};
+  for(const z in ZONES){const r=ZONES[z],ga=ghostAt[z]!=null?.3*eo(p(t,ghostAt[z],ghostAt[z]+2.5)):0;
+    wash[z]=washAt[z]!=null?io(p(t,washAt[z],washAt[z]+2.6)):0;
+    const pa=Math.max(ga,wash[z]);if(pa>0){X.globalAlpha=pa;X.drawImage(PEN,r.x,r.y,r.w,r.h,r.x,r.y,r.w,r.h)}
+    if(wash[z]>0){X.globalAlpha=wash[z];X.drawImage(IMG,r.x,r.y,r.w,r.h,r.x,r.y,r.w,r.h)}}
+  X.globalAlpha=1;
+  // seams: floor slabs
+  X.fillStyle='#272525';X.fillRect(-20,936,1712,10);X.fillRect(-20,1877,1712,10);
+  // characters painting in
+  for(const id in revealAt){const s0=revealAt[id];if(t<s0)continue;const b=BOX[id],z=zoneOf(b);if(wash[z]>=1)continue;
+    const pp=eo(p(t,s0,s0+1.6)),cp=io(p(t,s0+1.1,s0+3.1));
+    OX.setTransform(1,0,0,1,0,0);OX.clearRect(0,0,1920,1080);OX.setTransform(...T);
+    const m=.12,sx=Math.max(0,b.x-b.w*m),sy=Math.max(0,b.y-b.h*m),sw=Math.min(1672-sx,b.w*(1+2*m)),sh=Math.min(2823-sy,b.h*(1+2*m));
+    OX.globalAlpha=1;OX.drawImage(PEN,sx,sy,sw,sh,sx,sy,sw,sh);
+    if(cp>0){OX.globalAlpha=cp;OX.drawImage(IMG,sx,sy,sw,sh,sx,sy,sw,sh);OX.globalAlpha=1}
+    const wob=1+.03*Math.sin(t*3+b.x);
+    ellMask(OX,b.x+b.w/2,b.y+b.h/2,b.w*.70*pp*wob,b.h*.70*pp*wob);
+    X.setTransform(1,0,0,1,0,0);X.globalAlpha=1-wash[z];X.drawImage(O,0,0);X.globalAlpha=1;X.setTransform(...T)}
+}
+
+function focusBox(t,b,cam){const id=Array.isArray(b.cam)?null:b.cam;if(!id||['all','wall','floor','base'].includes(id)||b.mcq)return;
+  const r=BOX[id],a=eo(p(t-b.start,.8,1.6))*(1-p(t-b.start,b.dur-.5,b.dur));if(a<=0)return;
+  const tx=cam.cx-cam.x*cam.s,ty=cam.cy-cam.y*cam.s;X.setTransform(1,0,0,1,0,0);X.globalAlpha=a;
+  X.strokeStyle='#F6B31E';X.lineWidth=7;X.lineJoin='round';const x=tx+r.x*cam.s-10,y=ty+r.y*cam.s-10,w=r.w*cam.s+20,h=r.h*cam.s+20;
+  X.beginPath();X.roundRect(x,y,w,h,26);X.stroke();X.globalAlpha=1}
+
+// ---------- overlays ----------
+let lastCap=-1,lastMcq=-1;
+function caption(t,b){const el=$('cap');if(!b.say||b.mcq){el.style.opacity=0;return}
+  if(lastCap!==b.i){el.innerHTML=b.say.split(/\s+/).map(w=>`<span>${w}</span>`).join(' ');lastCap=b.i}
+  const lt=t-b.start;el.style.opacity=eo(p(lt,0,.4))*(1-p(lt,b.dur-.35,b.dur));
+  const sp=el.children,per=1/WPS;for(let k=0;k<sp.length;k++)sp[k].style.opacity=.25+.75*p(lt,.3+k*per,.3+k*per+.25)}
+const QN={};let qc=0;TL.forEach(b=>{if(b.mcq)QN[b.i]=++qc});
+function mcq(t,b){const el=$('mcq');if(!b.mcq){el.style.opacity=0;return}const m=b.mcq,lt=t-b.start;
+  if(lastMcq!==b.i){$('qn').textContent=`MCQ ${QN[b.i]} OF ${qc}`;$('qq').textContent=m.q;
+    $('ops').innerHTML=m.o.map((o,k)=>`<div class="op"><i>${'ABCD'[k]}</i><span>${o}</span></div>`).join('');
+    $('kl').innerHTML=m.keep.map(k=>`<li>${k}</li>`).join('');lastMcq=b.i}
+  const a=eo(p(lt,0,.6))*(1-p(lt,b.dur-.4,b.dur));el.style.opacity=a;el.style.transform=`translateX(${(1-eo(p(lt,0,.6)))*80}px)`;
+  const ops=$('ops').children,rev=b.qRead+b.think;
+  for(let k=0;k<4;k++){const o=ops[k];o.style.opacity=(lt<rev?1:k===m.a?1:.35)*p(lt,.6+k*.5,1+k*.5);o.classList.toggle('ok',lt>=rev&&k===m.a)}
+  const th=$('think');th.style.opacity=lt<b.qRead?0:1-p(lt,rev,rev+.4);
+  const f=p(lt,b.qRead,rev);th.querySelector('.bar').style.width=(1-f)*640+'px';th.querySelector('.n').textContent=Math.max(1,Math.ceil(b.think*(1-f)));
+  $('keep').style.opacity=eo(p(lt,b.keepAt,b.keepAt+.5));$('keep').style.transform=`translateY(${(1-eo(p(lt,b.keepAt,b.keepAt+.5)))*30}px)`;
+  const li=$('kl').children;for(let k=0;k<li.length;k++)li[k].style.opacity=p(lt,b.keepAt+.3+k*1.4,b.keepAt+.8+k*1.4)}
+function cards(t,b){const lt=t-b.start,f=eo(p(lt,0,.6))*(1-p(lt,b.dur-.4,b.dur));
+  const show=(id,on)=>{$(id).style.opacity=on?f:0};
+  const prevSame=k=>b.i>0&&TL[b.i-1].card===k,nextSame=k=>b.i<TL.length-1&&TL[b.i+1].card===k;
+  const keepOn=k=>b.card===k?eo(p(lt,0,prevSame(k)?0:.6))*(nextSame(k)?1:1-p(lt,b.dur-.4,b.dur)):0;
+  $('title').style.opacity=keepOn('title');$('diagram').style.opacity=keepOn('diagram');$('end').style.opacity=keepOn('end');
+  $('outs').style.opacity=b.mcq?0:keepOn('outsiders');$('legend').style.opacity=b.mcq?0:keepOn('legend');
+  const ch=$('chip');if(b.chip){ch.textContent=b.chip[0];ch.style.background=b.chip[1];ch.style.opacity=1}else ch.style.opacity=0}
+
+window.render=async t=>{await window.ready;const i=beatAt(t),b=TL[i],lt=t-b.start;
+  const to=camFor(b),from=i>0?camFor(TL[i-1]):to;let cam=lerp(from,to,io(p(lt,0,1.8)));
+  cam.s*=1+.025*p(lt,0,b.dur);
+  drawScene(t,cam);focusBox(t,b,cam);
+  // dim behind centred cards
+  const dim=(b.card==='diagram'||b.card==='title'||b.card==='end')?.45:0;
+  if(dim){X.setTransform(1,0,0,1,0,0);X.fillStyle=`rgba(20,16,14,${dim*eo(p(lt,0,.6))})`;X.fillRect(0,0,1920,1080)}
+  caption(t,b);mcq(t,b);cards(t,b)};
+</script>
+</body></html>

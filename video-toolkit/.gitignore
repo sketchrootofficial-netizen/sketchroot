@@ -21,3 +21,5 @@ meme/frames/
 *.pth
 *.pkl
 *.onnx
+out/
+socransky/building*.jpg
