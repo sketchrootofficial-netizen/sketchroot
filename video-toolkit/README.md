@@ -84,20 +84,30 @@ The style we're aiming for: one scene, empty at first, each character **painting
 - **Narration:** `docs/ramus-kada-narration-script.md` is the voice script with `[ADD]`, `[CAM]`, `[ARROW]` and `[BOX]` cues for the edit.
 
 ## 6. "How SketchRoot works" explainer reel (`explainer/`, Remotion)
-A 2:13, 1080×1920 brand explainer in the style of Sketchy's "how it works" video. It runs: why you forget → the coaching pile → Cicero and the method of loci → "you already do this" (your kitchen) → one topic, one scene → a live Ramu's Kada example (Ramu, Hugo & Trauma, Dal and the hen paint in on their first mention, with Sketchy-style labels) → a timed active-recall test with a 3-2-1 countdown → coaching vs SketchRoot → the research (Maguire 2003, Dresler 2017) → founder → call to action.
+A 2:02, 1080×1920 reel in the style of Sketchy's "how it works" video, cut for a low skip rate. The order is:
+1. **Hook:** the whole of Ramu's Kada paints in within 4 seconds, with "Four strange customers in this shop are every BSSO question you'll face in NEET MDS. Give me one minute."
+2. **Problem:** you've read these names five times, and in the exam hall it's BLANK.
+3. **The method of loci:** places, not lists.
+4. **Your kitchen:** you already do this.
+5. **The palace:** the mountain palace paints in.
+6. **The example:** Ramu, then Hugo/Obwegesser, Dal/Dal Pont, the hen/Hunsuck and Abkari/Epker each paint in on first mention, with a label and a punch-word, and the scene ends on "that's today's BSSO".
+7. **Recall test:** two questions with a ticking 3-2-1.
+8. **Coaching vs SketchRoot:** with Maguire 2003.
+9. **Founder, then the comment hook and early access.**
 
-- **Narration** is local Kokoro TTS (sherpa-onnx, voice 6, `am_michael`). The script is `explainer/script.json`: `cap` is the on-screen caption and `say` is the spelling the voice reads (phonetic where needed, e.g. "Obvegayzer", "Daal"). `cue` names a moment the scene reacts to, and `pause` adds silence after a line (the recall questions use 3.2 s).
-- **Timing** comes from `public/timeline.json`, which `tts.py` writes. Every paint-in, label and camera move is keyed to the start of its line, so editing the script and re-running `prepare.sh` re-times the whole video.
-- **Models.** Hugging Face is blocked in the cloud sessions, so the models come from the sherpa-onnx GitHub releases: TTS `tts-models/kokoro-en-v0_19.tar.bz2`, speech-to-text `asr-models/sherpa-onnx-whisper-base.en.tar.bz2` (for checking pronunciation and transcribing reference videos). Install with `pip install sherpa-onnx scikit-image scipy`.
+- **Narration:** Kokoro v1.0 TTS through sherpa-onnx, voice 33 (`hm_omega`, Indian English), at speed 1.15. The script is `explainer/script.json`. `cap` is the on-screen caption and `say` is the spelling the voice reads: "geezer" for geyser, "Obvegesser", "Daal", "low kai" for loci, and "a fact to remember", because a bare "fact" came out sounding like a slur. `cue` names a moment the visuals react to, and `pause` adds silence after a line (each recall question gets 3 s).
+- **Music and sound effects:** `mix.py` synthesizes everything, so no licensed audio is used. The bed is a 118 BPM groove in D (marimba hook, plucked chords, bass, drums, a tabla figure) that drops to a pad during the recall countdowns. The effects are whooshes, pencil scratch, pops, impacts on punch words, ticks and a ding. The music ducks under the voice, and the result is written to `public/mix.wav`.
+- **Timing:** everything is keyed to `public/timeline.json`, which `tts.py` writes. Edit the script, re-run `prepare.sh`, and the whole reel re-times itself. `PUNCH` in `src/Explainer.tsx` and in `mix.py` must name the same words.
+- **Models:** Hugging Face is blocked in the cloud sessions, so the models come from the sherpa-onnx GitHub releases: TTS `tts-models/kokoro-multi-lang-v1_0.tar.bz2`, and speech-to-text `asr-models/sherpa-onnx-whisper-base.en.tar.bz2` for checking pronunciation and transcribing reference videos. Install with `pip install sherpa-onnx scikit-image scipy`.
 
 ```bash
 cd explainer && npm install
-./prepare.sh /path/to/kokoro-en-v0_19     # narration + timeline + paint-in frames + assets into public/
-npx remotion studio src/index.ts          # preview and scrub
-node render.mjs ../out/sketchroot-explainer.mp4          # full render (~15 min on 4 cores)
+./prepare.sh /path/to/kokoro-multi-lang-v1_0   # narration, music mix, timeline, paint-in frames, assets -> public/
+npx remotion studio src/index.ts               # preview and scrub
+node render.mjs ../out/sketchroot-explainer.mp4          # full render (~12 min on 4 cores)
 node render.mjs ../out/s.png --stills=12,60,90           # stills for checking
 ```
-- **Your own voice:** record `public/narration.wav` and replace the `start`/`end` times in `public/timeline.json` with your line timings. Running the sherpa Whisper model over the recording gives you them.
+- **Your own voice:** record `public/narration.wav`, put your line timings into `public/timeline.json` (running the sherpa Whisper model over the recording gives you them), then run `python3 mix.py`.
 - `render.mjs` uses the Playwright headless shell in `/opt/pw-browsers`. Set `CHROME=` to use another browser.
 
 ## 7. Sticker cut-outs (`tools/`)
